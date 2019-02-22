@@ -14,7 +14,7 @@ export default class SideBar extends React.Component {
       <Container>
         <Content>  
           
-          <Text blurRadius={1} style={{color:'white' , left:19 ,right:2 , fontSize:17 , top:19, elevation:3}}>Welcome To Night Raid's Profile</Text>
+          <Text blurRadius={1} style={{color:'black' , left:19 ,right:2 , fontSize:17 , top:19, elevation:3}}>Welcome To Night Raid's Profile</Text>
         
           <List
             dataArray={routes}
@@ -22,7 +22,7 @@ export default class SideBar extends React.Component {
             renderRow={data => {
               return (
                 <ListItem button onPress={() => this.props.navigation.navigate(data.title)}>
-                  <Text blurRadius={1} style={{color:'#ffffff' , fontSize:25, paddingLeft:20 ,paddingRight:5, elevation:3,fontFamily:"courbd"}}>{data.title}</Text>
+                  <Text blurRadius={1} style={{color:'black' , fontSize:25, paddingLeft:20 ,paddingRight:5, elevation:3,fontFamily:"courbd"}}>{data.title}</Text>
                 </ListItem>
               );
             }}

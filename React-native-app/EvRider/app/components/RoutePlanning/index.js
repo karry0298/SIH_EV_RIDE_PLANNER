@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-export default class Login extends Component {
+class RoutePlanning extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,3 +17,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default RoutePlanning;
