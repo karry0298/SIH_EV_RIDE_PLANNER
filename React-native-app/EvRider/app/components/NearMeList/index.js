@@ -212,7 +212,7 @@ class NearMeList extends Component {
     }
   }
   
-   renderAnnotations () {
+   renderAnnotations (a,b,k) {
     // {console.log(this.state.route.features[0])}
     // {console.warn(this.state.route.features.length)}
 
@@ -222,11 +222,12 @@ class NearMeList extends Component {
     //   }
     // }
 
+    console.warn([a,b,k]);
       return (
         <Mapbox.PointAnnotation
-        key='pointAnnotation'
-        id='pointAnnotation'
-        coordinate={[72.872334,19.132236]}>
+        key={k}
+        id={k}
+        coordinate={[a,b]}>
               
             <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:'red'}} />
   
@@ -253,27 +254,6 @@ class NearMeList extends Component {
   
     var cords = [];
 
-    for(let i = 0; i < 10; i++){
-      let a = i*1.0/100
-      // console.log(a)
-      str = toString(i)
-
-        // cords.push(<View></View>)
-        //   <Mapbox.PointAnnotation
-        //   key={"sdcdsdc" + toString(i)}
-        //   id={toString(i)}
-
-        //   coordinate={[72.872334+a,19.132236+a]}>
-
-        //       <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:'red'}} />
-    
-        //   <Mapbox.Callout title='Look! An annotation!' />
-        // </Mapbox.PointAnnotation>
-        // )
-    }  
-
-
-
     return (
       <View style={styles.container}>
       <View style={{flex:0.1,flexDirection:"row"}}>
@@ -291,36 +271,12 @@ class NearMeList extends Component {
           style={styles.container}>
 
 
-{/*this.renderAnnotations()*/}
-          {/* {this.renderCord()} */}
-          <Mapbox.PointAnnotation
-          id={toString(12)}
-
-          coordinate={[73.2,19.13]}>
-
-              <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:'red'}} />
-    
-          <Mapbox.Callout title='Look! An annotation!' />
-        </Mapbox.PointAnnotation>
-        <Mapbox.PointAnnotation
-          id={toString(14)}
+      {this.renderAnnotations(72.872334,19.132236,'abc')}
+      {this.renderAnnotations(73.79334,20.192236,'abcde')}
+      {this.renderAnnotations(74.89334,21.292236,'abcdefg')}
+      {this.renderAnnotations(75.99334,22.392236,'abcdefgh')}
       
-          coordinate={[73.7,19.13]}>
-
-              <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:'red'}} />
-    
-          <Mapbox.Callout title='Look! An annotation!' />
-        </Mapbox.PointAnnotation>
-        <Mapbox.PointAnnotation
-          id={toString(16)}
-
-          coordinate={[74,19.13]}>
-
-              <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:'red'}} />
-    
-          <Mapbox.Callout title='Look! An annotation!' />
-        </Mapbox.PointAnnotation>
-
+      
        
       </Mapbox.MapView> 
 
