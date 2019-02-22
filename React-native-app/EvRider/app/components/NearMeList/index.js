@@ -15,7 +15,8 @@ class NearMeList extends Component {
         longitude: 72.86661427,
         addCoordinates: [],
         distanceTravelled: 0,
-        colorTags:{EVStation:"blue",Home:"green",Mall:"red",Point:"yellow"},
+        colorTags:["EVStation","Home","Mall","Point"],
+        colors:["blue","black","brown","red"],
         prevLatLng: {},
         coordinate:{latitude: 19.26196225,longitude: 72.86661427},
         route:{
@@ -60,7 +61,10 @@ class NearMeList extends Component {
             },
             {
               "type": "Feature",
-              "properties": {},
+              "properties": {                
+                "name": "Toko Toko",
+                "temp": 5222,
+                "type": "EVStation"},
               "geometry": {
                 "coordinates": [
                   72.857882,	
@@ -151,7 +155,7 @@ class NearMeList extends Component {
               "type": "Feature",
               "properties": {
                 "name": "Rocket",
-                "type": "Public"
+                "type": "Point"
               },
               "geometry": {
                 "coordinates": [
@@ -206,32 +210,24 @@ class NearMeList extends Component {
     }
   }
 
-  renderCord(){
-    for (i = 0; i < this.state.addCoordinates.length; i++) {
-      this.renderAnnotations ();
-    }
-  }
+  // renderCord(){
+  //   for (i = 0; i < this.state.addCoordinates.length; i++) {
+  //   }
+  // }
   
-   renderAnnotations (a,b,k) {
-    // {console.log(this.state.route.features[0])}
-    // {console.warn(this.state.route.features.length)}
+   renderAnnotations (a,b,k,colr,tite) {
 
-    // {
-    //   for (i = 1; i < this.state.addCoordinates.length; i++) {
-    //     console.warn(this.state.addCoordinates[i]);
-    //   }
-    // }
+    //console.warn([a,b,k,colr]);
 
-    console.warn([a,b,k]);
       return (
         <Mapbox.PointAnnotation
         key={k}
         id={k}
         coordinate={[a,b]}>
               
-            <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:'red'}} />
+            <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:colr}} />
   
-        <Mapbox.Callout title='Look! An annotation!' />
+        <Mapbox.Callout title={tite} />
       </Mapbox.PointAnnotation>
       )
    
@@ -245,16 +241,30 @@ class NearMeList extends Component {
   //       this.setState({ persons });
   //     })
   // }
-
-
-  
+ 
 
   render() {
-    {this.addCordinates()}
-  
+    
+    
+    this.addCordinates()
     var cords = [];
 
+
+    for(i=1 ; i<10 ; i++)
+    {
+
+      let long = this.state.route.features[i].geometry.coordinates[0]
+      let lat = this.state.route.features[i].geometry.coordinates[1]
+      let col = this.state.colorTags.indexOf(this.state.route.features[i].properties.type)
+      let colr = this.state.colors[col]
+      let title = this.state.route.features[i].properties.name
+
+       cords.push( this.renderAnnotations(long,lat,i.toString(),colr,title))
+    }
+
     return (
+
+
       <View style={styles.container}>
       <View style={{flex:0.1,flexDirection:"row"}}>
           <Button light><Text> Navigate </Text></Button>
@@ -266,17 +276,15 @@ class NearMeList extends Component {
 
 
       <Mapbox.MapView styleURL={Mapbox.StyleURL.Street}
-          zoomLevel={5}
+          zoomLevel={12}
           centerCoordinate={[72.872334,19.132236]}
           style={styles.container}>
 
 
-      {this.renderAnnotations(72.872334,19.132236,'abc')}
-      {this.renderAnnotations(73.79334,20.192236,'abcde')}
-      {this.renderAnnotations(74.89334,21.292236,'abcdefg')}
-      {this.renderAnnotations(75.99334,22.392236,'abcdefgh')}
-      
-      
+      {this.renderAnnotations(72.872334,19.132236,'abc',"orange","hahahah")}
+
+        
+      {cords}
        
       </Mapbox.MapView> 
 
