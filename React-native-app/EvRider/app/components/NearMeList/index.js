@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text,StyleSheet } from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
-import {Button} from 'native-base';
+import {Button,List} from 'native-base';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
@@ -12,65 +13,315 @@ class NearMeList extends Component {
     this.state = {
         latitude: 19.26196225,
         longitude: 72.86661427,
-        routeCoordinates: [],
+        addCoordinates: [],
         distanceTravelled: 0,
+        colorTags:{EVStation:"blue",Home:"green",Mall:"red",Point:"yellow"},
         prevLatLng: {},
         coordinate:{latitude: 19.26196225,longitude: 72.86661427},
         route:{
-        "type": "FeatureCollection",
-        "features": [
-          {
-            "type": "Feature",
-            "properties": {},
-            "geometry": {
-              "type": "LineString",
-              "coordinates": [
-                [
-                  72.86661427,
-                  19.26196225
+          "features": [
+            {
+              "type": "Feature",
+              "properties": {
+                "loc": "MahGoa"
+              },
+              "geometry": {
+                "coordinates": [
+                  [
+                    [
+                      72.242444,
+                      20.932074
+                    ],
+                    [
+                      74.471853,
+                      22.336408
+                    ],
+                    [
+                      80.826947,
+                      21.647858
+                    ],
+                    [
+                      80.647569,
+                      18.594556
+                    ],
+                    [
+                      73.65184,
+                      14.346713
+                    ],
+                    [
+                      72.242444,
+                      20.932074
+                    ]
+                  ]
                 ],
-                [
-                  73.86661427,
-                  20.26196225                
-                ]
-              ]
+                "type": "Polygon"
+              },
+              "id": "3905c87bd8765ca46884663f76de8e9a"
+            },
+            {
+              "type": "Feature",
+              "properties": {},
+              "geometry": {
+                "coordinates": [
+                  72.857882,	
+                  19.405384
+                ],
+                "type": "Point"
+              },
+              "id": "474d6dd85bdc37b087f7e0a13bd3c984"
+            },
+            {
+              "type": "Feature",
+              "properties": {
+                "name": "Dabby EV",
+                "temp": 5141,
+                "type": "EVStation"
+              },
+              "geometry": {
+                "coordinates": [
+                  72.910258,
+                  19.120522
+                ],
+                "type": "Point"
+              },
+              "id": "4f661e571b61712e838490bc5409f273"
+            },
+            {
+              "type": "Feature",
+              "properties": {
+                "name": "Suy Chuy",
+                "temp": 521,
+                "type": "EVStation"
+              },
+              "geometry": {
+                "coordinates": [
+                  72.84798,
+                  19.229251
+                ],
+                "type": "Point"
+              },
+              "id": "51b11728fc576272383b9a5c20be98ba"
+            },
+            {
+              "type": "Feature",
+              "properties": {
+                "name": "Joogy",
+                "type": "Home"
+              },
+              "geometry": {
+                "coordinates": [
+                  72.863947,
+                  19.139643
+                ],
+                "type": "Point"
+              },
+              "id": "89c7fe304002fbe8c2a7e32424d03799"
+            },
+            {
+              "type": "Feature",
+              "properties": {
+                "name": "Gtorlu",
+                "type": "Mall"
+              },
+              "geometry": {
+                "coordinates": [
+                  72.872334,
+                  19.132236
+                ],
+                "type": "Point"
+              },
+              "id": "9def482ed57a107e132868787c8ed62f"
+            },
+            {
+              "type": "Feature",
+              "properties": {
+                "name": "Potkol",
+                "type": "Mall"
+              },
+              "geometry": {
+                "coordinates": [
+                  72.885097,
+                  19.128619
+                ],
+                "type": "Point"
+              },
+              "id": "a6a404bad6f69c87b7583d96948625ab"
+            },
+            {
+              "type": "Feature",
+              "properties": {
+                "name": "Rocket",
+                "type": "Public"
+              },
+              "geometry": {
+                "coordinates": [
+                  72.861212,
+                  19.13103
+                ],
+                "type": "Point"
+              },
+              "id": "bceb2f04b22003a8d4dabb16956569b3"
+            },
+            {
+              "type": "Feature",
+              "properties": {
+                "name": "Ash Chaz",
+                "temp": 520,
+                "type": "EVStation"
+              },
+              "geometry": {
+                "coordinates": [
+                  72.855258,
+                  19.11646
+                ],
+                "type": "Point"
+              },
+              "id": "f58c175dcaca3c6b578caed3b56c8663"
+            },
+            {
+              "type": "Feature",
+              "properties": {
+                "name": "Agnel Works",
+                "temp": 524,
+                "type": "EVStation"
+              },
+              "geometry": {
+                "coordinates": [
+                  72.840152,
+                  19.055065
+                ],
+                "type": "Point"
+              },
+              "id": "f907328aeb68665a11836bfa461f1634"
             }
-          }]
-        },
-      }
-   };
-
-   renderAnnotations () {
-    {console.log("entered Annotation")}
-    return (
-      <Mapbox.PointAnnotation
-        key='pointAnnotation'
-        id='pointAnnotation'
-        coordinate={[this.state.longitude,this.state.latitude]}>
-        <View style={styles.annotationContainer}>
-          <View style={styles.annotationFill} />
-        </View>
-        <Mapbox.Callout title='Look! An annotation!' />
-      </Mapbox.PointAnnotation>
-    )
+          ],
+          "type": "FeatureCollection"
+        }
+    };
   }
 
+  addCordinates(){
+    for (i = 1; i < this.state.route.features.length; i++) {
+      this.state.addCoordinates.push(this.state.route.features[i])
+    }
+  }
+
+  renderCord(){
+    for (i = 0; i < this.state.addCoordinates.length; i++) {
+      this.renderAnnotations ();
+    }
+  }
+  
+   renderAnnotations () {
+    // {console.log(this.state.route.features[0])}
+    // {console.warn(this.state.route.features.length)}
+
+    // {
+    //   for (i = 1; i < this.state.addCoordinates.length; i++) {
+    //     console.warn(this.state.addCoordinates[i]);
+    //   }
+    // }
+
+      return (
+        <Mapbox.PointAnnotation
+        key='pointAnnotation'
+        id='pointAnnotation'
+        coordinate={[72.872334,19.132236]}>
+              
+            <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:'red'}} />
+  
+        <Mapbox.Callout title='Look! An annotation!' />
+      </Mapbox.PointAnnotation>
+      )
+   
+    
+  }
+
+  // getCords(){
+  //   axios.get(`https://jsonplaceholder.typicode.com/users`)
+  //     .then(res => {
+  //       const persons = res.data;
+  //       this.setState({ persons });
+  //     })
+  // }
+
+
+  
 
   render() {
+    {this.addCordinates()}
+  
+    var cords = [];
+
+    for(let i = 0; i < 10; i++){
+      let a = i*1.0/100
+      // console.log(a)
+      str = toString(i)
+
+        // cords.push(<View></View>)
+        //   <Mapbox.PointAnnotation
+        //   key={"sdcdsdc" + toString(i)}
+        //   id={toString(i)}
+
+        //   coordinate={[72.872334+a,19.132236+a]}>
+
+        //       <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:'red'}} />
+    
+        //   <Mapbox.Callout title='Look! An annotation!' />
+        // </Mapbox.PointAnnotation>
+        // )
+    }  
+
+
+
     return (
       <View style={styles.container}>
       <View style={{flex:0.1,flexDirection:"row"}}>
           <Button light><Text> Navigate </Text></Button>
           <Button light><Text> List </Text></Button>
       </View>
+      
+     
+   
+
 
       <Mapbox.MapView styleURL={Mapbox.StyleURL.Street}
-          zoomLevel={8}
-          centerCoordinate={[72.86661427,19.26196225]}
+          zoomLevel={5}
+          centerCoordinate={[72.872334,19.132236]}
           style={styles.container}>
 
-          {this.renderAnnotations()}
-            
+
+{/*this.renderAnnotations()*/}
+          {/* {this.renderCord()} */}
+          <Mapbox.PointAnnotation
+          id={toString(12)}
+
+          coordinate={[73.2,19.13]}>
+
+              <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:'red'}} />
+    
+          <Mapbox.Callout title='Look! An annotation!' />
+        </Mapbox.PointAnnotation>
+        <Mapbox.PointAnnotation
+          id={toString(14)}
+      
+          coordinate={[73.7,19.13]}>
+
+              <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:'red'}} />
+    
+          <Mapbox.Callout title='Look! An annotation!' />
+        </Mapbox.PointAnnotation>
+        <Mapbox.PointAnnotation
+          id={toString(16)}
+
+          coordinate={[74,19.13]}>
+
+              <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:'red'}} />
+    
+          <Mapbox.Callout title='Look! An annotation!' />
+        </Mapbox.PointAnnotation>
+
+       
       </Mapbox.MapView> 
 
       </View>
