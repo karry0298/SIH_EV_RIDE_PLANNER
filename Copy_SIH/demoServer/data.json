@@ -1,0 +1,141 @@
+{
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          72.857882,
+          19.405384
+        ],
+        "type": "Point"
+      },
+      "id": "474d6dd85bdc37b087f7e0a13bd3c984"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dabby EV",
+        "temp": 5141,
+        "type": "EVStation"
+      },
+      "geometry": {
+        "coordinates": [
+          72.910258,
+          19.120522
+        ],
+        "type": "Point"
+      },
+      "id": "4f661e571b61712e838490bc5409f273"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Suy Chuy",
+        "temp": 521,
+        "type": "EVStation"
+      },
+      "geometry": {
+        "coordinates": [
+          72.84798,
+          19.229251
+        ],
+        "type": "Point"
+      },
+      "id": "51b11728fc576272383b9a5c20be98ba"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Joogy",
+        "type": "Home"
+      },
+      "geometry": {
+        "coordinates": [
+          72.863947,
+          19.139643
+        ],
+        "type": "Point"
+      },
+      "id": "89c7fe304002fbe8c2a7e32424d03799"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gtorlu",
+        "type": "Mall"
+      },
+      "geometry": {
+        "coordinates": [
+          72.872334,
+          19.132236
+        ],
+        "type": "Point"
+      },
+      "id": "9def482ed57a107e132868787c8ed62f"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Potkol",
+        "type": "Mall"
+      },
+      "geometry": {
+        "coordinates": [
+          72.885097,
+          19.128619
+        ],
+        "type": "Point"
+      },
+      "id": "a6a404bad6f69c87b7583d96948625ab"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rocket",
+        "type": "Public"
+      },
+      "geometry": {
+        "coordinates": [
+          72.861212,
+          19.13103
+        ],
+        "type": "Point"
+      },
+      "id": "bceb2f04b22003a8d4dabb16956569b3"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ash Chaz",
+        "temp": 520,
+        "type": "EVStation"
+      },
+      "geometry": {
+        "coordinates": [
+          72.855258,
+          19.11646
+        ],
+        "type": "Point"
+      },
+      "id": "f58c175dcaca3c6b578caed3b56c8663"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Agnel Works",
+        "temp": 524,
+        "type": "EVStation"
+      },
+      "geometry": {
+        "coordinates": [
+          72.840152,
+          19.055065
+        ],
+        "type": "Point"
+      },
+      "id": "f907328aeb68665a11836bfa461f1634"
+    }
+  ],
+  "type": "FeatureCollection"
+}
