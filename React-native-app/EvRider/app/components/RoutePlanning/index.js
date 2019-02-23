@@ -14,7 +14,7 @@ class RoutePlanning extends Component {
       showAlert: false,
       lat:null,
       lon:null,
-      errorMessage:"Location not founc"
+      errorMessage:"Location not found"
     };
 
   }
