@@ -4,7 +4,7 @@ import { Button,Container,List,ListItem,Content,Icon,Thumbnail} from "native-bas
 
 //const routes = ["Cam", "Ram"];
 
-const routes = [{title:"cam" , icon:"map-marked-alt"},{title:"ram" , icon:"user"}];
+const routes = [{title:"rout" , icon:"user"},{title:"nearmelist" , icon:"map-marked-alt"},{title:"nearmeMap" , icon:"user"},];
 
 export default class SideBar extends React.Component {
   render() {
@@ -24,6 +24,7 @@ export default class SideBar extends React.Component {
                 <ListItem button onPress={() => this.props.navigation.navigate(data.title)}>
                   <Text blurRadius={1} style={{color:'black' , fontSize:25, paddingLeft:20 ,paddingRight:5, elevation:3,fontFamily:"courbd"}}>{data.title}</Text>
                 </ListItem>
+               
               );
             }}
           />

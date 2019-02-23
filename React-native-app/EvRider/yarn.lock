@@ -4946,6 +4946,13 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-awesome-alerts@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-awesome-alerts/-/react-native-awesome-alerts-1.2.0.tgz#a19b105d5133e92712d865795d532cd3f1e4de2d"
+  integrity sha512-ouxDGJ/porNkuaeqpgxIJA4jAPqHC9bJIsxLA21NA6eZhnEhbqWOprjsNqwI0/7bJxXm9baTzXESCMzwAy3eZw==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-drawer@2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/react-native-drawer/-/react-native-drawer-2.5.1.tgz#08b9314184f48c724f1b467f8859797369798654"
@@ -4960,6 +4967,11 @@ react-native-easy-grid@0.2.0:
   integrity sha512-ZTi84+nJq2wwov55s1rHez0twk/8bs/AGnA5ERF8eYsMbOhBhOzzclj+TyY+/woB/2REAd9QQmWmIT/L999n6Q==
   dependencies:
     lodash "^4.11.1"
+
+react-native-geolocation-service@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-geolocation-service/-/react-native-geolocation-service-2.0.0.tgz#9fbab4953726b3a3ca9a74388a92dc1e1997127a"
+  integrity sha512-X9WMTqWX6n0GH55/YVKwrdkSl64uTqfIt2ICKpwx6Qko62nqBHHS6AP6BODLQqsfGnZlpNcbDWRoj7JOuKxk+g==
 
 react-native-elements@^1.0.0:
   version "1.0.0"
@@ -4982,6 +4994,11 @@ react-native-gesture-handler@^1.0.15, react-native-gesture-handler@~1.0.14:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.2"
     prop-types "^15.5.10"
+
+react-native-get-sms-android@^1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/react-native-get-sms-android/-/react-native-get-sms-android-1.3.5.tgz#dc963ee90ff141632ba97c5d322122a1476c27ee"
+  integrity sha512-gF0Qfzn4xwrrrroEHPhTiMRWKo8zUTEN/zDeut2iI5t6Qt2wkGYncAKmW3XG6rsOBUvtkRi1jvLwdYXt/qCFyw==
 
 react-native-iphone-x-helper@^1.0.3:
   version "1.2.0"
@@ -5032,6 +5049,16 @@ react-native-safe-area-view@^0.12.0:
   version "1.0.0-alpha.22"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   integrity sha512-kSyAt0AeVU6N7ZonfV6dP6iZF8B7Bce+tk3eujXhzBGsLg0VSLnU7uE9VqJF0xdQrHR91ZjGgVMieo/8df9KTA==
+
+react-native-sms-x@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-sms-x/-/react-native-sms-x-1.0.6.tgz#33d0a0a9851d7c05d5e45a05ed8e3d207ef7b1c1"
+  integrity sha512-1GScpwR3ET8q9h73R8UpnQBeCEwMxX6WPAoxVU4/ZsdTF1mjn35Udgm7TNaYzh6BW+2WXGUwwd96jwVPK/IPww==
+
+react-native-sms@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/react-native-sms/-/react-native-sms-1.8.0.tgz#f0cbdc36f94933f634cfbd52b8b91e86fd29a667"
+  integrity sha512-UmbDyqKegRTpML0eeHTELVl03WWrq0pRfA7WxFNUcN1MpLqrYFuD9jOizQBJm5jH1FN7caTyk6HnzhAFIbLhyw==
 
 react-native-status-bar-height@^2.2.0:
   version "2.2.0"
