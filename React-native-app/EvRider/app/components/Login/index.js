@@ -15,7 +15,7 @@ export default class Login extends Component {
     }
 
   switchMap(){
-    this.props.navigation.navigate('cam');
+    this.props.navigation.navigate('nearmelist');
   }
 
 

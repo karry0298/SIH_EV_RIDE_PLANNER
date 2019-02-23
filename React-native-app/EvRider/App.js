@@ -23,9 +23,10 @@ import SideBar from './app/components/SideBar';
 
 
 const Mdn = createDrawerNavigator({
-  cam: {screen:NearMeList},
-  ram: {screen:NearMeMap},
-  rout:{screen:RoutePlanning}
+  rout:{screen:RoutePlanning},
+  nearmelist: {screen:NearMeList},
+  nearmeMap: {screen:NearMeMap},
+
 },
 {
   contentComponent: SideBar,
