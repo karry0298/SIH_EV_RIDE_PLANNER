@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Friends - Help</title>
+  <title>SB Admin 2 - Border Utilities</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -33,7 +33,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Friends</div>
+        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
       </a>
 
       <!-- Divider -->
@@ -56,29 +56,35 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-          <a class="nav-link" href="inventory.html">
-              <i class="fas fa-fw fa-cog"></i>
-              <span>Inventory</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Components</span>
         </a>
-
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Components:</h6>
+            <a class="collapse-item" href="buttons.html">Buttons</a>
+            <a class="collapse-item" href="cards.html">Cards</a>
+          </div>
+        </div>
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
-      <!-- <li class="nav-item active">
+      <li class="nav-item active">
         <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-wrench"></i>
-          <span><a href="utilities-border.html">Help</a></span>
+          <span>Utilities</span>
         </a>
         <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Utilities:</h6>
+            <a class="collapse-item" href="utilities-color.html">Colors</a>
+            <a class="collapse-item active" href="utilities-border.html">Borders</a>
+            <a class="collapse-item" href="utilities-animation.html">Animations</a>
+            <a class="collapse-item" href="utilities-other.html">Other</a>
+          </div>
         </div>
-      </li> -->
-
-      <li class="nav-item active ">
-          <a class="nav-link" href="utilities-border.html">
-              <i class="fas fa-fw fa-wrench"></i>
-            <span>Help</span></a>
-        </li>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -89,7 +95,7 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <!-- <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
           <span>Pages</span>
@@ -106,7 +112,7 @@
             <a class="collapse-item" href="blank.html">Blank Page</a>
           </div>
         </div>
-      </li> -->
+      </li>
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
@@ -119,14 +125,8 @@
       <li class="nav-item">
         <a class="nav-link" href="tables.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>Donor</span></a>
+          <span>Tables</span></a>
       </li>
-
-      <li class="nav-item">
-          <a class="nav-link" href="academics.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Academics</span></a>
-        </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -154,7 +154,7 @@
           </button>
 
           <!-- Topbar Search -->
-          <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -163,7 +163,7 @@
                 </button>
               </div>
             </div>
-          </form> -->
+          </form>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -298,7 +298,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Kajol</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -332,70 +332,22 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-1 text-gray-800">Help Chat</h1>
-          <p class="mb-4"> Chat Feature With Volunteers and Associates</p>
+          <h1 class="h3 mb-1 text-gray-800">Border Utilities</h1>
+          <p class="mb-4">Bootstrap's default utility classes can be found on the official <a href="https://getbootstrap.com/docs">Bootstrap Documentation</a> page. The custom utilities below were created to extend this theme past the default utility classes built into Bootstrap's framework.</p>
 
           <!-- Content Row -->
           <div class="row">
 
             <!-- Border Left Utilities -->
-            <div class="col-lg-12">
-                <div class="card mb-4 py-3 border-left-warning">
-                    <div class="card-body">
-                        <div  class="card-body">
-                            <div style="padding-left: 80%">Resolved your problem.Sending more doctors to the Area</div>
-                            
-                          </div>
-                    </div>
-                  </div>
+            <div class="col-lg-6">
 
-              <div class="card mb-4 py-3 border-left-success">
-                <div class="card-body" id="msg4">
-                  Writing Materials Not Available
-                </div>
-              </div>
-                <div class="card mb-4 py-3 border-left-warning">
-                    <div  class="card-body">
-                      <div style="padding-left: 80%">Sending the Material</div>
-                      
-                    </div>
-                  </div>
-
-              <div class="card mb-4 py-3 border-left-success">
-                <div class="card-body" id="msg3">
-                  Not yet Recieved
-                </div>
-              </div>
-                <div class="card mb-4 py-3 border-left-warning">
-                    <div class="card-body">
-                        <div  class="card-body">
-                            <div style="padding-left: 80%">We will have delivered the materials.Kindly confirm</div>
-                            
-                          </div>
-                    </div>
-                  </div>
-
-              <div class="card mb-4 py-3 border-left-success">
-                <div class="card-body" id="msg2">
-                  Books received
-                </div>
-              </div>
-                <div class="card mb-4 py-3 border-left-warning">
-                    <div class="card-body">
-                        <div  class="card-body">
-                            <div style="padding-left: 80%">Resolution in Progress</div>
-                            
-                          </div>
-                    </div>
-                  </div>
-
-              <div class="card mb-4 py-3 border-left-success">
-                <div class="card-body" id="msg1">
-                  Supllements Neededs
+              <div class="card mb-4 py-3 border-left-primary">
+                <div class="card-body">
+                  .border-left-primary
                 </div>
               </div>
 
-              <!-- <div class="card mb-4 py-3 border-left-success">
+              <div class="card mb-4 py-3 border-left-success">
                 <div class="card-body">
                   .border-left-success
                 </div>
@@ -405,37 +357,56 @@
                 <div class="card-body">
                   .border-left-info
                 </div>
-              </div> -->
+              </div>
 
               <div class="card mb-4 py-3 border-left-warning">
                 <div class="card-body">
-                    <div  class="card-body">
-                        <div style="padding-left: 80%">Resolution in Progress</div>
-                        
-                      </div>
+                  .border-left-warning
                 </div>
               </div>
-              <div class="card mb-4 py-3 border-left-warning">
-                  <div class="card-body">
-                      <div  class="card-body">
-                          <input type="text" name="lname" style="width:100%" id="amount" value="">
-                          <a id="new_button"style="margin-top:10px" href="#" class="btn btn-primary btn-user btn-block">
-                              Submit
-                           </a>
-                        </div>
-                  </div>
-                </div>
 
-              <!-- <div class="card mb-4 py-3 border-left-danger">
+              <div class="card mb-4 py-3 border-left-danger">
                 <div class="card-body">
                   .border-left-danger
                 </div>
-              </div> -->
+              </div>
 
             </div>
 
             <!-- Border Bottom Utilities -->
-            
+            <div class="col-lg-6">
+
+              <div class="card mb-4 py-3 border-bottom-primary">
+                <div class="card-body">
+                  .border-bottom-primary
+                </div>
+              </div>
+
+              <div class="card mb-4 py-3 border-bottom-success">
+                <div class="card-body">
+                  .border-bottom-success
+                </div>
+              </div>
+
+              <div class="card mb-4 py-3 border-bottom-info">
+                <div class="card-body">
+                  .border-bottom-info
+                </div>
+              </div>
+
+              <div class="card mb-4 py-3 border-bottom-warning">
+                <div class="card-body">
+                  .border-bottom-warning
+                </div>
+              </div>
+
+              <div class="card mb-4 py-3 border-bottom-danger">
+                <div class="card-body">
+                  .border-bottom-danger
+                </div>
+              </div>
+
+            </div>
 
           </div>
 
@@ -494,94 +465,7 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-  <script>
 
-    setTimeout(function(){
-   window.location.reload(1);
-
-     $.get("http://10.42.0.12:3000/admin", function(data, status){
-
-
-var messageId=' '
-
-$("#amount").keyup(function(){
-    amount1=$("#amount").val();
-    name1=$("#name").val();
-    email1=$('#email').val();
-    console.log(amount1)
-});
-
-message_count=data[1][0].countofmessages;
-$("#countOfMessages").html(message_count)
-console.log(data[0][1])
-});
-$.get("http://10.42.0.12:3000/message", function(data, status){
-
-console.log(data)
-$("#msg1").html(data[0].email+": "+data[0].message)
-$("#msg2").html(data[1].email+": "+data[1].message)
-$("#msg3").html(data[2].email+": "+data[2].message)
-$("#msg4").html(data[3].email+": "+data[3].message)
-messageId=data[0].id
-});
-
-    $("#new_button").click(function(){
-    $.post('http://10.42.0.12:3000/message-reply',
-    {
-     id:messageId, 
-    
-    reply:amount1
-
-    },
-    function(data,status){
-    console.log("Data: " + data + "\nStatus: " + status);
-    });
-});
-
-
-
-
-}, 5000);
-      $.get("http://10.42.0.12:3000/admin", function(data, status){
-
-
-        var messageId=' '
-
-        $("#amount").keyup(function(){
-            amount1=$("#amount").val();
-            name1=$("#name").val();
-            email1=$('#email').val();
-            console.log(amount1)
-        });
-
-      message_count=data[1][0].countofmessages;
-      $("#countOfMessages").html(message_count)
-      console.log(data[0][1])
-    });
-    $.get("http://10.42.0.12:3000/message", function(data, status){
-
-      console.log(data)
-      $("#msg1").html(data[0].email+": "+data[0].message)
-    $("#msg2").html(data[1].email+": "+data[1].message)
-    $("#msg3").html(data[2].email+": "+data[2].message)
-    $("#msg4").html(data[3].email+": "+data[3].message)
-    messageId=data[0].id
-    });
-
-            $("#new_button").click(function(){
-            $.post('http://10.42.0.12:3000/message-reply',
-            {
-             id:messageId, 
-            
-            reply:amount1
-
-            },
-            function(data,status){
-            console.log("Data: " + data + "\nStatus: " + status);
-            });
-        });
-
-    </script>
 </body>
 
 </html>
