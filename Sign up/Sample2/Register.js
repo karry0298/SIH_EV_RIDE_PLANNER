@@ -1,21 +1,88 @@
 import React, { Component } from "react";
-import { StyleSheet,ImageBackground,Image } from 'react-native'
-import {
-  Container,Header,Title,Content,Button,Item,Label,Input,Body,Left,Right,Icon,Form,
-  Text,Tab,Tabs,DeckSwiper,Card,CardItem,View,Picker
-} from "native-base";
+import { StyleSheet,ImageBackground,Image ,View} from 'react-native'
+import { Container, Header, Content,Button, List, ListItem, Text, Left, Right, Icon } from 'native-base';
+
 
 import bgImage from './images/background.png';
 import logo from './images/logo.png';
 
+import t from 'tcomb-form-native';
+import axios from 'axios';
+const ip="192.168.1.104";
 
+const Form=t.form.Form;
+var _ = require('lodash');
+
+const sty = _.cloneDeep(t.form.Form.stylesheet);
+
+sty.textbox.normal.borderBottomWidth=1;
+sty.textbox.normal.borderWidth = 0;
+sty.textbox.error.borderWidth=0;
+sty.textbox.error.borderBottomWidth=0;
+
+
+// stylesheet.formGroup.normal.flexDirection = 'row';
+// stylesheet.formGroup.error.flexDirection = 'row';
+// stylesheet.textboxView.normal.flex = 1;
+// stylesheet.textboxView.error.flex = 1;
+
+const User = t.struct({
+  firstName:t.String,
+  lastName:t.String,
+  email: t.String,
+  
+  password: t.String,
+});
+const userInfo={
+  stylesheet:sty,
+  fields: {
+    firstName:{
+      label:"First name",
+      placeholder:"first name",
+      placeholderTextColor:'white',
+      selectTextOnFocus:true
+        },
+    lastName:{
+      label:"Last name",
+      placeholder:'last name',
+      placeholderTextColor:'white',
+      selectTextOnFocus:true
+    },
+    email: {
+      error: 'please enter an email',
+
+      placeholder:"eg abc@gmail.com",
+      placeholderTextColor:'white',
+      selectTextOnFocus:true
+    },
+    password: {
+      secureTextEntry:true,
+      error: 'password is necessary',
+      selectTextOnFocus:true
+    },
+   
+  },
+};
+const value={
+  firstName:"mark",
+  lastName:'fulinsky',
+  email:'mfk@gmail.com',
+  password:"hsloh"
+}
+const carDetail=t.struct({
+  carName:t.String,
+  carModel:t.String
+
+});
 export default class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
           view:false,
-          selected2: undefined
+          selected2: undefined,
+          data:""
         };
+        this.handleSubmit=this.handleSubmit.bind(this);
       }
       onValueChange2(value) {
         this.setState({
@@ -23,48 +90,62 @@ export default class Register extends Component {
         });
       }
         buttonPress = () => {
-        this.setState({view:true});
+    
       }
-     
-      nextreg = () => {
+     handleSubmit(){
+      
+      const value = this._form.getValue();
+      if(value!=null)
+      this.setState({view:true,data:value});
+       console.log(value)
+      
+     }
+
+     finalSubmit(){
+
+
+      axios.post("http://"+ip+":2454/users/register",{data:value})
+      .then(s=>{
+         console.log("registered ",)
+      })
+      .catch(e=>{
+         console.log("some errp ");
+      } )
+     }
+    render(){
           if(this.state.view){
               return(
                
-                <ImageBackground source={bgImage} style={styles.backgroundContainer}>
-
-        <Content>
-          <Form style={{width:300,marginTop:100}}>
-          <Item picker>
-              <Picker
-                mode="dropdown"
-                //iosIcon={<Icon name="arrow-down" />}
-                style={{ width: undefined }}
-                placeholder="Select your SIM"
-                placeholderStyle={{ color: "#bfc6ea" }}
-                placeholderIconColor="#007aff"
-                selectedValue={this.state.selected2}
-                onValueChange={this.onValueChange2.bind(this)}
-              >
-                <Picker.Item label="Wallet" value="key0" />
-                <Picker.Item label="ATM Card" value="key1" />
-                <Picker.Item label="Debit Card" value="key2" />
-                <Picker.Item label="Credit Card" value="key3" />
-                <Picker.Item label="Net Banking" value="key4" />
-              </Picker>
-            </Item>
-            <Item floatingLabel>
-            <Label>Mileage</Label>
-            </Item>
-            <Item floatingLabel>
-            <Label>Estimated Mileage</Label>
-             </Item>
-             <Button rounded success block style={{ margin: 15, marginTop: 50}}>
-            <Text>Submit</Text>
-          </Button>
-          </Form>
-          
-        </Content>
-      </ImageBackground>
+<ImageBackground source={bgImage} style={styles.backgroundContainer}>
+   <View>
+                    <List>
+                      <ListItem selected>
+                        <Left>
+                          <Text>Simon Mignolet</Text>
+                        </Left>
+                        <Right>
+                          <Icon name="arrow-forward" />
+                        </Right>
+                      </ListItem>
+                      <ListItem>
+                       <Left>
+                          <Text>Nathaniel Clyne</Text>
+                        </Left>
+                        <Right>
+                          <Icon name="arrow-forward" />
+                        </Right>
+                      </ListItem>
+                      <ListItem>
+                        <Left>
+                          <Text>Dejan Lovren</Text>
+                        </Left>
+                        <Right>
+                          <Icon name="arrow-forward" />
+                        </Right>
+                      </ListItem>
+                    </List>
+                  </View>
+                  </ImageBackground>
               );
           }
           else{
@@ -76,38 +157,15 @@ export default class Register extends Component {
       </View>
               {/* <Container style={styles.container}> */}
         <Content>
-          <Form style={styles.item}>
-            <Item floatingLabel>
-              <Label>Email</Label>
-              <Input />
-            </Item>
-            <Item floatingLabel>
-              <Label>Password</Label>
-              <Input secureTextEntry />
-            </Item>
-            <Item floatingLabel>
-              <Label>Confirm Password</Label>
-              <Input secureTextEntry />
-            </Item>
-          </Form>
-          <Button rounded dark block style={{ margin: 15, marginTop: 50}} onPress={this.buttonPress}>
-            <Text>Next</Text>
-          </Button>
-          
+              < Form ref={c => this._form = c} type={User} options ={userInfo} value={value}  />{/**/}
+          <Button rounded danger onPress={this.handleSubmit} style={{fontSize:25,fontWeight:'bold',width:300,justifyContent:'center'}} ><Text>Sign  up</Text></Button>
+
           </Content>
-      {/* </Container> */}
       </ImageBackground>
       
-              );
-          }
-      }
-
-  render() {
-    return (
-        
-        <Content>{this.nextreg()}</Content>
-       );
+        );
   }
+}
 }
 
 const styles = StyleSheet.create({

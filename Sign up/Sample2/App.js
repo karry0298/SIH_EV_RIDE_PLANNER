@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { Container, Header, Tab, Tabs, TabHeading, Icon, Text } from 'native-base';
 import SignIn from './SignIn';
 import Register from './Register';
-
+import Mod from './modalExample';
 export default class TabsAdvancedExample extends Component {
   render() {
     return (
@@ -12,7 +12,7 @@ export default class TabsAdvancedExample extends Component {
         <Tabs tabBarUnderlineStyle={{ backgroundColor:'#62B1F6'}}> 
           <Tab activeTextStyle={{ color: '#fff', fontWeight: 'bold' }} textStyle={{ color: '#fff', fontSize: 12 }} tabStyle={{ backgroundColor: '#62B1F6',height:60 }} activeTabStyle={{ backgroundColor: '#62B1F6' ,height:60}} 
           heading="Sign in">
-            <SignIn />
+            <Mod />
           </Tab>
           <Tab activeTextStyle={{ color: '#fff', fontWeight: 'bold' }} textStyle={{ color: '#fff', fontSize: 12 }} tabStyle={{ backgroundColor: '#62B1F6',height:60 }} activeTabStyle={{ backgroundColor: '#62B1F6',height:60 }} 
           heading="Register">
@@ -27,13 +27,15 @@ export default class TabsAdvancedExample extends Component {
 }
 
 const styles=StyleSheet.create({
-    header:{
+    
+  header:{
       
       
     },
     tab:{
       backgroundColor:'#3F51B5'
-    }
+    },
+    
 
 
 
