@@ -7,10 +7,14 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "native-base": "^2.11.0",
     "react": "16.6.3",
     "react-native": "0.58.4",
-    "react-native-vector-icons": "^6.3.0"
+    "react-native-modal": "^7.0.2",
+    "react-native-public-ip": "^1.0.1",
+    "react-native-vector-icons": "^6.3.0",
+    "tcomb-form-native": "^0.6.20"
   },
   "devDependencies": {
     "babel-core": "7.0.0-bridge.0",
