@@ -49,17 +49,17 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/route', methods=['POST'])
 def route():
-    # start_lon = request.args.get('slon')
-    # start_lat = request.args.get('slat')
-    # end_lon = request.args.get('elon')
-    # end_lat = request.args.get('elat')
-    #start_lon,start_lat,end_lon,end_lat
-    print(rp.plan_route())
-    return jsonify(rp.plan_route())
+    start_lon = request.args.get('slon')
+    start_lat = request.args.get('slat')
+    end_lon = request.args.get('elon')
+    end_lat = request.args.get('elat')
+    range_car=300
+    print(rp.plan_route(start_lon,start_lat,end_lon,end_lat,range_car))
+    return jsonify(rp.plan_route(start_lon,start_lat,end_lon,end_lat,range_car))
 
 
 
 def checker(val,need = True):
     return 1 if val == need else 0
 
-app.run(host='0.0.0.0',port=5001)
+app.run(host='0.0.0.0',port=5002)
