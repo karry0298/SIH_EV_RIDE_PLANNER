@@ -4,7 +4,9 @@ import { Container, Header, View, Button, Icon, Fab } from 'native-base';
 import SendSMS from 'react-native-sms'
 import SmsAndroid  from 'react-native-get-sms-android';
 import AwesomeAlert from 'react-native-awesome-alerts';
-class RoutePlanning extends Component {
+
+
+class OfflineSms extends Component {
   constructor(props) {
     super(props)
 
@@ -51,13 +53,16 @@ class RoutePlanning extends Component {
   smsFunction() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-          let latitude = JSON.stringify(position.coords.latitude);
-          let longitude = JSON.stringify(position.coords.longitude);
+          // let latitude = JSON.stringify(position.coords.latitude);
+          let latitude = 19.13111;
+          let longitude = 72.8684;
+          // let longitude = JSON.stringify(position.coords.longitude);
+          let radius = 100
           // console.log(latitude);
           // this.setState({lat:latitude,lon:longitude});
           // console.log(this.state.lat);
           SendSMS.send({
-            body: 'LAPYT id=7945&coords='+latitude+','+longitude,
+            body: 'LAPYT id=7945&coords='+latitude+','+longitude+"&rad="+radius,
             recipients: ['+919220592205'],
             successTypes: ['sent', 'queued'],
             allowAndroidSendWithoutReadPermission: true
@@ -117,4 +122,4 @@ class RoutePlanning extends Component {
   }
 }
 
-export default RoutePlanning;
+export default OfflineSms;
