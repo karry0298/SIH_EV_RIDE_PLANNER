@@ -1,0 +1,242 @@
+{
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Sil EV Station"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.969491,
+                    20.277924
+                ]
+            },
+            "id": "5c6fc1cdb71efc1495fdc6c7"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Sardar di Dhaba"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.911043,
+                    20.382136
+                ]
+            },
+            "id": "5c6fc3c13714901fe1d11892"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "End Point"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.951561,
+                    20.955589
+                ]
+            },
+            "id": "5c6fc44eb34d192111a0603f"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Jio garden"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.959101,
+                    21.181887
+                ]
+            },
+            "id": "5c6fc4a4b34d192111a06040"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pancham Statio0n"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.822887,
+                    21.216358
+                ]
+            },
+            "id": "5c6fc502b34d192111a06041"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Power house"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.995101,
+                    21.615807
+                ]
+            },
+            "id": "5c6fc563b34d192111a06042"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Charge point"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    73.706714,
+                    24.652475
+                ]
+            },
+            "id": "5c6fc74bb34d192111a06045"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Motor Station"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.886877,
+                    19.347293
+                ]
+            },
+            "id": "5c6fc02fb71efc1495fdc6c4"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Fiona EV station"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.969498,
+                    19.189931
+                ]
+            },
+            "id": "5c6fbfccb71efc1495fdc6c3"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Mahakali Station"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.87369574834548,
+                    19.130494867008238
+                ]
+            },
+            "id": "5c70fb9ba9afcd4aa3577277"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Sweet Corner"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.84274669074892,
+                    19.143631700867786
+                ]
+            },
+            "id": "5c70fc48a9afcd4aa3577279"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Car Works"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.88892,
+                    19.476374
+                ]
+            },
+            "id": "5c6fc0aeb71efc1495fdc6c5"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Gia's EV Station"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.922116,
+                    19.131039
+                ]
+            },
+            "id": "5c6fbec2b71efc1495fdc6c2"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Warehouse EV Station"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.911043,
+                    19.65206
+                ]
+            },
+            "id": "5c6fc13bb71efc1495fdc6c6"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Dj House"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    73.23543,
+                    22.296221
+                ]
+            },
+            "id": "5c6fc63bb34d192111a06043"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Qia Power"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.613221,
+                    23.000643
+                ]
+            },
+            "id": "5c6fc6b0b34d192111a06044"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "HS Turbo"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    72.86615463993508,
+                    19.12864162451865
+                ]
+            },
+            "id": "5c70fbeea9afcd4aa3577278"
+        }
+    ]
+}
