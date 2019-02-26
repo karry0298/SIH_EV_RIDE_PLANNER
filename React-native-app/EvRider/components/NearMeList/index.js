@@ -25,7 +25,7 @@ class NearMeList extends Component {
             Dialog:false,
             DialogTitle:"abcTitle",
             dialogC:[2,3,4],
-            DialogCharge:["chademo","css_sae","J-1772","supercharge","Type2","wall"],
+            DialogCharge:["chademo","css_sae","j-1772","supercharger","type2","wall"],
             DialogRating: 4,
             DialogMail:"abc@abc",
             DialogUri:'https://dqbasmyouzti2.cloudfront.net/assets/content/cache/made/content/images/articles/EV_ChargingII_XL_721_420_80_s_c1.jpg',
@@ -54,7 +54,7 @@ class NearMeList extends Component {
                       "_id": "5c6fc1cdb71efc1495fdc6c7",
                       "__v": 0,
                       "email": "elocievs@gmail.com",
-                      "charge":["chademo","css_sae","Type2","wall"]
+                      "charge":["chademo","css_sae","type2","wall"]
                   },
                   {
                       "location": {
@@ -74,7 +74,7 @@ class NearMeList extends Component {
                       "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6QaRL87xNoOcSkaBwcnezuGVYqUvZMa5IO6McfS8bYmjy6mh5",
                       "__v": 0,
                       "email": "elocievs@gmail.com",
-                      "charge":["J-1772","supercharge","Type2","wall"]
+                      "charge":["j-1772","supercharger","type2","wall"]
                   },
                   {
                       "location": {
@@ -94,7 +94,7 @@ class NearMeList extends Component {
                       "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2kmRGWGmLpljck61aOIcsvhMtEbazb1l7JT_9_iMNr8wkxKxcfA",
                       "__v": 0,
                       "email": "elocievs@gmail.com",
-                      "charge":["chademo","css_sae","J-1772","supercharge"]
+                      "charge":["chademo","css_sae","j-1772","supercharger"]
                   },
                   {
                       "location": {
@@ -134,7 +134,7 @@ class NearMeList extends Component {
                       "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9VR2VOGuKdsnp1vrg8qDSiZe3nnKhdDKcRbUdayAvEwQb3NFNPg",
                       "__v": 0,
                       "email": "elocievs@gmail.com",
-                      "charge":["J-1772","wall"]
+                      "charge":["j-1772","wall"]
                   },
                   {
                       "location": {
@@ -154,7 +154,7 @@ class NearMeList extends Component {
                       "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSGa-MH5rTbqFcWwTvJvH7abJI5s0FuRO-vs_eDWdqHZTLDSD0",
                       "__v": 0,
                       "email": "elocievs@gmail.com",
-                      "charge":["J-1772","wall"]
+                      "charge":["j-1772","wall"]
                   },
                   {
                       "location": {
@@ -194,7 +194,7 @@ class NearMeList extends Component {
                       "imageUrl": "https://s3.paultan.org/image/fen-ev-02-630x430.jpg",
                       "__v": 0,
                       "email": "elocievs@gmail.com",
-                      "charge":["chademo","supercharge","wall"]
+                      "charge":["chademo","supercharger","wall"]
                   },
                   {
                       "location": {
@@ -214,7 +214,7 @@ class NearMeList extends Component {
                       "imageUrl": "https://dqbasmyouzti2.cloudfront.net/assets/content/cache/made/content/images/articles/EV_ChargingII_XL_721_420_80_s_c1.jpg",
                       "__v": 0,
                       "email": "elocievs@gmail.com",
-                      "charge":["chademo","css_sae","J-1772","supercharge","Type2","wall"]
+                      "charge":["chademo","css_sae","j-1772","supercharger","type2","wall"]
                   },
                   {
                       "location": {
@@ -254,7 +254,7 @@ class NearMeList extends Component {
                       "_id": "5c70fc48a9afcd4aa3577279",
                       "__v": 0,
                       "email": "elocievs@gmail.com",
-                      "charge":["chademo","css_sae","J-1772","supercharge","Type2","wall"]
+                      "charge":["chademo","css_sae","j-1772","supercharger","type2","wall"]
                   },
                   {
                       "location": {
@@ -274,7 +274,7 @@ class NearMeList extends Component {
                       "imageUrl": "http://en.people.cn/NMediaFile/2017/0906/FOREIGN201709061717000312206109609.jpg",
                       "__v": 0,
                       "email": "elocievs@gmail.com",
-                      "charge":["Type2","wall"]
+                      "charge":["type2","wall"]
                   },
                   {
                       "location": {
@@ -294,7 +294,7 @@ class NearMeList extends Component {
                       "imageUrl": "https://goo.gl/RMnL53",
                       "__v": 0,
                       "email": "elocievs@gmail.com",
-                      "charge":["chademo","supercharge"]
+                      "charge":["chademo","supercharger"]
                   },
                   {
                       "location": {
@@ -314,7 +314,7 @@ class NearMeList extends Component {
                       "_id": "5c6fc13bb71efc1495fdc6c6",
                       "__v": 0,
                       "email": "elocievs@gmail.com",
-                      "charge":["supercharge","wall"]
+                      "charge":["supercharger","wall"]
                   },
                   {
                       "location": {
@@ -334,7 +334,7 @@ class NearMeList extends Component {
                       "imageUrl": "https://cdn.vox-cdn.com/thumbor/YW1yI-LX___TNp_DYKcM5-UyB1Q=/0x0:4032x2272/1200x800/filters:focal(1694x814:2338x1458)/cdn.vox-cdn.com/uploads/chorus_image/image/62681587/4737065_fastcharge_prototype_for_a_charging_station_jettingen_scheppach_2018_porsche_ag.0.jpg",
                       "__v": 0,
                       "email": "elocievs@gmail.com",
-                      "charge":["chademo","css_sae","J-1772","supercharge","Type2","wall"]
+                      "charge":["chademo","css_sae","j-1772","supercharger","type2","wall"]
                   },
                   {
                       "location": {
@@ -428,9 +428,9 @@ class NearMeList extends Component {
          let imgPik = rout[i].charge
          let img = [require("../../assets/images/chademo.png"),
          require("../../assets/images/css_sae.png"),
-         require("../../assets/images/J-1772.png"),
-         require("../../assets/images/supercharge.png"),
-         require("../../assets/images/Type2.png"),
+         require("../../assets/images/j-1772.png"),
+         require("../../assets/images/supercharger.png"),
+         require("../../assets/images/type2.png"),
          require("../../assets/images/wall.png")]
          let FinImag = []
  

@@ -41,42 +41,14 @@ export default class NavigateRoute extends Component {
     return (
 
       <View>
+        <Mapbox.MapView styleURL={Mapbox.StyleURL.Street}
+          zoomLevel={12}
+          centerCoordinate={[72.872334,19.132236]}
+          style={styles.container}>
 
-        <GooglePlacesAutocomplete
-          placeholder='Enter The Source'
-          minLength={1} // minimum length of text to search
-          autoFocus={false}
-          fetchDetails={true}
-          onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-            console.log("data",data);
-            console.log("details",details);
-          }}
-          
-          getDefaultValue={() => {
-            return ''; // text input default value
-          }}
-          
-          query={{
-            key: 'AIzaSyDmk0ZLNenVOm3-bcdIHiMm2nBkSrdKLxw',
-            language: 'en', // language of the results
-            types: '(cities)', // default: 'geocode'
-          }}
+          {this.renderAnnotations()}
 
-          styles={{description: {fontWeight: 'bold',},
-          
-          predefinedPlacesDescription: {color: '#1faadb',},
-          }}                  
-        />
-
-
-      <Mapbox.MapView styleURL={Mapbox.StyleURL.Street}
-        zoomLevel={12}
-        centerCoordinate={[72.872334,19.132236]}
-        style={styles.container}>
-
-        {this.renderAnnotations()}
-
-      </Mapbox.MapView> 
+        </Mapbox.MapView> 
 
 
       </View>
