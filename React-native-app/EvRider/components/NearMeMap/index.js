@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text,StyleSheet,Image,FlatList,TouchableOpacity} from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
-import {Button,Item,Input,List,Fab,Icon} from 'native-base';
+import {Button,List,Fab,Icon} from 'native-base';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
 import { Rating} from 'react-native-elements';
@@ -9,11 +9,11 @@ import Dialog, { DialogTitle,DialogContent,DialogFooter,DialogButton,SlideAnimat
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
-//"charge":["chademo","css_sae","J-1772","supercharge","Type2","wall"]
+//"charge":["chademo","css_sae","j-1772","supercharger","type2","wall"]
 
 var bord = 150
 
-class NearMeList extends Component {
+class NearMeMap extends Component {
   constructor(props) {
     super(props);
 
@@ -22,19 +22,17 @@ class NearMeList extends Component {
     this.state = {
         latitude: 19.13566162451865,
         longitude: 72.86615863993508,
-        BatDialog: false,
         Dialog:false,
         DialogTitle:"abcTitle",
         dialogC:[2,3,4],
-        DialogCharge:["chademo","css_sae","J-1772","supercharge","Type2","wall"],
+        DialogCharge:["chademo","css_sae","j-1772","supercharger","type2","wall"],
         DialogRating: 4,
         DialogMail:"abc@abc",
         DialogUri:'https://dqbasmyouzti2.cloudfront.net/assets/content/cache/made/content/images/articles/EV_ChargingII_XL_721_420_80_s_c1.jpg',
         DialogContact: 999233233,
-        colorTags:["Turbo","Home","Mall","Public","Hotel"],
-        colors:["blue","black","brown","red","#ddbc00"],
+        myStateFinale:[],
         prevLatLng: {},
-        battery:60,
+        coordinate:{latitude: 19.26196225,longitude: 72.86661427},
         route:{
           "data": [
               {
@@ -55,7 +53,7 @@ class NearMeList extends Component {
                   "_id": "5c6fc1cdb71efc1495fdc6c7",
                   "__v": 0,
                   "email": "elocievs@gmail.com",
-                  "charge":["chademo","css_sae","Type2","wall"]
+                  "charge":["chademo","css_sae","type2","wall"]
               },
               {
                   "location": {
@@ -75,7 +73,7 @@ class NearMeList extends Component {
                   "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6QaRL87xNoOcSkaBwcnezuGVYqUvZMa5IO6McfS8bYmjy6mh5",
                   "__v": 0,
                   "email": "elocievs@gmail.com",
-                  "charge":["J-1772","supercharge","Type2","wall"]
+                  "charge":["j-1772","supercharger","type2","wall"]
               },
               {
                   "location": {
@@ -95,7 +93,7 @@ class NearMeList extends Component {
                   "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2kmRGWGmLpljck61aOIcsvhMtEbazb1l7JT_9_iMNr8wkxKxcfA",
                   "__v": 0,
                   "email": "elocievs@gmail.com",
-                  "charge":["chademo","css_sae","J-1772","supercharge"]
+                  "charge":["chademo","css_sae","j-1772","supercharger"]
               },
               {
                   "location": {
@@ -135,7 +133,7 @@ class NearMeList extends Component {
                   "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9VR2VOGuKdsnp1vrg8qDSiZe3nnKhdDKcRbUdayAvEwQb3NFNPg",
                   "__v": 0,
                   "email": "elocievs@gmail.com",
-                  "charge":["J-1772","wall"]
+                  "charge":["j-1772","wall"]
               },
               {
                   "location": {
@@ -155,7 +153,7 @@ class NearMeList extends Component {
                   "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSGa-MH5rTbqFcWwTvJvH7abJI5s0FuRO-vs_eDWdqHZTLDSD0",
                   "__v": 0,
                   "email": "elocievs@gmail.com",
-                  "charge":["J-1772","wall"]
+                  "charge":["j-1772","wall"]
               },
               {
                   "location": {
@@ -195,7 +193,7 @@ class NearMeList extends Component {
                   "imageUrl": "https://s3.paultan.org/image/fen-ev-02-630x430.jpg",
                   "__v": 0,
                   "email": "elocievs@gmail.com",
-                  "charge":["chademo","supercharge","wall"]
+                  "charge":["chademo","supercharger","wall"]
               },
               {
                   "location": {
@@ -215,7 +213,7 @@ class NearMeList extends Component {
                   "imageUrl": "https://dqbasmyouzti2.cloudfront.net/assets/content/cache/made/content/images/articles/EV_ChargingII_XL_721_420_80_s_c1.jpg",
                   "__v": 0,
                   "email": "elocievs@gmail.com",
-                  "charge":["chademo","css_sae","J-1772","supercharge","Type2","wall"]
+                  "charge":["chademo","css_sae","j-1772","supercharger","type2","wall"]
               },
               {
                   "location": {
@@ -255,7 +253,7 @@ class NearMeList extends Component {
                   "_id": "5c70fc48a9afcd4aa3577279",
                   "__v": 0,
                   "email": "elocievs@gmail.com",
-                  "charge":["chademo","css_sae","J-1772","supercharge","Type2","wall"]
+                  "charge":["chademo","css_sae","j-1772","supercharger","type2","wall"]
               },
               {
                   "location": {
@@ -275,7 +273,7 @@ class NearMeList extends Component {
                   "imageUrl": "http://en.people.cn/NMediaFile/2017/0906/FOREIGN201709061717000312206109609.jpg",
                   "__v": 0,
                   "email": "elocievs@gmail.com",
-                  "charge":["Type2","wall"]
+                  "charge":["type2","wall"]
               },
               {
                   "location": {
@@ -295,7 +293,7 @@ class NearMeList extends Component {
                   "imageUrl": "https://goo.gl/RMnL53",
                   "__v": 0,
                   "email": "elocievs@gmail.com",
-                  "charge":["chademo","supercharge"]
+                  "charge":["chademo","supercharger"]
               },
               {
                   "location": {
@@ -315,7 +313,7 @@ class NearMeList extends Component {
                   "_id": "5c6fc13bb71efc1495fdc6c6",
                   "__v": 0,
                   "email": "elocievs@gmail.com",
-                  "charge":["supercharge","wall"]
+                  "charge":["supercharger","wall"]
               },
               {
                   "location": {
@@ -335,7 +333,7 @@ class NearMeList extends Component {
                   "imageUrl": "https://cdn.vox-cdn.com/thumbor/YW1yI-LX___TNp_DYKcM5-UyB1Q=/0x0:4032x2272/1200x800/filters:focal(1694x814:2338x1458)/cdn.vox-cdn.com/uploads/chorus_image/image/62681587/4737065_fastcharge_prototype_for_a_charging_station_jettingen_scheppach_2018_porsche_ag.0.jpg",
                   "__v": 0,
                   "email": "elocievs@gmail.com",
-                  "charge":["chademo","css_sae","J-1772","supercharge","Type2","wall"]
+                  "charge":["chademo","css_sae","j-1772","supercharger","type2","wall"]
               },
               {
                   "location": {
@@ -403,12 +401,68 @@ class NearMeList extends Component {
    
   }
 
-  shouldComponentUpdate() {
-    return false
+
+
+  componentDidMount(){
+
+    console.log("mount entered")
+
+    axios.get("http://192.168.2.10:2454/api/getAllStation")
+    .then(s=>{
+
+        const rout = s.data.data;
+       // console.log("dsvsdvdfvsvdfsfv",rout)
+        var cooors = []
+
+        // for(i=0 ; i<rout.length ; i++){
+
+        //     let colorTags=["Turbo","Home","Mall","Public","Hotel"]
+        //     let colors=["blue","black","brown","red","#ddbc00"]
+        //     let DialogCharge=["chademo","css_sae","j-1772","supercharger","type2","wall"]
+
+        //     let long = rout[i].location.coordinates[0]
+        //     let lat = rout[i].location.coordinates[1]
+        //     let col = colors[colorTags.indexOf(rout[i].typeOfStation)]
+        //     let title = rout[i].name
+        //     let email = rout[i].email
+        //     let contact = rout[i].contactNo
+        //     let rating = rout[i].rating
+        //     let owner = rout[i].owner
+        //     let imgUri = rout[i].imageUrl.toString()
+        //     let imgPik = rout[i].slots
+        //     let img = [require("../../assets/images/chademo.png"),
+        //         require("../../assets/images/css_sae.png"),
+        //         require("../../assets/images/j-1772.png"),
+        //         require("../../assets/images/supercharger.png"),
+        //         require("../../assets/images/type2.png"),
+        //         require("../../assets/images/wall.png")]
+        //     let FinImag = []    
+            
+        //     for(j=0 ; j<imgPik.length;j++){
+
+        //         //console.log(imgPik[j].connector)
+        //         let z = DialogCharge.indexOf(imgPik[j].connector)
+        //     //    console.log(z)
+        //         FinImag.push(img[z])
+        //     }
+
+        //     cooors.push([long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating])   
+        // }
+
+
+        this.setState({myStateFinale:rout})
+
+        //this.setState({cords:cooors , enterRout:true})
+
+    })
+    .catch(e=>{
+       console.log("some errp ",e);
+    } )
   }
 
 
   renderAnno () {
+    //console.warn(imgPik)
       return (
         <Mapbox.PointAnnotation
         key='pointAnnotation'
@@ -424,34 +478,37 @@ class NearMeList extends Component {
       )
    
   }
-  
  
 
   render() {
 
     var cords = [];
 
-    let rout = this.state.route.data
-   // console.warn(rout)
+    let rout = this.state.myStateFinale
 
+    // console.warn("after   ",this.state.myStateFinale)
 
-    for(i=0 ; i<this.state.route.data.length ; i++){
+    for(i=0 ; i<rout.length ; i++){
        
+      let colors=["blue","black","brown","red","#ddbc00"]
+      let DialogCharge=["chademo","css_sae","j-1772","supercharger","type2","wall"]
+      let colorTags=["Turbo","Home","Mall","Public","Hotel"]
+
         let long = rout[i].location.coordinates[0]
         let lat = rout[i].location.coordinates[1]
-        let col = this.state.colors[this.state.colorTags.indexOf(rout[i].typeOfStation)]
+        let col = colors[colorTags.indexOf(rout[i].typeOfStation)]
         let title = rout[i].name
         let email = rout[i].email
         let contact = rout[i].contactNo
         let rating = rout[i].rating
         let owner = rout[i].owner
         let imgUri = rout[i].imageUrl
-        let imgPik = rout[i].charge
+        let imgPik = rout[i].slots
         let img = [require("../../assets/images/chademo.png"),
             require("../../assets/images/css_sae.png"),
-            require("../../assets/images/J-1772.png"),
-            require("../../assets/images/supercharge.png"),
-            require("../../assets/images/Type2.png"),
+            require("../../assets/images/j-1772.png"),
+            require("../../assets/images/supercharger.png"),
+            require("../../assets/images/type2.png"),
             require("../../assets/images/wall.png")]
         let FinImag = []
 
@@ -461,12 +518,18 @@ class NearMeList extends Component {
           FinImag.push(img[z])
         }
 
-        // const zoom = await this._map.getZoom();
-        // console.log(zoom)
-
         console.warn(img)
 
-        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating))
+        for(j=0 ; j<imgPik.length;j++){
+
+            //console.log(imgPik[j].connector)
+            let z = DialogCharge.indexOf(imgPik[j].connector)
+        //    console.log(z)
+            FinImag.push(img[z])
+        }
+
+
+        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating))                            
     }
 
 
@@ -482,9 +545,8 @@ class NearMeList extends Component {
                     <FontAwesome5 name={"map-marked-alt"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
                 </Button>
 
-                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:14}} 
-                        onPress={this.setState({BatDialog:true})}>
-                    <Text style={{fontSize:21}} > {"charge:"+this.state.battery+"%"} </Text>
+                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:14}} >
+                    <Text style={{fontSize:21}} > {"charge:20%"} </Text>
                     <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginTop:5,paddingLeft:5 , fontSize: 20, color:'black'}} />        
                 </Button>
 
@@ -508,23 +570,6 @@ class NearMeList extends Component {
         {cords}
         
         </Mapbox.MapView> 
-
- {/* {"Battery:"+ this.state.battery+" %"} */}
-
-
-
-        {/* <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",left:"50%",marginTop:301,marginLeft:205,zIndex:10}}>
-                <Fab
-                    onPress={() => {this.props.navigation.navigate('navigateRoute')}}
-                    active={this.state.active}
-                    direction="up"
-                    style={{ backgroundColor: '#5067FF'  }}
-                    position="bottomRight" 
-                >
-                    <FontAwesome5 name={"car-side"} brand style={{paddingLeft:5 , fontSize: 20, color:'white'}} />        
-
-            </Fab>
-        </View> */}
 
 
         <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:230,marginLeft:340,zIndex:10}}>
@@ -602,28 +647,6 @@ class NearMeList extends Component {
 
             </Dialog>
 
-            <Dialog
-
-                width={0.85}
-                visible={this.state.BatDialog}
-                rounded
-                actionsBordered>
-
-
-                <View style={{alignItems: "center"}}>
-                    <Text style={{fontSize:25}}>Enter Your Charge Of Battery</Text>
-                </View>
-
-                <Item rounded style={{marginLeft:25, marginRight:25 , marginTop:25}}>
-                    <Input placeholder='Enter the battery level in Percentage(%)' onChangeText={text => this.setState({battery:text})} placeholderTextColor="black" style={{paddingLeft:25 , color:'#ffffff'}} />
-                </Item>
-
-                <View style={{alignItems: "center", marginTop:15}}>
-                    <Button style={{paddingLeft:25,paddingRight:25,alignSelf:"center"}} onPress={this.setState({ BatDialog: false})} ><Text>Submit</Text></Button> 
-                </View>
-  
-            </Dialog>
-
 
         </View>
     );
@@ -661,4 +684,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NearMeList;
+export default NearMeMap;
