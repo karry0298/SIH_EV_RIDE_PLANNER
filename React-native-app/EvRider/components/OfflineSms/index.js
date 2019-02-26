@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {  Text,Platform } from 'react-native';
+import {  Text,Platform,StyleSheet } from 'react-native';
 import { Container, Header, View, Button, Icon, Fab } from 'native-base';
 import SendSMS from 'react-native-sms'
 import SmsAndroid  from 'react-native-get-sms-android';
@@ -83,10 +83,22 @@ class OfflineSms extends Component {
 
 
 }
+
+
+
+
+
+
+
+
+
+
   render() {
     const {showAlert} = this.state;
     return (
       <View style={{ flex: 1 }}>
+
+      <Text style={styles.headline}>Help</Text>
       <Fab
         active={this.state.active}
         direction="up"
@@ -120,6 +132,23 @@ class OfflineSms extends Component {
     </View>
     );
   }
+
+  
 }
+
+
+const styles = StyleSheet.create({
+  headline: {
+    textAlign: 'center', // <-- the magic
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginTop: 10,
+
+
+  
+  },
+
+});
+
 
 export default OfflineSms;
