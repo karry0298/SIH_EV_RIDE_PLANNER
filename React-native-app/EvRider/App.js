@@ -12,20 +12,21 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 import {Button, Item, Input, Icon } from 'native-base';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { createStackNavigator, createAppContainer,  createDrawerNavigator, createSwitchNavigator ,createBottomTabNavigator } from "react-navigation";
-import Login from './app/components/Login';
-import SignUpPage from './app/components/SignUp';
-import NearMeList from './app/components/NearMeList';
-import NearMeMap from './app/components/NearMeMap';
-import RoutePlanning from './app/components/RoutePlanning';
-import SideBar from './app/components/SideBar';
+import Login from './components/Login';
+import SignUpPage from './components/SignUp';
+import NearMeList from './components/NearMeList';
+import NearMeMap from './components/NearMeMap';
+import RoutePlanning from './components/RoutePlanning';
+import SideBar from './components/SideBar';
 
 
 
 
 const Mdn = createDrawerNavigator({
-  cam: {screen:NearMeList},
-  ram: {screen:NearMeMap},
-  rout:{screen:RoutePlanning}
+  rout:{screen:RoutePlanning},
+  nearmelist: {screen:NearMeList},
+  nearmeMap: {screen:NearMeMap},
+
 },
 {
   contentComponent: SideBar,
