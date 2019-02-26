@@ -26,11 +26,12 @@ export default class App extends Component{
       lat:124,
       lng:123
     }
+    this.abc = this.abc.bind(this)
   }
 
 
   abc(){
-    console.log([this.state.lat,this.state.lng])
+    console.log("location changed")
   }
 
   componentDidMount()
@@ -46,7 +47,7 @@ export default class App extends Component{
 
        console.log([latitude,longitude])    
 
-        {this.abc()}
+        this.abc()
     },
     (error) => alert(error.message),
     { enableHighAccuracy: true, maximumAge: 500 })
