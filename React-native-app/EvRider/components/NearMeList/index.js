@@ -4,7 +4,9 @@ import Mapbox from '@mapbox/react-native-mapbox-gl';
 import { Rating} from 'react-native-elements';
 import {Button,ListItem,List, Container, Header, Content, Card, CardItem, Body ,Left,Thumbnail, Item } from "native-base";
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import axios from 'axios';
 
+//http://192.168.2.13:2454/api/findStation
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
@@ -17,6 +19,7 @@ class NearMeList extends Component {
             latitude: 19.13566162451865,
             longitude: 72.86615863993508,
             DialogCard: [],
+            battery:60,
             dialogC:[2,3,4],
             DialogDist:20,
             Dialog:false,
@@ -398,6 +401,15 @@ class NearMeList extends Component {
       }
       
   render() {
+
+    // axios.post("http://192.168.2.13:2454/api/findStation")
+    //   .then(s=>{
+    //      console.log(s)
+    //   })
+    //   .catch(e=>{
+    //      console.log("some errp ");
+    //   } )
+     
     
     let rout = this.state.route.data
     var cords = []
@@ -453,20 +465,24 @@ class NearMeList extends Component {
 
 
         <View style={{flexDirection:"row"}}>
-            <Button style={{backgroundColor:"white",paddingLeft:32,paddingRight:44}}
-                    onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
-                <Text style={{fontSize:21}}> Map View </Text>
-                <FontAwesome5 name={"map-marked-alt"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
-            </Button>
+                <Button style={{backgroundColor:"white",paddingLeft:25,paddingRight:23}}
+                        onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
+                    <Text style={{fontSize:21}}>Map </Text>
+                    <FontAwesome5 name={"map-marked-alt"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                </Button>
 
-            <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:44,paddingRight:66}} 
-                    onPress={() => {this.props.navigation.navigate('nearmelist')}}>
-                <Text style={{fontSize:21}} > List View </Text>
-                <FontAwesome5 name={"list-ul"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
-            </Button>
+                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:14}} 
+                        onPress={() => {this.props.navigation.navigate('nearmelist')}}>
+                    <Text style={{fontSize:21}} > {"charge:"+this.state.battery+"%"} </Text>
+                    <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginTop:5,paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                </Button>
 
+                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:23,paddingRight:27}} 
+                        onPress={() => {this.props.navigation.navigate('nearmelist')}}>
+                    <Text style={{fontSize:21}} > List </Text>
+                    <FontAwesome5 name={"list-ul"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                </Button>
         </View>
-
 
             <ScrollView>
                {
@@ -535,7 +551,23 @@ class NearMeList extends Component {
                   ))
                }
             </ScrollView>
-         
+
+
+            <View style={{flexDirection:"row"}}>
+            <Button style={{backgroundColor:"white",paddingLeft:55,paddingRight:55}}
+                    onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
+                <Text style={{fontSize:21}}> Filters </Text>
+                <FontAwesome5 name={"filter"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+            </Button>
+
+            <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:60,paddingRight:75}} 
+                    onPress={() => {this.props.navigation.navigate('nearmelist')}}>
+                <Text style={{fontSize:21}} > Sort </Text>
+                <FontAwesome5 name={"exchange-alt"} brand style={{transform: [{ rotate: '90deg'}],paddingLeft:5 , fontSize: 20, color:'black'}} />        
+            </Button>
+
+</View>
+        
 
       </View>
     );
