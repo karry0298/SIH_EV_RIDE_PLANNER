@@ -16,6 +16,7 @@ end_lat=str(28.677697)
 
 
 import requests
+import json
 from math import radians, cos, sin, asin, sqrt
 #r = requests.get('http://0.0.0.0:5000/route/v1/driving/'+start_lon+','+start_lat+';'+end_lon+','+end_lat+'?alternatives=3&overview=false&steps=true')
 #route_data=r.json()
@@ -68,7 +69,10 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
     for i in range(0,num_steps):
         #this is for number of intersections
         num_intersections=len(route_json['legs'][0]['steps'][i]['intersections'])
-        
+        options_findStation={'lat':lat,'lon':lon,'options':['tesla supercharger','chademo'],'rad':1000}
+        findStationURL="http://192.168.2.13:2454/api/getStation"
+        nearMeStations= requests.post(findStationURL, data=(options_findStation)).json()['status']
+        print(nearMeStations)
         for j in range(0,num_intersections):
             offset=0#Have to put offset here
             #get lat and lon
@@ -83,14 +87,11 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
             # 3. Add temp values in final route_array and clear temp array
             route_array_temp.append(route_json['legs'][0]['steps'][i]['intersections'][j]['location'])
 
-            # import json
 
-            options_findStation={'lat':lat_new,'lon':lon_new,'options':['tesla supercharger','chademo'],'rad':1000}
-            findStationURL="http://192.168.2.13:2454/api/getStation"
-            nearMeStations= requests.post(findStationURL, data=(options_findStation)).json()['status']
-            print(nearMeStations)
+
+
             count=count+1
-            print(count)
+            # print(count)
             if(True):
                 range_left=range_car
                 last_charge_lat=lat_new
