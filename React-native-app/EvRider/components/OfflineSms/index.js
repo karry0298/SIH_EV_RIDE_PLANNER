@@ -50,7 +50,8 @@ class OfflineSms extends Component {
 
   // }
 
-  smsFunction() {
+  smsFunction(e,typeSMS) {
+    console.log(typeSMS)
     navigator.geolocation.getCurrentPosition(
       (position) => {
           // let latitude = JSON.stringify(position.coords.latitude);
@@ -62,7 +63,7 @@ class OfflineSms extends Component {
           // this.setState({lat:latitude,lon:longitude});
           // console.log(this.state.lat);
           SendSMS.send({
-            body: 'LAPYT id=7945&coords='+latitude+','+longitude+"&rad="+radius,
+            body: 'LAPYT type='+typeSMS+'&id=7945&coords='+latitude+','+longitude+"&rad="+radius,
             recipients: ['+919220592205'],
             successTypes: ['sent', 'queued'],
             allowAndroidSendWithoutReadPermission: true
@@ -98,7 +99,9 @@ class OfflineSms extends Component {
     return (
       <View style={{ flex: 1 }}>
 
-      <Text style={styles.headline}>Help</Text>
+      <Text style={styles.headline}>Help Section</Text>
+      <Text style={styles.content}>This is Help Section.The Help Button is present in bottom corner. Please keep your GPS on to use this functionality.{"\n"} Network charges as applicable</Text>
+      
       <Fab
         active={this.state.active}
         direction="up"
@@ -108,13 +111,13 @@ class OfflineSms extends Component {
          onPress={ () => this.setState({ active: !this.state.active })}
         >
         <Icon name="mail" />
-            <Button style={{ backgroundColor: '#34A34F' }}>
+            <Button onPress={(e) => this.smsFunction(e,'tow')} style={{ backgroundColor: '#34A34F' }}>
               <Icon type="FontAwesome"  name="truck" />
             </Button>
-            <Button style={{ backgroundColor: '#3B5998' }}>
+            <Button onPress={(e) => this.smsFunction(e,'batterydead')} style={{ backgroundColor: '#3B5998' }}>
               <Icon type="FontAwesome" name="battery-quarter" />
             </Button>
-            <Button disabled style={{ backgroundColor: '#DD5144' }}>
+            <Button onPress={(e) => this.smsFunction(e,'nearestCharing')} style={{ backgroundColor: '#DD5144' }}>
               <Icon type="FontAwesome" name="institution" />
             </Button>
       </Fab>
@@ -150,12 +153,14 @@ const styles = StyleSheet.create({
     textAlign: 'center', // <-- the magic
     fontWeight: 'bold',
     fontSize: 18,
-    marginTop: 10,
-
-
-  
+    marginTop: 10,  
   },
-
+  content: {
+    textAlign: 'center', // <-- the magic
+    fontWeight: '100',
+    fontSize: 18,
+    marginTop: 10,  
+  }
 });
 
 
