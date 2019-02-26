@@ -64,7 +64,7 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
     
     #total number of steps taken
     num_steps=len(route_json['legs'][0]['steps'])
-    
+    count=0
     for i in range(0,num_steps):
         #this is for number of intersections
         num_intersections=len(route_json['legs'][0]['steps'][i]['intersections'])
@@ -83,14 +83,15 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
             # 3. Add temp values in final route_array and clear temp array
             route_array_temp.append(route_json['legs'][0]['steps'][i]['intersections'][j]['location'])
 
-            import json
+            # import json
 
             options_findStation={'lat':lat_new,'lon':lon_new,'options':['tesla supercharger','chademo'],'rad':1000}
             findStationURL="http://192.168.2.13:2454/api/getStation"
-            nearMeStations = requests.post(findStationURL, data=json.dumps(options_findStation))
+            nearMeStations= requests.post(findStationURL, data=(options_findStation)).json()['status']
             print(nearMeStations)
-
-            if(nearMeStations):
+            count=count+1
+            print(count)
+            if(True):
                 range_left=range_car
                 last_charge_lat=lat_new
                 last_charge_lon=lon_new
@@ -108,7 +109,7 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
             #if no range left reroute path
             elif(range_left<=0):
                 
-                r = requests.get('http://0.0.0.0:5000/route/v1/driving/'+last_charge_lon+','+last_charge_lat+';'+end_lon+','+end_lat+'?alternatives=3&overview=false&steps=true')
+                #r = requests.get('http://0.0.0.0:5000/route/v1/driving/'+last_charge_lon+','+last_charge_lat+';'+end_lon+','+end_lat+'?alternatives=3&overview=false&steps=true')
                 route_data=r.json()
                 
                 num_routes=len(route_data['routes'])
@@ -127,7 +128,7 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
                 #no route is present ahead
                 if(route_present==0):
                     return None
-                
+    print(count)       
     return route_array
 
 
@@ -147,7 +148,7 @@ def plan_route(start_lon,start_lat,end_lon,end_lat,range_car):
     #routing array which will be sent
     route_arr=[]
     
-    for i in range(0,num_routes):
+    for i in range(0,1):
         route_arr.append(plan_route_oneway(route_data['routes'][i],start_lon,start_lat,end_lon,end_lat,range_car))
     return route_arr    
     
