@@ -31,10 +31,18 @@ const Mdn = createDrawerNavigator({
 },
 {
   contentComponent: SideBar,
-  contentOptions:{
-    activeTintColor:"red",
+  contentOptions:{activeTintColor:"red",}, 
+},
+{
+  defaultNavigationOptions: ({navigation}) => {
+    return {
+      headerRight:(
+        <FontAwesome5 name={"bars"} brand style={{paddingLeft:15 , fontSize: 30, color:'black'}}/>
+      )
+    };
   }
-})
+}
+)
 
 
 const TabNavigator = createBottomTabNavigator({

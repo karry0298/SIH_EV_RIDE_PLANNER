@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text,StyleSheet,Image,FlatList,TouchableOpacity} from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
-import {Button,List,Fab,Icon} from 'native-base';
+import {Button,Item,Input,List,Fab,Icon} from 'native-base';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
 import { Rating} from 'react-native-elements';
@@ -22,6 +22,7 @@ class NearMeList extends Component {
     this.state = {
         latitude: 19.13566162451865,
         longitude: 72.86615863993508,
+        BatDialog: false,
         Dialog:false,
         DialogTitle:"abcTitle",
         dialogC:[2,3,4],
@@ -34,7 +35,6 @@ class NearMeList extends Component {
         colors:["blue","black","brown","red","#ddbc00"],
         prevLatLng: {},
         battery:60,
-        coordinate:{latitude: 19.26196225,longitude: 72.86661427},
         route:{
           "data": [
               {
@@ -403,9 +403,12 @@ class NearMeList extends Component {
    
   }
 
+  shouldComponentUpdate() {
+    return false
+  }
+
 
   renderAnno () {
-    //console.warn(imgPik)
       return (
         <Mapbox.PointAnnotation
         key='pointAnnotation'
@@ -422,15 +425,6 @@ class NearMeList extends Component {
    
   }
   
-//   async zoomMap() {
-//     const zoom = await this._map.getZoom();
-//     console.warn(zoom) 
-// }
-
-
-        // const zoom = await this._map.getZoom();
-        // console.log(zoom)
-
  
 
   render() {
@@ -489,7 +483,7 @@ class NearMeList extends Component {
                 </Button>
 
                 <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:14}} 
-                        onPress={() => {this.props.navigation.navigate('nearmelist')}}>
+                        onPress={this.setState({BatDialog:true})}>
                     <Text style={{fontSize:21}} > {"charge:"+this.state.battery+"%"} </Text>
                     <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginTop:5,paddingLeft:5 , fontSize: 20, color:'black'}} />        
                 </Button>
@@ -606,6 +600,28 @@ class NearMeList extends Component {
                 </Button>
             </View>
 
+            </Dialog>
+
+            <Dialog
+
+                width={0.85}
+                visible={this.state.BatDialog}
+                rounded
+                actionsBordered>
+
+
+                <View style={{alignItems: "center"}}>
+                    <Text style={{fontSize:25}}>Enter Your Charge Of Battery</Text>
+                </View>
+
+                <Item rounded style={{marginLeft:25, marginRight:25 , marginTop:25}}>
+                    <Input placeholder='Enter the battery level in Percentage(%)' onChangeText={text => this.setState({battery:text})} placeholderTextColor="black" style={{paddingLeft:25 , color:'#ffffff'}} />
+                </Item>
+
+                <View style={{alignItems: "center", marginTop:15}}>
+                    <Button style={{paddingLeft:25,paddingRight:25,alignSelf:"center"}} onPress={this.setState({ BatDialog: false})} ><Text>Submit</Text></Button> 
+                </View>
+  
             </Dialog>
 
 
