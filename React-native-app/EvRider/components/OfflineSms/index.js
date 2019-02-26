@@ -105,10 +105,18 @@ class OfflineSms extends Component {
         containerStyle={{ }}
         style={{ backgroundColor: '#5067FF' }}
         position="bottomRight" 
-         onPress={ this.smsFunction}
+         onPress={ () => this.setState({ active: !this.state.active })}
         >
         <Icon name="mail" />
-
+            <Button style={{ backgroundColor: '#34A34F' }}>
+              <Icon type="FontAwesome"  name="truck" />
+            </Button>
+            <Button style={{ backgroundColor: '#3B5998' }}>
+              <Icon type="FontAwesome" name="battery-quarter" />
+            </Button>
+            <Button disabled style={{ backgroundColor: '#DD5144' }}>
+              <Icon type="FontAwesome" name="institution" />
+            </Button>
       </Fab>
       <AwesomeAlert
           show={showAlert}
