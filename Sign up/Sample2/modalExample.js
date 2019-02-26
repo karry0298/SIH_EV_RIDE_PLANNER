@@ -21,23 +21,23 @@ export default class Mod extends Component {
     
     componentDidMount(){
     
-      axios.get("http://192.168.1.104:2454/users/cars")
-      .then(d=>{
-        // console.log("DATA ",d);
-        this.setState({carData:d})
-        i=0;
-        // console.log("car data    ",this.state.carData);  //data[0] car 1
-        const car1=this.state.carData.data[0];
-        car1.models.forEach((c)=>{
-          this.state.car[i]=c;
-          i+=1;
-          console.log("one ", c);
-        })
-        console.log("car 1 details ",this.state.car)
-      })
-      .catch(e=>{
-        console.log("fs ",e );
-      })
+      // axios.get("http://192.168.1.104:2454/users/cars")
+      // .then(d=>{
+      //   // console.log("DATA ",d);
+      //   this.setState({carData:d})
+      //   i=0;
+      //   // console.log("car data    ",this.state.carData);  //data[0] car 1
+      //   const car1=this.state.carData.data[0];
+      //   car1.models.forEach((c)=>{
+      //     this.state.car[i]=c;
+      //     i+=1;
+      //     console.log("one ", c);
+      //   })
+      //   console.log("car 1 details ",this.state.car)
+      // })
+      // .catch(e=>{
+      //   console.log("fs ",e );
+      // })
     
     }
     renderList(){

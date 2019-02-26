@@ -1,11 +1,39 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet,NetInfo } from 'react-native';
 import { Container, Header, Tab, Tabs, TabHeading, Icon, Text } from 'native-base';
 import SignIn from './SignIn';
 import Register from './Register';
 import Mod from './modalExample';
+import Offline from './components/Offline'
 export default class TabsAdvancedExample extends Component {
-  render() {
+
+constructor(props){
+  super(props);
+  this.state={
+    connectionStatus:true
+  }
+}
+  
+handleConnectivityChange=(connection)=>{
+  var connectionStatus=connection;
+  console.log("Connecion status",connectionStatus);
+  this.setState({connectionStatus})
+}
+componentDidMount(){
+  NetInfo.isConnected.fetch().then((connection)=>{
+    var c=connection?'online':'offline';
+    console.log(c);
+  })
+NetInfo.isConnected.addEventListener('connectionChange',this.handleConnectivityChange)
+
+}
+componentWillUnmount(){
+  NetInfo.removeEventListener('connectionChange',this.handleConnectivityChange);
+  console.log("removed");
+}
+
+render() {
+  if(this.state.connectionStatus){
     return (
       <Container>
         <Header style={{ height:0}} hasTabs/>
@@ -23,6 +51,13 @@ export default class TabsAdvancedExample extends Component {
         </Tabs>
       </Container>
     );
+  }
+  else{
+    return(
+      <Offline/>
+    )
+  }
+
   }
 }
 
