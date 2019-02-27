@@ -401,39 +401,43 @@ class NearMeList extends Component {
       }
 
 
-    componentDidMount(){
-        axios.post("http://192.168.2.12:5005/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000")
-        .then(s=>{
-            
-            console.log(s.data[0])
-            // this.setState({finCoord:s.data[0]})
-        })
-        .catch(e=>{
-           console.log("some errp ",e);
-        } )
-    }
+    // componentDidMount(){
+
+    // }
 
 
     //  this.props.navigation.navigate('nearmerout',item)
 
     routeFun(item){
-        console.warn("Entered")
+        console.log("Entered")
 
-        let locVar =[]
-        var senLoc = []
+        var cooors = []
+      
+        axios.post("http://192.168.2.12:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000")
+        .then(s=>{
+            
+            console.log(s.data[0])
+            cooors = s.data[0]
+            // this.setState({finCoord:s.data[0]})
+        })
+        .catch(e=>{
+           console.log("some errp ",e);
+        } )
 
+        console.log("ababa",cooors)
+        console.log("Exit")
     }
       
   render() {
 
         
-    let rout = this.state.route.data
+    // let rout = this.state.route.data
    // console.log("ba",this.state.finCoord)
 
     const  {navigation}  = this.props;
     //console.log("abcbaskj",navigation.getParam("abc"))
 
-    rout = navigation.getParam("abc")
+    let rout = navigation.getParam("abc")
 
     var cords = []
 
@@ -523,7 +527,7 @@ class NearMeList extends Component {
                      <View key = {index} >
                         {/* {console.warn("akaka    ",item.charge)} */}
                         <ListItem button style={{borderBottomWidth: 0 , paddingTop:0,paddingBottom:0}} 
-                                    onPress={() => this.routeFun(item)}>
+                                    onPress={() => this.props.navigation.navigate('nearmerout',item)}>
                             <Content padder>
                                 <Card>
                                 
