@@ -44,6 +44,7 @@ class NearMeMap extends Component {
         <Mapbox.PointAnnotation
           key={k}
           id={k}
+    
           coordinate={[a,b]}>
                 
               {/* <FontAwesome5 name={"charging-station"} brand style={{paddingLeft:15 , fontSize: 25, color:colr}}  
