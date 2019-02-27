@@ -32,6 +32,28 @@ export default class RouteNearMe extends Component {
             }
           }
         ]
+      },
+      rut:{
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+              "type": "LineString",
+              "coordinates": [
+                [
+                  62.86661427,
+                  32.26196225
+                ],
+                [
+                  60.86661427,
+                  39.26196225
+                ]
+              ]
+            }
+          }
+        ]
       }
     }  
   }
@@ -72,7 +94,7 @@ export default class RouteNearMe extends Component {
         // let cooors = s.data[0]
          let coooords = []
         
-        for (i = 1 ; i < s.data[0].length ; i++ ){
+        for (i = 0 ; i < s.data[0].length ; i++ ){
             coooords.push([parseFloat(s.data[0][i].lon),parseFloat( s.data[0][i].lat )])
         }
 
@@ -180,6 +202,15 @@ export default class RouteNearMe extends Component {
             <Mapbox.ShapeSource id='line1' shape={this.state.route} >
             {/* {console.log("ananananan",this.state.route.features[0].geometry.coordinates)}   */}
               <Mapbox.LineLayer id='linelayer1' style={{lineColor:'red'}}>
+    
+              </Mapbox.LineLayer> 
+              
+            </Mapbox.ShapeSource>
+
+
+            <Mapbox.ShapeSource id='line2' shape={this.state.rut} >
+            {/* {console.log("ananananan",this.state.route.features[0].geometry.coordinates)}   */}
+              <Mapbox.LineLayer id='linelayer2' style={{lineColor:'red'}}>
     
               </Mapbox.LineLayer> 
               
