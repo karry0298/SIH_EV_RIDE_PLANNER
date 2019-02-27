@@ -25,8 +25,8 @@ class NearMeList extends Component {
             Dialog:false,
             DialogTitle:"abcTitle",
             dialogC:[2,3,4],
-            DialogCharge:["chademo","css_sae","j-1772","supercharger","type2","wall"],
             DialogRating: 4,
+            finCoord:[],
             DialogMail:"abc@abc",
             DialogUri:'https://dqbasmyouzti2.cloudfront.net/assets/content/cache/made/content/images/articles/EV_ChargingII_XL_721_420_80_s_c1.jpg',
             DialogContact: 999233233,
@@ -399,19 +399,42 @@ class NearMeList extends Component {
 
         return d;
       }
+
+
+    componentDidMount(){
+        axios.post("http://192.168.2.12:5005/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000")
+        .then(s=>{
+            
+            console.log(s.data[0])
+            this.setState({finCoord:s.data[0]})
+        })
+        .catch(e=>{
+           console.log("some errp ",e);
+        } )
+    }
+
+
+    //  this.props.navigation.navigate('nearmerout',item)
+
+    routeFun(item){
+        console.warn("Entered")
+
+        let locVar =[]
+        var senLoc = []
+
+    }
       
   render() {
 
-    // axios.post("http://192.168.2.13:2454/api/findStation")
-    //   .then(s=>{
-    //      console.log(s)
-    //   })
-    //   .catch(e=>{
-    //      console.log("some errp ");
-    //   } )
-     
-    
+        
     let rout = this.state.route.data
+   // console.log("ba",this.state.finCoord)
+
+    const  {navigation}  = this.props;
+    console.log("abcbaskj",navigation.getParam("abc"))
+
+
+
     var cords = []
  
      for(i=0 ; i<this.state.route.data.length ; i++){
@@ -433,17 +456,15 @@ class NearMeList extends Component {
          require("../../assets/images/type2.png"),
          require("../../assets/images/wall.png")]
          let FinImag = []
- 
-        //  ["Turbo","Home","Mall","Public","Hotel"]
-        //  ["bolt","house-damage","city","street-view","hotel"]
+         let DialogCharge = ["chademo","css_sae","j-1772","supercharger","type2","wall"]
+
+
 
          for(j=0 ; j<imgPik.length;j++){
-            let z = this.state.DialogCharge.indexOf(imgPik[j])
+            let z = DialogCharge.indexOf(imgPik[j])
             //console.warn()
             FinImag.push(img[z])
           }
-
-          //console.warn(icoList[this.state.colorTags.indexOf(rout[i].typeOfStation)])
 
          let dist = Math.round(this.getDistanceFromLatLonInKm(this.state.latitude,this.state.longitude,lat,long))
          let dict = {uLongitude:this.state.longitude,uLatitude:this.state.latitude,pLongitude:long,pLatitude:lat, 
@@ -491,7 +512,7 @@ class NearMeList extends Component {
                      <View key = {index} >
                         {/* {console.warn("akaka    ",item.charge)} */}
                         <ListItem button style={{borderBottomWidth: 0 , paddingTop:0,paddingBottom:0}} 
-                                    onPress={() => this.props.navigation.navigate('nearmerout',item)}>
+                                    onPress={() => this.routeFun(item)}>
                             <Content padder>
                                 <Card>
                                 

@@ -7,11 +7,17 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
+//http://192.168.2.12:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=300000
 
 export default class RouteNearMe extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      
+    }  
   }
+
 
 
 
@@ -29,7 +35,6 @@ export default class RouteNearMe extends Component {
         </Mapbox.PointAnnotation>
       )  
   }
-  
   
 
   render() {
@@ -60,10 +65,6 @@ export default class RouteNearMe extends Component {
               [
                 72.86661427,
                 19.26196225
-              ],
-              [
-                73.86661427,
-                20.26196225                
               ]
             ]
           }
@@ -71,6 +72,8 @@ export default class RouteNearMe extends Component {
       ]
     }
 
+
+  
     route.features[0].geometry.coordinates.push([pLongitude,pLatitude])
    // console.warn([uLat,uLong,pLatitude,pLongitude,name,distance,mail,contact,rate,img,charge,type])
 
