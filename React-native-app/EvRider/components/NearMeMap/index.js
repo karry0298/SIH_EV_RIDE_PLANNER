@@ -61,7 +61,7 @@ class NearMeMap extends Component {
 
   componentDidMount(){
 
-    console.log("mount entered")
+  //  console.log("mount entered")
 
     axios.get("http://192.168.2.10:2454/api/getAllStation")
     .then(s=>{
@@ -76,6 +76,8 @@ class NearMeMap extends Component {
     .catch(e=>{
        console.log("some errp ",e);
     } )
+
+
   }
 
 
@@ -130,12 +132,6 @@ class NearMeMap extends Component {
             require("../../assets/images/wall.png")]
         let FinImag = []
 
-        for(j=0 ; j<imgPik.length;j++){
-          let z = this.state.DialogCharge.indexOf(imgPik[j])
-          //console.warn()
-          FinImag.push(img[z])
-        }
-
       //  console.warn(img)
 
         for(j=0 ; j<imgPik.length;j++){
@@ -146,6 +142,7 @@ class NearMeMap extends Component {
             FinImag.push(img[z])
         }
 
+     //   console.warn(FinImag)
 
         cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating))                            
     }
@@ -181,7 +178,6 @@ class NearMeMap extends Component {
             zoomLevel={12}
             centerCoordinate={[72.872334,19.132236]}
             style={[styles.container,{zIndex:-1}]}
-            zoomEnabled = {false}
             >
 
         {this.renderAnno()}
