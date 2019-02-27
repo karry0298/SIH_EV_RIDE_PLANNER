@@ -28,10 +28,6 @@ export default class RouteNearMe extends Component {
             "geometry": {
               "type": "LineString",
               "coordinates": [
-                [
-                  72.86661427,
-                  19.26196225
-                ]
               ]
             }
           }
@@ -64,28 +60,36 @@ export default class RouteNearMe extends Component {
     const uLat = navigation.getParam("uLatitude")
     const pLat = navigation.getParam("pLatitude")
     const pLong = navigation.getParam("pLongitude")
+
+    //http://192.168.2.12:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
+
+
  
-    axios.post("http://192.168.2.12:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000")
+    axios.post("http://192.168.2.12:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000")
     .then(s=>{
         
-       // console.log(s.data[0])
-        let cooors = s.data[0]
-        let coooords = []
+        console.log("ahhhhhhhhhhhhh",[s.data[0][0].lon , s.data[0][0].lat])
+        // let cooors = s.data[0]
+         let coooords = []
         
-        for (i = 0 ; i < s.data[0].locations.length ; i++ ){
-            coooords.push([s.data[0].locations[i].lon , s.data[0].locations[i].lat])
+        for (i = 1 ; i < s.data[0].length ; i++ ){
+            coooords.push([parseFloat(s.data[0][i].lon),parseFloat( s.data[0][i].lat )])
         }
 
-        let abc =[
-          [
-            72.86661427,
-            19.26196225
-          ],
-          [
-            70.86661427,
-            23.26196225
-          ]
-        ]
+        //console.log("length" , s.data[0].length)
+
+        // let abc =[
+        //   [
+        //     72.86661427,
+        //     19.26196225
+        //   ],
+        //   [
+        //     70.86661427,
+        //     23.26196225
+        //   ]
+        // ]
+
+        console.log("val",coooords)
     
         let rut = {
           "type": "FeatureCollection",
@@ -108,14 +112,11 @@ export default class RouteNearMe extends Component {
                         dLat:pLat,
                         route:rut})
 
-
     })
     .catch(e=>{
        console.log("some errp ",e);
     } )
 
- 
-    console.log("ababababbabababab", uLong)
   }
 
 
