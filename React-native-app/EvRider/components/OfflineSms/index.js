@@ -12,7 +12,7 @@ class OfflineSms extends Component {
 
     this.smsFunction=this.smsFunction.bind(this);
     this.state = {
-      active: 'false',
+      active: false,
       showAlert: false,
       lat:null,
       lon:null,
@@ -50,7 +50,7 @@ class OfflineSms extends Component {
 
   // }
 
-  smsFunction() {
+  smsFunction(typeSms,e) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
           // let latitude = JSON.stringify(position.coords.latitude);
@@ -62,7 +62,7 @@ class OfflineSms extends Component {
           // this.setState({lat:latitude,lon:longitude});
           // console.log(this.state.lat);
           SendSMS.send({
-            body: 'LAPYT id=7945&coords='+latitude+','+longitude+"&rad="+radius,
+            body: 'LAPYT type='+typeSms+'&id=7945&coords='+latitude+','+longitude+"&rad="+radius,
             recipients: ['+919220592205'],
             successTypes: ['sent', 'queued'],
             allowAndroidSendWithoutReadPermission: true
@@ -108,13 +108,13 @@ class OfflineSms extends Component {
          onPress={ () => this.setState({ active: !this.state.active })}
         >
         <Icon name="mail" />
-            <Button style={{ backgroundColor: '#34A34F' }}>
+            <Button onPress={(e) => this.smsFunction("tow", e)} style={{ backgroundColor: '#34A34F' }}>
               <Icon type="FontAwesome"  name="truck" />
             </Button>
-            <Button style={{ backgroundColor: '#3B5998' }}>
+            <Button onPress={(e) => this.smsFunction("batteryDead", e)} style={{ backgroundColor: '#3B5998' }}>
               <Icon type="FontAwesome" name="battery-quarter" />
             </Button>
-            <Button disabled style={{ backgroundColor: '#DD5144' }}>
+            <Button onPress={(e) => this.smsFunction("nearbyCharging", e)} style={{ backgroundColor: '#DD5144' }}>
               <Icon type="FontAwesome" name="institution" />
             </Button>
       </Fab>
