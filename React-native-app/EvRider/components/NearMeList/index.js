@@ -406,7 +406,7 @@ class NearMeList extends Component {
         .then(s=>{
             
             console.log(s.data[0])
-            this.setState({finCoord:s.data[0]})
+            // this.setState({finCoord:s.data[0]})
         })
         .catch(e=>{
            console.log("some errp ",e);
@@ -431,48 +431,59 @@ class NearMeList extends Component {
    // console.log("ba",this.state.finCoord)
 
     const  {navigation}  = this.props;
-    console.log("abcbaskj",navigation.getParam("abc"))
+    //console.log("abcbaskj",navigation.getParam("abc"))
 
-
+    rout = navigation.getParam("abc")
 
     var cords = []
- 
-     for(i=0 ; i<this.state.route.data.length ; i++){
-        
-         let long = rout[i].location.coordinates[0]
-         let lat = rout[i].location.coordinates[1]
-         let col = this.state.colors[this.state.colorTags.indexOf(rout[i].typeOfStation)]
-         let title = rout[i].name
-         let email = rout[i].email
-         let contact = rout[i].contactNo
-         let rating = rout[i].rating
-         let icoList = ["bolt","house-damage","city","street-view","hotel"]
-         let imgUri = rout[i].imageUrl
-         let imgPik = rout[i].charge
-         let img = [require("../../assets/images/chademo.png"),
-         require("../../assets/images/css_sae.png"),
-         require("../../assets/images/j-1772.png"),
-         require("../../assets/images/supercharger.png"),
-         require("../../assets/images/type2.png"),
-         require("../../assets/images/wall.png")]
-         let FinImag = []
-         let DialogCharge = ["chademo","css_sae","j-1772","supercharger","type2","wall"]
 
 
+    for(i=0 ; i<rout.length ; i++){
+       
+        let colors=["blue","black","brown","red","#ddbc00"]
+        let DialogCharge=["chademo","css_sae","j-1772","supercharger","type2","wall"]
+        let colorTags=["Turbo","Home","Mall","Public","Hotel"]
+  
+          let long = rout[i].location.coordinates[0]
+          let lat = rout[i].location.coordinates[1]
+          let col = colors[colorTags.indexOf(rout[i].typeOfStation)]
+          let title = rout[i].name
+          let email = rout[i].email
+          let contact = rout[i].contactNo
+          let rating = rout[i].rating
+          let owner = rout[i].owner
+          let imgUri = rout[i].imageUrl
+          let imgPk = rout[i].slots
+          let icoList = ["bolt","house-damage","city","street-view","hotel"]
+          let img = [require("../../assets/images/chademo.png"),
+              require("../../assets/images/css_sae.png"),
+              require("../../assets/images/j-1772.png"),
+              require("../../assets/images/supercharger.png"),
+              require("../../assets/images/type2.png"),
+              require("../../assets/images/wall.png")]
+          let FinImag = []
+    
+       // console.warn(rout[i].slots[0].connector)
 
-         for(j=0 ; j<imgPik.length;j++){
-            let z = DialogCharge.indexOf(imgPik[j])
-            //console.warn()
+       // console.warn("main FinImg",FinImag)  
+  
+        for(j=0 ; j<imgPk.length;j++){
+            let z = DialogCharge.indexOf(imgPk[j].connector)
+            //console.warn(i , imgPk[j].connector)
             FinImag.push(img[z])
           }
+
+       console.warn("main FinImg",FinImag)  
 
          let dist = Math.round(this.getDistanceFromLatLonInKm(this.state.latitude,this.state.longitude,lat,long))
          let dict = {uLongitude:this.state.longitude,uLatitude:this.state.latitude,pLongitude:long,pLatitude:lat, 
             name:title , distance : dist , mail:email , contact , rate:rating ,img:imgUri,charge:FinImag,
             type:icoList[this.state.colorTags.indexOf(rout[i].typeOfStation)],typeName:rout[i].typeOfStation}
 
-         cords.push(dict)     
-     }
+         cords.push(dict)                           
+      }
+ 
+
 
      cords.sort(function(a, b){
         return a.distance-b.distance
@@ -548,13 +559,13 @@ class NearMeList extends Component {
 
                                     <View style={{marginTop:10}}>
                                          <FlatList 
-                                            numColumns={3}
+                                            numColumns={4}
                                             data = {item.charge}
                                             
                                             renderItem={i => {
-                                                //console.warn("baka    ",i.item) 
+                                               // console.warn("Baka Entered") 
                                                 return (
-                                                    <View style={{marginLeft:10}}><Image style={{width:65,height:65,margin:10,marginRight:40}} source={i.item} ></Image></View>
+                                                    <View style={{marginLeft:10}}><Image style={{width:45,height:45,margin:10}} source={i.item} ></Image></View>
                                                 )}}
                                         >
                                         </FlatList>
