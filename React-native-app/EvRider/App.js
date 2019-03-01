@@ -16,24 +16,33 @@ import Login from './components/Login';
 import SignUpPage from './components/SignUp';
 import NearMeList from './components/NearMeList';
 import NearMeMap from './components/NearMeMap';
-import RoutePlanning from './components/RoutePlanning';
+import OfflineSms from './components/OfflineSms';
 import SideBar from './components/SideBar';
-
-
-
+import MyFavourite from './components/MyFavourite';
+import NavigateRoute from './components/NavigateRoute';
+import RouteNearMe from './components/RouteNearMe';
+ 
 
 const Mdn = createDrawerNavigator({
-  rout:{screen:RoutePlanning},
+  nearmeMap: {screen:NearMeMap},  
   nearmelist: {screen:NearMeList},
-  nearmeMap: {screen:NearMeMap},
-
+  nearmerout:{screen:RouteNearMe}
+  // navigateRoute:{screen:NavigateRoute}
 },
 {
   contentComponent: SideBar,
-  contentOptions:{
-    activeTintColor:"red",
+  contentOptions:{activeTintColor:"red",}, 
+},
+{
+  defaultNavigationOptions: ({navigation}) => {
+    return {
+      headerRight:(
+        <FontAwesome5 name={"bars"} brand style={{paddingLeft:15 , fontSize: 30, color:'black'}}/>
+      )
+    };
   }
-})
+}
+)
 
 
 const TabNavigator = createBottomTabNavigator({
@@ -42,14 +51,18 @@ const TabNavigator = createBottomTabNavigator({
 });
 
 const switchNav = createSwitchNavigator({
-  login: { screen: Login },
-  signup: { screen: SignUpPage },
-});
+
+  rout:{screen:OfflineSms},
+},
+{ headerMode: 'screen' });
 
 const AppNavigator = createStackNavigator({
-
+  login: { screen: Login }, 
+  signup: { screen: SignUpPage },
   main:switchNav,
   profile: Mdn,
+  navigateRoute:{screen:NavigateRoute}
+
 },
 {
   defaultNavigationOptions: ({navigation}) => {
