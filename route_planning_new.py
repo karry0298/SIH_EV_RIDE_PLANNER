@@ -39,7 +39,7 @@ def haversine(lon1, lat1, lon2, lat2):
     a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
     c = 2 * asin(sqrt(a)) 
     r = 6371 # Radius of earth in kilometers. Use 3956 for miles
-    return c * r
+    return c * r *1000
 
 
 # In[16]:
@@ -75,10 +75,10 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
     routes={'locations':route_array}
     # routes = { 'locations' : [ { 'lat' : 19 , 'lon' : 72 } , { 'lat' : 19 , 'lon' : 71 } ] }
     # print(routes)
-    findStationURL="http://192.168.43.141:2454/api/getStation"
+    findStationURL="http://192.168.43.78:2454/api/getStation"
     headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
     nearMeStations= requests.post(findStationURL, data=json.dumps(routes), headers=headers).json()['response']
-    print((nearMeStations))
+    #print((nearMeStations))
     last_charge_lat=lat
     last_charge_lon=lon
     prev_lat=lat
@@ -86,7 +86,7 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
     final_route_array=[]
     distance=0
     for i in range(0,len(nearMeStations)):
-        final_route_array.append({ 'lat' : float(prev_lat) , 'lon' : float(prev_lon) } )
+        final_route_array.append({ 'lat' : prev_lat , 'lon' : prev_lon } )
         if(nearMeStations[i]):
             distance=0
             last_charge_lat=route_array[i]['lat']
@@ -95,20 +95,28 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
             distance=distance+haversine(float(prev_lon),float(prev_lat),float(route_array[i]['lon']),float(route_array[i]['lat']))
             
         if(distance>=range_car):
-            r = requests.get('http://0.0.0.0:5000/route/v1/driving/'+last_charge_lon+','+last_charge_lat+';'+end_lon+','+end_lat+'?alternatives=3&overview=false&steps=true')
+            if(last_charge_lat==lat and last_charge_lon==lon):
+                return []
+            start_lon=str(last_charge_lon)
+            start_lat=str(last_charge_lon)
+            end_lon=str(end_lon)
+            end_lat=str(end_lat)
+            r = requests.get('http://0.0.0.0:5000/route/v1/driving/'+start_lon+','+start_lat+';'+end_lon+','+end_lat+'?alternatives=3&overview=false&steps=true')
             route_data=r.json()
             num_routes=len(route_data['routes'])
             route_present=0
                 
             for i in range(0,num_routes):
-                route=plan_route_oneway(route_data['routes'][i],prev_lon,prev_lat,end_lon,end_lat,range_car)
+                
+                route=plan_route_oneway(route_data['routes'][i],start_lon,start_lat,end_lon,end_lat,range_car)
                     
                 #since route array is not null it will return some route append it to original route and send ahead
-                if(route!=None):
+                print(len(route))
+                if(len(route)!=0):
                     route_present=1
                     final_route_array=final_route_array+route
                     return final_route_array
-                return None 
+                return [] 
         prev_lat=route_array[i]['lat']
         prev_lon=route_array[i]['lon']    
 
@@ -118,12 +126,13 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
 # In[18]:
 
 
+
 def plan_route(start_lon,start_lat,end_lon,end_lat,range_car):
     #start_lon,start_lat,end_lon,end_lat
-    # start_lon=str(72.831353)
-    # start_lat=str(18.968835)
-    # end_lon=str(77.166284)
-    # end_lat=str(28.677697)
+    start_lon=str(start_lon)
+    start_lat=str(start_lat)
+    end_lon=str(end_lon)
+    end_lat=str(end_lat)
     r = requests.get('http://0.0.0.0:5000/route/v1/driving/'+start_lon+','+start_lat+';'+end_lon+','+end_lat+'?alternatives=3&overview=false&steps=true')
     route_data=r.json()
     #number of routes
