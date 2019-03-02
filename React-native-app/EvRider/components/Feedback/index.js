@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, View,Text,Slider} from 'react-native';
-
+import {Platform, StyleSheet, View,Slider, Text } from 'react-native';
+import { Container, Content, Footer,Button } from 'native-base';
+import axios from 'axios'
+import { IP } from '../../utils/constants'
+// import nb from 'native-base';
 
 
 
@@ -9,14 +12,46 @@ export default class App extends Component{
     super(props)
     this.state = { rating1: 0,
                    rating2:0,
-                  rating3:0 }
-   } 
-   getVal(val){
-   console.warn(val);
-   }    
+                  rating3:0,
+                  stationId : '5c7a7973ed66b6234ee83227'
+                 }
+                
+    this.handleSubmit = this.handleSubmit.bind(this);
+   }
+   
+
+   async handleSubmit() {
+       var value = {
+           women : this.state.rating1,
+           userFriendly : this.state.rating2,
+           chargingExp : this.state.rating3,
+           id : this.state.stationId
+       }
+
+       console.log(value, "handling")
+
+    //    await axios.post(IP + '/api/uploadRecord', {
+    //        ...data
+    //    }).then(res => {
+    //        console.log(res.data)
+    //    }).catch(err => {
+    //        console.log("Error", err)
+    //    })
+
+
+
+
+
+   }
+   
   render() {
     return (
-      <View style={styles.container}>
+
+      <Container>
+
+        <Content>
+
+        <View style={styles.container}>
      <Text style={{fontSize:40, color:'black',textAlign:'center',padding:30,textDecorationLine:'underline',}}>Feedback Form</Text>
      
       <View style={{padding:30 }}>
@@ -31,7 +66,7 @@ export default class App extends Component{
 
          value={this.state.rating1}
          onValueChange={val => this.setState({ rating1: val })}
-         onSlidingComplete={ val => this.getVal(val)} />
+         />
          <Text style={styles.welcome}>
           {this.state.rating1}
         </Text>     
@@ -46,7 +81,7 @@ export default class App extends Component{
        
          value={this.state.rating2}
          onValueChange={val => this.setState({ rating2: val })}
-         onSlidingComplete={ val => this.getVal(val)} />
+          />
          <Text style={styles.welcome}>
           {this.state.rating2}
         </Text>         
@@ -61,12 +96,24 @@ export default class App extends Component{
     
          value={this.state.rating3}
          onValueChange={val => this.setState({ rating3: val })}
-         onSlidingComplete={ val => this.getVal(val)} />
+         />
          <Text style={styles.welcome}>
           {this.state.rating3}
         </Text>         
       </View>
      </View> 
+
+        </Content>
+
+    <Footer>
+        
+        <Button full onPress={ () => this.handleSubmit() } ><Text style={styles.text} > Submit </Text></Button>
+
+    </Footer>
+
+      </Container> 
+
+
     );
   }
 }
@@ -84,4 +131,8 @@ const styles = StyleSheet.create({
     margin: 10,
     
   },
+  text : {
+    fontSize : 25,
+    fontWeight: 'bold'
+  }
 });
