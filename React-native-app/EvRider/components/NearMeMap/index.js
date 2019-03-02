@@ -38,13 +38,18 @@ class NearMeMap extends Component {
         DialogIcon:'public',
         prevLatLng: {},
         coordinate:{latitude: 19.26196225,longitude: 72.86661427},
+
         prevLoc : {
           lat : '',
           lon : '',
           time : ''
         },
         started : false,
-        distanceTravelled : 0
+        distanceTravelled : 0,
+        DialogBattery:false,
+        valueBattery:55,
+        borderColor:'orange',
+        statusMessage:'charging'
     };
 
     this.tracker = this.tracker.bind(this);
@@ -181,7 +186,19 @@ class NearMeMap extends Component {
        console.log("some errp ",e);
     } )
 
+if(this.state.valueBattery>75)
+{
+  this.setState({backgroundColor:'green',statusMessage:"Idle"})
+  
 
+}
+else if(this.state.valueBattery>20)
+{
+  this.setState({backgroundColor:'#f2cd3c',statusMessage:"Charging"})
+}
+else{
+  this.setState({backgroundColor:'#d10808',statusMessage:"Needs charging"})
+}
 
 
 
@@ -421,6 +438,49 @@ class NearMeMap extends Component {
 
             </Dialog>
 
+            <Dialog
+                onDismiss={() => {
+                this.setState({ DialogBattery: false });
+                }}
+                width={0.75}
+                visible={this.state.DialogBattery}
+                rounded
+                actionsBordered
+                onTouchOutside	={()=>{
+                  this.setState({DialogBattery:false})
+                }}
+                >
+            <View style={{height:"65%",flexDirection:"column",justifyContent: "space-between",alignItems: "center", }} >
+                <View style ={styles.DialogBContainer}>
+       
+       <View style={[styles.CircleShapeView,{borderColor:this.state.borderColor}]}>
+       <Text style={{ paddingLeft:20, textAlign:'center', fontSize:45,fontWeight:'bold',color:'black',}} > {this.state.valueBattery}%  </Text>
+       
+       </View>
+</View>
+
+
+<View>
+ <Text   style={{fontSize:22,fontWeight:'bold',alignItems:'center' ,color:'#000',marginTop:10}}  > Status:{this.state.statusMessage}</Text>
+</View>
+<View >
+<Text style={{fontSize:22,fontWeight:'bold',color:'#000',marginTop:10}} > Estimated Range</Text>
+
+
+</View>
+
+       <View style={{margin:10,marginTop:55}}>
+       <Button style={{paddingRight:22,backgroundColor:"#f1813b"}}   rounded  onPress={() => {this.setState({ Dialog: false });}}>
+                  <Text style={{fontSize:22}} >    Set reminder </Text>
+                  <FontAwesome5 name={"bell"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                </Button>
+
+       </View>
+
+     </View>
+
+                
+                </Dialog>
 
         </View>
     );
@@ -455,7 +515,30 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: '#f20000',
     transform: [{ scale: 0.6 }],
-  }
+  },
+  DialogBContainer:{
+    
+backgroundColor:"#e0dcdb",    //grey
+width:"100%",
+    justifyContent: 'center',
+    alignItems:'center'
+  },
+  CircleShapeView: {
+        marginTop:10,
+        marginBottom:10,
+    elevation:10,
+    justifyContent:'center',
+    alignItems:'center',
+    width: 150,
+    height: 150,
+    borderRadius: 150/2,
+    borderStyle:'solid',
+    borderWidth:10,
+    borderColor:'#ea5e33',
+    backgroundColor: '#fff'
+},
+ 
+
 });
 
 export default NearMeMap;
