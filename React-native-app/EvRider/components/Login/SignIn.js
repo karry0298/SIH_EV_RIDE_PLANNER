@@ -9,6 +9,26 @@ import logo from '../../assets/images/logo.png';
 
 const {width: WIDTH} = Dimensions.get('window');
 export default class SignIn extends Component {
+    constructor(props)  {
+        super(props);
+        this.state = {
+            errorMessage: false
+        }
+    }
+    authenticate(email, password)    {
+        usersArray = {
+            "edwin@gmail.com":"abc",
+            "a@a":"ddde",
+            "A@a":"ddde",
+        };
+        if(email in usersArray) {
+            if( password === usersArray[email] )   {
+                return true;
+            }
+        }
+        return false;
+    }
+
     render() {
         return (
             <Container>
@@ -18,26 +38,36 @@ export default class SignIn extends Component {
                         <Text style={styles.logoText}>EV Router</Text>
                     </View>
                     <View style={{paddingLeft: 20, paddingRight: 20}}>
+                        {this.state.errorMessage &&
+                        <View style={{border:"red", backgroundColor:"lightpink"}}>
+                            <Text>{this.state.errorMessage}</Text>
+                        </View> }
                         <Form block style={styles.item}>
                             <Item block floatingLabel>
-                                <Label block style={{ marginBottom: 20}}>Email</Label>
-                                <Icon  name='ios-mail'/>
-                                <Input block />
+                                <Label block style={{marginBottom: 20}}>Email</Label>
+                                <Icon name='ios-mail'/>
+                                <Input block
+                                       onChangeText={(text) => this.setState({"formEmail":text})}
+                                       value={this.state["formEmail"]} />
                             </Item>
                             <Item floatingLabel>
                                 <Label>Password</Label>
-                                <Input secureTextEntry/>
+                                <Input secureTextEntry
+                                       onChangeText={(text) => this.setState({"formPassword":text})}
+                                       value={this.state["formPassword"]}/>
                             </Item>
                         </Form>
-                        <Button rounded info block style={{marginTop: 50}}>
+                        <Button rounded info block style={{marginTop: 50}}
+                                onPress={(e)=>{if (this.authenticate(this.state['formEmail'], this.state['formPassword'])) {
+                                    this.props.successCallback();
+                                }
+                                else this.setState({errorMessage :"Wrong Username/Password"})}}>
                             <Text>Sign In</Text>
                         </Button>
                         <Button rounded info block style={{marginTop: 30, alignSelf: 'center'}}>
                             <Text>Forgot Password?</Text>
                         </Button>
-                            <Button rounded bordered  info block style={{marginTop: 40, alignItems: 'center'}}>
-                            <Text>Register</Text>
-                        </Button>
+
                     </View>
                 </Content>
             </Container>

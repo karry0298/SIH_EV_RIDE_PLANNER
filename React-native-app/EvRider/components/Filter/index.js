@@ -4,8 +4,8 @@ import { Container, Header, Content, ListItem, Text, Body, Button } from 'native
 import { filter } from '../../utils/filter'
 
 export default class App extends Component {
-constructor(){
-  super();
+constructor(props){
+  super(props);
   this.state={
     Home:false,
     Public:false,
@@ -21,7 +21,9 @@ constructor(){
     women:false,
     available:false,
     price: 0,
-  }
+  };
+
+  console.log(this.props.navigation.getParam("data", "stuff failed transfer"))
 
 }
 getVal(val){

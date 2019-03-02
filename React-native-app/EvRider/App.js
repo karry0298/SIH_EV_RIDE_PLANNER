@@ -46,9 +46,11 @@ const AppNavigator = createStackNavigator({
   signup: { screen: SignUpPage },
   profile: Mdn,
   navigateRoute:{screen:NavigateRouteInput},
-  navigateMaps:{screen:NavRouteMaps}
+  navigateMaps:{screen:NavRouteMaps},
+        filter : { screen : filterScreen }
 
-},
+
+    },
 {
   defaultNavigationOptions: ({navigation}) => {
     return {
