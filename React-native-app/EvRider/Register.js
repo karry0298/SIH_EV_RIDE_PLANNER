@@ -87,8 +87,8 @@ export default class Register extends Component {
         this.finalSubmit=this.finalSubmit.bind(this);
       }
       
-      handleChange=(data)=>{
-        this.setState(data)
+      handleChange(data){
+        this.setState({data})
       }
        
   
@@ -151,7 +151,7 @@ export default class Register extends Component {
       </View>
               {/* <Container style={styles.container}> */}
         <Content>
-              < Form ref={c => this._form = c} type={User} options ={userInfo} value={value} onChange={this.handleChange}  />{/**/}
+              < Form ref={c => this._form = c} type={User} options ={userInfo} value={this.state.data} onChange={this.handleChange}  />{/**/}
           <Button rounded danger onPress={this.finalSubmit} style={{fontSize:25,fontWeight:'bold',width:300,justifyContent:'center'}} ><Text>Sign  up</Text></Button>
 
           </Content>
