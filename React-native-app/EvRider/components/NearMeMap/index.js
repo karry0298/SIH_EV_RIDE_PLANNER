@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text,StyleSheet,Image,FlatList,TouchableOpacity} from 'react-native';
+import { View, Text,StyleSheet,Image,FlatList,TouchableOpacity, AppState} from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import {Button,List,Fab,Icon} from 'native-base';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
 import { Rating} from 'react-native-elements';
 import Dialog, { DialogTitle,DialogContent,DialogFooter,DialogButton,SlideAnimation} from 'react-native-popup-dialog';
+import geolib from 'geolib'
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
@@ -33,7 +34,18 @@ class NearMeMap extends Component {
         myStateFinale:[],
         prevLatLng: {},
         coordinate:{latitude: 19.26196225,longitude: 72.86661427},
+
+        prevLoc : {
+          lat : '',
+          lon : '',
+          time : ''
+        },
+        started : false,
+        distanceTravelled : 0
     };
+
+    this.tracker = this.tracker.bind(this);
+    this.callServer = this.callServer.bind(this);
   }
 
   //charging-station
@@ -64,9 +76,62 @@ class NearMeMap extends Component {
    
   }
 
+  callServer(lat,lon,range,options){
+
+    axios.post(' http://192.168.43.141:2454/range/checkWarning', {
+      lat : lat,
+      lon : lon,
+      range : range,
+      options : options
+    })
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    console.log("Called")
+  }  
 
 
   componentDidMount(){
+
+
+    // Navigator by nCheck
+    console.log("Did Mount ",AppState.currentState)
+    
+    this.watchID = navigator.geolocation.watchPosition(
+      position => {
+
+        const { latitude, longitude } = position.coords;  
+        this.state.lat = latitude
+        this.state.lng = longitude
+       
+        console.log("Inside Tracker")
+      //  console.log([latitude,longitude])    
+        var status = this.state.started;
+        if ( !status ){
+          this.setState({ started : true,
+          prevLoc : {
+            lat : latitude,
+            lon : longitude,
+            time : Date.now()
+          } });
+        }
+        if ( latitude != undefined ){
+          this.tracker(latitude, longitude)
+        }
+        
+    },
+    (error) => alert(error.message),
+    { enableHighAccuracy: true, maximumAge: 500 })
+
+
+
+
+      
+    console.log("entered Mount")  
 
   //  console.log("mount entered")
 
@@ -85,8 +150,43 @@ class NearMeMap extends Component {
     } )
 
 
+
+
+
+
   }
 
+
+  tracker(nlat, nlon, time = Date.now()){
+    console.log("location changed")
+    console.log("prev lat lon: ", this.state.prevLoc.lat, this.state.prevLoc.lon,this.state.prevLoc.time)
+    console.log("new lat lon: ", nlat, nlon,time)
+    var speed = geolib.getSpeed(
+      { lat :  this.state.prevLoc.lat , lng :  this.state.prevLoc.lon, time : this.state.prevLoc.time},
+      {lat : nlat, lng : nlon , time: time},
+      { unit : 'mph'})
+      geolib.getDistance(
+        {latitude: 51.5103, longitude: 7.49347},
+        {latitude: "51° 31' N", longitude: "7° 28' E"}
+    );
+
+    var dist = geolib.getDistance(
+      { lat :  this.state.prevLoc.lat , lng :  this.state.prevLoc.lon},
+      {lat : nlat, lng : nlon}
+  );
+
+  this.setState({ distanceTravelled : dist });
+
+  if ( dist > 200 ){
+    var range = 1000, options = ['css_sae', 'chademo'];
+    this.callServer( nlat, nlon, range, options );
+  }
+  
+
+  console.log("Speed and Distance", speed , dist);
+
+
+  }
 
   renderAnno () {
     //console.warn(imgPik)
