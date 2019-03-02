@@ -390,12 +390,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   annotationContainer: {
-    width: bord,
-    height: bord,
+    width: 25,
+    height: 25,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255, 153, 153, 0.4)',
-    borderRadius: bord,
+    borderRadius: 25,
   },
   annotationFill: {
     width: 20,
