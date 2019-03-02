@@ -34,7 +34,10 @@ class NearMeList extends Component {
             colors:["blue","black","brown","red","#ddbc00"],
             prevLatLng: {},
             coordinate:{latitude: 19.26196225,longitude: 72.86661427},
-            route:{}
+            route:{},
+            allStations : {},
+            filteredStations : {},
+            filterStatus : false
         };
       }    
 
@@ -58,9 +61,13 @@ class NearMeList extends Component {
       }
 
 
-    // componentDidMount(){
+    componentDidMount(){
+      
+      let rout = this.props.navigation.getParam("abc");
+      this.setState({ allStations : rout });
+      console.log("component did mount setting stations")
 
-    // }
+    }
 
 
     //  this.props.navigation.navigate('nearmerout',item)
@@ -91,10 +98,11 @@ class NearMeList extends Component {
     // let rout = this.state.route.data
    // console.log("ba",this.state.finCoord)
 
-    const  {navigation}  = this.props;
+    // const  {navigation}  = this.props; //old by kartik
     //console.log("abcbaskj",navigation.getParam("abc"))
 
-    let rout = navigation.getParam("abc")
+    let rout = this.state.allStations;
+
 
     var cords = []
 
