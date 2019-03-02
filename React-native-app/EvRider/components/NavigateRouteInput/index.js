@@ -21,15 +21,23 @@ export default class NavigateRoute extends Component {
         uLat:19.13566162451865,
         uLang:19.13566162451865,
         dLat:19.13566162451865,
-        dLang:19.13566162451865
+        dLang:19.13566162451865,
+        rout:{}
         
     };
   }
 
+  componentDidMount(){
+    const  {navigation}  = this.props;
+    let route = navigation.getParam("abc")
+    this.setState({rout:route})
+
+  }
 
   //style={{height:this.state.heighta}}
 
   render() {
+
     return (
       <View style={styles.container} >
 
@@ -47,9 +55,6 @@ export default class NavigateRoute extends Component {
 
 
               console.log('1st Input',data.geometry.location.lng)
-
-
-                
 
                 this.setState({uLang:data.geometry.location.lng,uLat:data.geometry.location.lat})
 
@@ -118,7 +123,8 @@ export default class NavigateRoute extends Component {
                this.props.navigation.navigate('navigateMaps',{abc:{uLat:this.state.uLat,
                                                   uLang:this.state.uLang,
                                                   dLat:this.state.dLat,
-                                                  dLang:this.state.dLang}})
+                                                  dLang:this.state.dLang,
+                                                  route:this.state.rout}})
               }}
               
               getDefaultValue={() => ''}
