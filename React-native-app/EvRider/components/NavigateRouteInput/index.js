@@ -27,13 +27,16 @@ export default class NavigateRoute extends Component {
     };
   }
 
+  componentDidMount(){
+    const  {navigation}  = this.props;
+    let route = navigation.getParam("abc")
+    this.setState({rout:route})
+
+  }
 
   //style={{height:this.state.heighta}}
 
   render() {
-    const  {navigation}  = this.props;
-    let route = navigation.getParam("abc")
-    this.setState({rout:rout})
 
     return (
       <View style={styles.container} >
@@ -124,7 +127,7 @@ export default class NavigateRoute extends Component {
                                                   uLang:this.state.uLang,
                                                   dLat:this.state.dLat,
                                                   dLang:this.state.dLang,
-                                                  route:this.state.route}})
+                                                  route:this.state.rout}})
               }}
               
               getDefaultValue={() => ''}

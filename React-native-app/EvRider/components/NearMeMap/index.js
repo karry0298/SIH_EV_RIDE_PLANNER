@@ -313,7 +313,7 @@ class NearMeMap extends Component {
 
         <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:230,marginLeft:340,zIndex:10}}>
             <Button rounded style={{marginLeft:1,backgroundColor:"white",    width: 60, height: 60,borderRadius: 60}} 
-                            onPress={() => {this.props.navigation.navigate('navigateRoute')}}>
+                            onPress={() => {this.props.navigation.navigate('navigateRoute',{abc:this.state.myStateFinale})}}>
                         <FontAwesome5 name={"crosshairs"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />        
                 </Button>
         </View>
