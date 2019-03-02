@@ -1,3 +1,12 @@
+const dummy = require('../dump/data').data;
+
+const optType = {
+    type : [ 'Public', 'Turbo' ],
+    price : 100,
+    connector : [ 'css_sae' ],
+    rating : 4.3,
+    state : ''
+}
 
 
 module.exports.filter =  ( options = [ 'type', 'price', 'connector', 'rating'] , optTypes = optType , data ) =>{
