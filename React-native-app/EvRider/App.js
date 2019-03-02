@@ -23,6 +23,8 @@ import NavigateRouteInput from './components/NavigateRouteInput';
 import NavRouteMaps from './components/NavRouteMaps';
 import RouteNearMe from './components/RouteNearMe';
 import filterScreen from './components/Filter';
+import Start from './Start';
+
 
 const Mdn = createDrawerNavigator({
   nearmeMap: {screen:NearMeMap},  
