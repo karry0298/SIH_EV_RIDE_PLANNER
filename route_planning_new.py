@@ -85,6 +85,7 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
     prev_lon=lon
     final_route_array=[]
     distance=0
+    #return routes
     for i in range(0,len(nearMeStations)):
         final_route_array.append({ 'lat' : prev_lat , 'lon' : prev_lon } )
         if(nearMeStations[i]):
@@ -96,6 +97,7 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
             
         if(distance>=range_car):
             if(last_charge_lat==lat and last_charge_lon==lon):
+                print("Hello")
                 return []
             start_lon=str(last_charge_lon)
             start_lat=str(last_charge_lon)
