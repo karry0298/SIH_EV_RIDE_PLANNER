@@ -43,13 +43,13 @@ class NearMeMap extends Component {
       return (
         <Mapbox.PointAnnotation
           key={k}
-          id={k}
-    
+          id={k}    
           coordinate={[a,b]}>
                 
-              {/* <FontAwesome5 name={"charging-station"} brand style={{paddingLeft:15 , fontSize: 25, color:colr}}  
-
-              /> */}
+              <FontAwesome5 name={"charging-station"} brand style={{paddingLeft:15 , fontSize: 25, color:colr}}  
+              onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,DialogRating:rating });
+            }}
+              />
               <View style={{
                   width: 30,
                   height: 20,
