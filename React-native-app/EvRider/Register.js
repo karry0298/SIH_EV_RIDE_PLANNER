@@ -12,6 +12,7 @@ const ip="192.168.43.57";
 
 const Form=t.form.Form;
 var _ = require('lodash');
+import * as Keychain from 'react-native-keychain';
 
 const sty = _.cloneDeep(t.form.Form.stylesheet);
 
@@ -64,12 +65,7 @@ const userInfo={
   },
 };
 
-const value={
-  firstName:"mark",
-  lastName:'fulinsky',
-  email:'mfk@gmail.com',
-  password:"hsloh"
-}
+
 const carDetail=t.struct({
   carName:t.String,
   carModel:t.String
@@ -79,32 +75,56 @@ export default class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          email: '',
+          password: '',
           view:false,
-          selected2: undefined,
-          data:""
+          
+          data:{
+            firstName:"george",
+  lastName:'fulinsky',
+  email:'gfk@gmail.com',
+  password:"george"
+          }
         };
         this.handleChange=this.handleChange.bind(this);
         this.finalSubmit=this.finalSubmit.bind(this);
       }
       
       handleChange(data){
-        this.setState({data})
+        this.setState({email:data.email,password:data.password,data})
       }
+      async save() {
+        try {
+          console.log("data saved",this.state );
+          await Keychain.setGenericPassword(
+            this.state.email,
+            this.state.password,
+          );
+          var value=this.state.data
+         axios.post("http://"+ip+":2454/user/register",{data:value})
+          .then(s=>{
+             console.log("registered ",)
+          })
+          .catch(e=>{
+             console.log("some errp ",e);
+          } )
+
+          this.setState({ email: '', password: '', status: 'Credentials saved!' });
        
+        } catch (err) {
+          this.setState({ status: 'Could not save credentials, ' + err });
+        }
+      }
+      
   
 
-     finalSubmit(){
+      finalSubmit(){
+       this.save();
        console.log("here")
       const value = this._form.getValue();
 
 
-      axios.post("http://"+ip+":2454/user/register",{data:value})
-      .then(s=>{
-         console.log("registered ",)
-      })
-      .catch(e=>{
-         console.log("some errp ",e);
-      } )
+      
      }
     render(){
           if(this.state.view){
@@ -152,8 +172,12 @@ export default class Register extends Component {
               {/* <Container style={styles.container}> */}
         <Content>
               < Form ref={c => this._form = c} type={User} options ={userInfo} value={this.state.data} onChange={this.handleChange}  />{/**/}
-          <Button rounded danger onPress={this.finalSubmit} style={{fontSize:25,fontWeight:'bold',width:300,justifyContent:'center'}} ><Text>Sign  up</Text></Button>
+          <Button rounded danger onPress={()=>this.save()} style={{fontSize:25,fontWeight:'bold',width:300,justifyContent:'center'}} ><Text>Sign  up</Text></Button>
 
+
+          {!!this.state.status && (
+            <Text style={styles.status}>{this.state.status}</Text>
+          )}
           </Content>
       </ImageBackground>
       

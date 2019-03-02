@@ -35,19 +35,6 @@ state={
   status: '',
 }
 
-async save() {
-  try {
-    await Keychain.setGenericPassword(
-      this.state.email,
-      this.state.password,
-    );
-    console.log("data saved",this.state );
-    this.setState({ email: '', password: '', status: 'Credentials saved!' });
- 
-  } catch (err) {
-    this.setState({ status: 'Could not save credentials, ' + err });
-  }
-}
 
 async load() {
   try {
@@ -56,6 +43,7 @@ async load() {
     
       this.setState({ ...credentials, status: 'Valid credentials... User authenticated' });
     } else {
+      console.log(credentials);
       this.setState({ status: 'No such user' });
     }
   } catch (err) {
