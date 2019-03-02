@@ -45,8 +45,9 @@ class NearMeMap extends Component {
         started : false,
         distanceTravelled : 0,
         DialogBattery:false,
-        valueBattery:75,
-        backgroundColor:'orange'
+        valueBattery:55,
+        borderColor:'orange',
+        statusMessage:'charging'
     };
 
     this.tracker = this.tracker.bind(this);
@@ -178,7 +179,19 @@ class NearMeMap extends Component {
        console.log("some errp ",e);
     } )
 
+if(this.state.valueBattery>75)
+{
+  this.setState({backgroundColor:'green',statusMessage:"Idle"})
+  
 
+}
+else if(this.state.valueBattery>20)
+{
+  this.setState({backgroundColor:'#f2cd3c',statusMessage:"Charging"})
+}
+else{
+  this.setState({backgroundColor:'#d10808',statusMessage:"Needs charging"})
+}
 
 
 
@@ -424,20 +437,22 @@ class NearMeMap extends Component {
                 visible={this.state.DialogBattery}
                 rounded
                 actionsBordered
-
+                onTouchOutside	={()=>{
+                  this.setState({DialogBattery:false})
+                }}
                 >
             <View style={{height:"65%",flexDirection:"column",justifyContent: "space-between",alignItems: "center", }} >
                 <View style ={styles.DialogBContainer}>
        
-       <View style={[styles.CircleShapeView,{borderColor:this.state.backgroundColor}]}>
-       <Text style={{textAlign:'center', fontSize:45,fontWeight:'bold',color:'black',}} > 95%  </Text>
+       <View style={[styles.CircleShapeView,{borderColor:this.state.borderColor}]}>
+       <Text style={{ paddingLeft:20, textAlign:'center', fontSize:45,fontWeight:'bold',color:'black',}} > {this.state.valueBattery}%  </Text>
        
        </View>
 </View>
 
 
 <View>
- <Text   style={{fontSize:22,fontWeight:'bold',alignItems:'center' ,color:'#000',marginTop:10}}  > Status:Charging</Text>
+ <Text   style={{fontSize:22,fontWeight:'bold',alignItems:'center' ,color:'#000',marginTop:10}}  > Status:{this.state.statusMessage}</Text>
 </View>
 <View >
 <Text style={{fontSize:22,fontWeight:'bold',color:'#000',marginTop:10}} > Estimated Range</Text>
@@ -446,7 +461,7 @@ class NearMeMap extends Component {
 </View>
 
        <View style={{margin:10,marginTop:55}}>
-       <Button style={{paddingRight:22}}  full rounded danger onPress={() => {this.setState({ Dialog: false });}}>
+       <Button style={{paddingRight:22,backgroundColor:"#f1813b"}}   rounded  onPress={() => {this.setState({ Dialog: false });}}>
                   <Text style={{fontSize:22}} >    Set reminder </Text>
                   <FontAwesome5 name={"bell"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
                 </Button>
