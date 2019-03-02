@@ -161,7 +161,7 @@ class NearMeMap extends Component {
 
 
 
-      
+
     console.log("entered Mount")  
 
   //  console.log("mount entered")
@@ -318,7 +318,7 @@ class NearMeMap extends Component {
             style={[styles.container,{zIndex:-1}]}
             >
 
-       
+
         {this.renderAnno()}
 
 
@@ -327,12 +327,20 @@ class NearMeMap extends Component {
         </Mapbox.MapView> 
 
 
-        <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:230,marginLeft:340,zIndex:10}}>
+        <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:150,marginLeft:340,zIndex:10}}>
             <Button rounded style={{marginLeft:1,backgroundColor:"white",    width: 60, height: 60,borderRadius: 60}} 
-                            onPress={() => {this.props.navigation.navigate('navigateRoute',{abc:this.state.myStateFinale})}}>
-                        <FontAwesome5 name={"crosshairs"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />        
+                            onPress={() => {this.props.navigation.navigate('filter', {data:"stuff transfered"})}}>
+                        <FontAwesome5 name={"filter"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />
                 </Button>
         </View>
+
+
+          <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:230,marginLeft:340,zIndex:10}}>
+              <Button rounded style={{marginLeft:1,backgroundColor:"white",    width: 60, height: 60,borderRadius: 60}}
+                      onPress={() => {this.props.navigation.navigate('navigateRoute')}}>
+                  <FontAwesome5 name={"crosshairs"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />
+              </Button>
+          </View>
 
         <Dialog
                 onDismiss={() => {
