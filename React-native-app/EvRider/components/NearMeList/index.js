@@ -5,7 +5,7 @@ import { Rating} from 'react-native-elements';
 import {Button,ListItem,List, Container, Header, Content, Card, CardItem, Body ,Left,Thumbnail, Item } from "native-base";
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
-
+import Dialog, { DialogTitle,DialogContent,DialogFooter,DialogButton,SlideAnimation} from 'react-native-popup-dialog';
 //http://192.168.2.13:2454/api/findStation
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
@@ -16,6 +16,7 @@ class NearMeList extends Component {
         super(props);
     
         this.state = {
+            Dialog:true,
             latitude: 19.13566162451865,
             longitude: 72.86615863993508,
             DialogCard: [],
@@ -94,7 +95,7 @@ class NearMeList extends Component {
       
   render() {
 
-        
+    console.disableYellowBox = true
     // let rout = this.state.route.data
    // console.log("ba",this.state.finCoord)
 
@@ -162,6 +163,95 @@ class NearMeList extends Component {
 
     return (  
       <View style={styles.container}>
+
+        <Dialog
+                onDismiss={() => {
+                this.setState({ Dialog: false });
+                }}
+                width={1}
+                visible={this.state.Dialog}
+                rounded
+                actionsBordered
+
+                >
+                
+        
+                <View >
+                <View style={{alignItems: "center"}}>
+                    <Text style={{fontSize:25}}>{this.state.DialogTitle}</Text>
+                </View>
+                <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center"}}>
+                    <Text style={{marginLeft:10,fontSize:15}} >{this.state.DialogMail}</Text>
+                    <Text style={{marginRight:10,fontSize:15}}>{this.state.DialogContact}</Text> 
+                </View>
+                
+                <Image style={{width:"100%",height:200}} source={{uri:this.state.DialogUri}}></Image>
+
+                <Rating
+                    imageSize={30}
+                    readonly
+                    startingValue={this.state.DialogRating}
+                    style={{marginTop:3}}
+                    />
+
+                </View>
+
+                <View >
+                <FlatList 
+                    numColumns={3}
+                    data = {this.state.dialogC}
+                    renderItem={({item}) => {
+                        //console.warn("baka    ",item)  
+                        return (
+                            <View style={{marginLeft:10}}><Image style={{width:78,height:78,margin:10}} source={item} ></Image></View>
+                        )}}
+                >
+                </FlatList>
+
+                </View>
+
+
+                <Text style={{marginLeft:10}}>Descrpition abt the place will come here when nehal bhaiya sends the info</Text>
+
+            <View style={{flexDirection:"row"}}>
+                <Button light onPress={() => {this.setState({ Dialog: false });}}>
+                <Text style={{fontSize:21}}>    Back </Text>
+                <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                </Button>
+
+                <Button light onPress={() => {this.setState({ Dialog: false });}}>
+                <Text style={{fontSize:21}} >          Fav </Text>
+                <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                </Button>
+
+                <Button light onPress={() => {this.setState({ Dialog: false });}}>
+                <Text style={{fontSize:21}} >         Nav </Text>
+                <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:30 , fontSize: 20, color:'black'}} />        
+                </Button>
+            </View>
+
+            </Dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -256,7 +346,7 @@ class NearMeList extends Component {
 
             <View style={{flexDirection:"row"}}>
             <Button style={{backgroundColor:"white",paddingLeft:55,paddingRight:55}}
-                    onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
+                    onPress={() => {this.setState({ Dialog: true });}}>
                 <Text style={{fontSize:21}}> Filters </Text>
                 <FontAwesome5 name={"filter"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
             </Button>

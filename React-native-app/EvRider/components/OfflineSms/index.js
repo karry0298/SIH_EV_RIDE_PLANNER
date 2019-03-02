@@ -7,6 +7,9 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 
 
 class OfflineSms extends Component {
+  static navigationOptions = {
+    header: null,};
+
   constructor(props) {
     super(props)
 

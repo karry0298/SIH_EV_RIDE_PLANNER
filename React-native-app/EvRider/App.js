@@ -28,39 +28,17 @@ const Mdn = createDrawerNavigator({
   nearmeMap: {screen:NearMeMap},  
   nearmelist: {screen:NearMeList},
   nearmerout:{screen:RouteNearMe}
-  // navigateRoute:{screen:NavigateRoute}
 },
 {
   contentComponent: SideBar,
-  contentOptions:{activeTintColor:"red",}, 
 },
-{
-  defaultNavigationOptions: ({navigation}) => {
-    return {
-      headerRight:(
-        <FontAwesome5 name={"bars"} brand style={{paddingLeft:15 , fontSize: 30, color:'black'}}/>
-      )
-    };
-  }
-}
+
 )
-
-
-const TabNavigator = createBottomTabNavigator({
-  login: { screen: Login },
-  signup: { screen: SignUpPage },
-});
-
-const switchNav = createSwitchNavigator({
-
-  rout:{screen:OfflineSms},
-},
-{ headerMode: 'screen' });
 
 const AppNavigator = createStackNavigator({
   login: { screen: Login }, 
+  rout:{screen:OfflineSms},
   signup: { screen: SignUpPage },
-  main:switchNav,
   profile: Mdn,
   navigateRoute:{screen:NavigateRouteInput},
   navigateMaps:{screen:NavRouteMaps}
