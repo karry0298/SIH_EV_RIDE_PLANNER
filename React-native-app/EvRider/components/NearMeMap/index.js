@@ -8,6 +8,7 @@ import { Rating} from 'react-native-elements';
 import Dialog, { DialogTitle,DialogContent,DialogFooter,DialogButton,SlideAnimation} from 'react-native-popup-dialog';
 import geolib from 'geolib'
 import { IP } from '../../utils/constants' 
+import openMap from 'react-native-open-maps';
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
@@ -36,7 +37,7 @@ class NearMeMap extends Component {
         DialogIcon:'public',
         prevLatLng: {},
         coordinate:{latitude: 19.26196225,longitude: 72.86661427},
-        
+
         prevLoc : {
           lat : '',
           lon : '',
@@ -52,6 +53,11 @@ class NearMeMap extends Component {
 
     this.tracker = this.tracker.bind(this);
     this.callServer = this.callServer.bind(this);
+  }
+
+  goToYosemite(coors) {
+    openMap( { travelType : "drive",
+    end : "43.570,11.356", start :"43.540, 11.486"} )
   }
 
   
@@ -160,7 +166,7 @@ class NearMeMap extends Component {
 
 
 
-      
+
     console.log("entered Mount")  
 
   //  console.log("mount entered")
@@ -329,7 +335,7 @@ else{
             style={[styles.container,{zIndex:-1}]}
             >
 
-       
+
         {this.renderAnno()}
 
 
@@ -338,12 +344,20 @@ else{
         </Mapbox.MapView> 
 
 
-        <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:230,marginLeft:340,zIndex:10}}>
+        <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:150,marginLeft:340,zIndex:10}}>
             <Button rounded style={{marginLeft:1,backgroundColor:"white",    width: 60, height: 60,borderRadius: 60}} 
-                            onPress={() => {this.props.navigation.navigate('navigateRoute')}}>
-                        <FontAwesome5 name={"crosshairs"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />        
+                            onPress={() => {this.props.navigation.navigate('filter', {data:"stuff transfered"})}}>
+                        <FontAwesome5 name={"filter"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />
                 </Button>
         </View>
+
+
+          <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:230,marginLeft:340,zIndex:10}}>
+              <Button rounded style={{marginLeft:1,backgroundColor:"white",    width: 60, height: 60,borderRadius: 60}}
+                      onPress={() => {this.props.navigation.navigate('navigateRoute')}}>
+                  <FontAwesome5 name={"crosshairs"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />
+              </Button>
+          </View>
 
         <Dialog
                 onDismiss={() => {
@@ -397,7 +411,7 @@ else{
                             return (
                                 <View style={{marginLeft:10}}><Image style={{width:45,height:45,margin:10}} source={i.item} ></Image></View>
                             )}}
-                    >
+                      >
                     </FlatList>
                 </View>
 
@@ -406,23 +420,23 @@ else{
 
             <View>
 
-                <Button style={{backgroundColor:'red'}} onPress={() => {this.setState({ Dialog: false });}}>
-                  <Text style={{fontSize:21 , color:"white"}} >  Nav </Text>
-                  <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:30 , fontSize: 20, color:"white"}} />        
+                <Button style={{backgroundColor:'red' , width:'100%'}} onPress={() => {this.goToYosemite([19.13566162451865,72.86615863993508])}}>
+                  <Text style={{fontSize:21 , paddingLeft:130 , color:"white"}} >  Nav </Text>
+                  <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:130 , fontSize: 20, color:"white"}} />        
                 </Button>                              
 
             </View>
 
             <View style={{flexDirection:"row"}}>
                 <Button light onPress={() => {this.setState({ Dialog: false });}}>
-                  <Text style={{fontSize:21}}>    Back </Text>
-                  <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                  <Text style={{fontSize:21 , paddingLeft:35}}>    Back </Text>
+                  <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , paddingRight:35 , fontSize: 20, color:'black'}} />        
                 </Button>
 
 
                 <Button light onPress={() => {this.setState({ Dialog: false });}}>
                   <Text style={{fontSize:21}} >          Fav </Text>
-                  <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                  <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black', paddingRight:85}} />        
                 </Button>
 
             </View>
