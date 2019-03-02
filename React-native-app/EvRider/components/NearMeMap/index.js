@@ -32,6 +32,7 @@ class NearMeMap extends Component {
         DialogUri:'https://dqbasmyouzti2.cloudfront.net/assets/content/cache/made/content/images/articles/EV_ChargingII_XL_721_420_80_s_c1.jpg',
         DialogContact: 999233233,
         myStateFinale:[],
+        DialogIcon:'public',
         prevLatLng: {},
         coordinate:{latitude: 19.26196225,longitude: 72.86661427},
 
@@ -48,25 +49,31 @@ class NearMeMap extends Component {
     this.callServer = this.callServer.bind(this);
   }
 
+
   //charging-station
   //map-marker-alt  
   renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating) {
+
+    var icoList = ["bolt","house-damage","city","street-view","hotel"]
+    var colors=["blue","black","brown","red","#ddbc00"]
+
+    var glyf = icoList[colors.indexOf(colr)] 
+
+    console.log("abcabca         ",glyf)
+
     //console.warn(imgPik)
       return (
         <Mapbox.PointAnnotation
           key={k}
           id={k}    
           coordinate={[a,b]}>
-                
-              <FontAwesome5 name={"charging-station"} brand style={{paddingLeft:15 , fontSize: 25, color:colr}}  
-              onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,DialogRating:rating });
+
+              <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:"black"}}  
+              onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
+                                DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
+                                DialogRating:rating ,DialogIcon:glyf });
             }}
               />
-              <View style={{
-                  width: 30,
-                  height: 20,
-                  backgroundColor: 'white'
-              }} ><Text>Hello</Text></View>
               
               {/* onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,DialogRating:rating });
               }} */}
@@ -97,9 +104,12 @@ class NearMeMap extends Component {
 
   componentDidMount(){
 
+  //  console.log("ababababababab",this.map.getZoom())
+
+    console.disableYellowBox = true
 
     // Navigator by nCheck
-    console.log("Did Mount ",AppState.currentState)
+//    console.log("Did Mount ",AppState.currentState)
     
     this.watchID = navigator.geolocation.watchPosition(
       position => {
@@ -135,7 +145,7 @@ class NearMeMap extends Component {
 
   //  console.log("mount entered")
 
-    axios.get("http://192.168.43.141:2454/api/getAllStation")
+    axios.get("http://192.168.43.78:2454/api/getAllStation")
     .then(s=>{
 
         const rout = s.data.data;
@@ -287,7 +297,9 @@ class NearMeMap extends Component {
             style={[styles.container,{zIndex:-1}]}
             >
 
+       
         {this.renderAnno()}
+
 
         {cords}
         
@@ -311,40 +323,50 @@ class NearMeMap extends Component {
                 actionsBordered
 
                 >
-                
-        
-                <View >
-                <View style={{alignItems: "center"}}>
-                    <Text style={{fontSize:25}}>{this.state.DialogTitle}</Text>
-                </View>
+
+{/* --------------------------------------------------------------------------------------------------------------------- */}
+
                 <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center"}}>
+                    <Text style={{marginLeft:10,fontSize:23}} ></Text>
+                </View>
+            
+                <Image style={{width:"100%",height:150,borderBottomWidth:0.7,borderColor:"#bab8b8"}} source={{uri:this.state.DialogUri}}></Image>
+
+                <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center",marginTop:10}}>
                     <Text style={{marginLeft:10,fontSize:15}} >{this.state.DialogMail}</Text>
-                    <Text style={{marginRight:10,fontSize:15}}>{this.state.DialogContact}</Text> 
-                </View>
-                
-                <Image style={{width:"100%",height:200}} source={{uri:this.state.DialogUri}}></Image>
-
-                <Rating
-                    imageSize={30}
-                    readonly
-                    startingValue={this.state.DialogRating}
-                    style={{marginTop:3}}
-                    />
-
+                    <Text style={{marginRight:10,fontSize:15}}>{this.state.contact}</Text> 
                 </View>
 
-                <View >
-                <FlatList 
-                    numColumns={3}
-                    data = {this.state.dialogC}
-                    renderItem={({item}) => {
-                        //console.warn("baka    ",item)  
-                        return (
-                            <View style={{marginLeft:10}}><Image style={{width:78,height:78,margin:10}} source={item} ></Image></View>
-                        )}}
-                >
-                </FlatList>
+                <View style={{marginTop:5, borderBottomColor: '#e5e5e5',borderBottomWidth: 0.8,}} />
 
+
+                <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center",marginTop:10}}>
+                    <Rating
+                        imageSize={30}
+                        readonly
+                        startingValue={this.state.DialogRating}
+                        style={{marginLeft:10}}
+                        />
+                    <View style={{flexDirection:"row",marginRight:10}}>
+                        <FontAwesome5 name={this.state.DialogIcon} brand style={{marginRight:10,paddingLeft:5 , fontSize: 30, color:'black'}} />   
+                        <Text style={{paddingTop:3}}>{this.state.DialogIcon}</Text> 
+                    </View>   
+                </View>
+
+                <View style={{marginTop:5, borderBottomColor: '#e5e5e5',borderBottomWidth: 0.8,}} />
+
+                <View style={{marginTop:10}}>
+                      <FlatList 
+                        numColumns={4}
+                        data = {this.state.dialogC}
+                        
+                        renderItem={i => {
+                            // console.warn("Baka Entered") 
+                            return (
+                                <View style={{marginLeft:10}}><Image style={{width:45,height:45,margin:10}} source={i.item} ></Image></View>
+                            )}}
+                    >
+                    </FlatList>
                 </View>
 
 
@@ -390,11 +412,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   annotationContainer: {
-    width: 25,
-    height: 25,
+    width: bord,
+    height: bord,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 25,
+    backgroundColor:'rgba(218, 82, 82, 0)',
+    borderRadius: bord,
   },
   annotationFill: {
     width: 20,

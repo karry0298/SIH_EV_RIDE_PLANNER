@@ -5,6 +5,7 @@ import { NetInfo } from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
+import Dialog, { DialogTitle,DialogContent,DialogFooter,DialogButton,SlideAnimation} from 'react-native-popup-dialog';
 
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
@@ -19,6 +20,7 @@ export default class NavRouteMaps extends Component {
 
 
     this.state = {
+      showAleart:false,
       dLat:18.8282,
       dLon:72.8888,
       sLat:17.8888,
@@ -93,7 +95,7 @@ export default class NavRouteMaps extends Component {
 
     // //http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
 
-    axios.post("http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000")
+    axios.post("http://192.168.43.229:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=3000000")
     .then(s=>{
         
         // console.log("ahhhhhhhhhhhhh",[s.data[0][0].lon , s.data[0][0].lat])
@@ -101,14 +103,22 @@ export default class NavRouteMaps extends Component {
          let FinCoooords =[]
          let routFin = []
          let coooords = []
+         let errorDiag = true
 
        // console.log(s.data.length)
 
         for (i = 0 ; i < s.data.length ; i++ ){
           
           coooords = []
+
           for (j= 0 ; j < s.data[i].length ; j++ ){
             coooords.push([parseFloat(s.data[i][j].lon),parseFloat( s.data[i][j].lat )])
+          }
+
+          console.log("insiode",coooords.length)
+
+          if(coooords.length > 0){
+            errorDiag = false
           }
 
           let rut = {
@@ -130,6 +140,10 @@ export default class NavRouteMaps extends Component {
           routFin.push(rut)
           
 
+        }
+
+        if (!errorDiag){
+          this.setState({showAleart : errorDiag})
         }
 
         console.log("lrngth", routFin.length )
@@ -181,6 +195,39 @@ export default class NavRouteMaps extends Component {
             </Mapbox.ShapeSource>
 
         </Mapbox.MapView> 
+
+{/* -------------------------------------------------------------------------------------------------------------------------------------------- */}
+
+
+        <Dialog
+                onDismiss={() => {
+                this.setState({ showAleart: false });
+                }}
+                width={0.9}
+                visible={false}
+                rounded
+                actionsBordered
+
+                >
+
+                <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center"}}>
+                    <Text style={{marginLeft:10,fontSize:23 , color:'black' }} >Error Message</Text>
+                </View>
+            
+                <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center"}}>
+                    <FontAwesome5 name={this.state.DialogIcon} brand style={{marginRight:10,paddingLeft:5 , fontSize: 30, color:'black'}} />  
+                </View>
+
+              
+
+                <View style={{flexDirection:"row"}}>
+                    <Button light onPress={() => {this.setState({ showAleart: false });}}>
+                    <Text style={{fontSize:21}}>    Back </Text>
+                    <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                    </Button>
+                </View>
+
+            </Dialog>
 
       </View>
     );
