@@ -118,14 +118,6 @@ export default class App extends Component{
 
 
 
-    this.popup.show({
-      onPress: function() {console.log('Pressed')},
-      appIconSource: require('./assets/icon.jpg'),
-      appTitle: 'Some App',
-      timeText: 'Now',
-      title: 'Hello World',
-      body: 'This is a sample message.\nTesting emoji 😀',
-    });
 
       
     console.log("entered Mount")
