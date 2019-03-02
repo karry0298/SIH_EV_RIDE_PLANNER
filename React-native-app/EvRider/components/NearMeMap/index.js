@@ -35,21 +35,24 @@ class NearMeMap extends Component {
         DialogIcon:'public',
         prevLatLng: {},
         coordinate:{latitude: 19.26196225,longitude: 72.86661427},
-
+        
         prevLoc : {
           lat : '',
           lon : '',
           time : ''
         },
         started : false,
-        distanceTravelled : 0
+        distanceTravelled : 0,
+        DialogBattery:false,
+        valueBattery:75,
+        backgroundColor:'orange'
     };
 
     this.tracker = this.tracker.bind(this);
     this.callServer = this.callServer.bind(this);
   }
 
-
+  
   //charging-station
   //map-marker-alt  
   renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating) {
@@ -278,8 +281,8 @@ class NearMeMap extends Component {
                     <FontAwesome5 name={"map-marked-alt"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
                 </Button>
 
-                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:14}} >
-                    <Text style={{fontSize:21}} > {"charge:20%"} </Text>
+                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:14}} onPress={()=>this.setState({DialogBattery:true})}  >
+                    <Text style={{fontSize:21}} > charge:{this.state.valueBattery}% </Text>
                     <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginTop:5,paddingLeft:5 , fontSize: 20, color:'black'}} />        
                 </Button>
 
@@ -397,6 +400,47 @@ class NearMeMap extends Component {
 
             </Dialog>
 
+            <Dialog
+                onDismiss={() => {
+                this.setState({ DialogBattery: false });
+                }}
+                width={0.75}
+                visible={this.state.DialogBattery}
+                rounded
+                actionsBordered
+
+                >
+            <View style={{height:"65%",flexDirection:"column",justifyContent: "space-between",alignItems: "center", }} >
+                <View style ={styles.DialogBContainer}>
+       
+       <View style={[styles.CircleShapeView,{borderColor:this.state.backgroundColor}]}>
+       <Text style={{textAlign:'center', fontSize:45,fontWeight:'bold',color:'black',}} > 95%  </Text>
+       
+       </View>
+</View>
+
+
+<View>
+ <Text   style={{fontSize:22,fontWeight:'bold',alignItems:'center' ,color:'#000',marginTop:10}}  > Status:Charging</Text>
+</View>
+<View >
+<Text style={{fontSize:22,fontWeight:'bold',color:'#000',marginTop:10}} > Estimated Range</Text>
+
+
+</View>
+
+       <View style={{margin:10,marginTop:55}}>
+       <Button style={{paddingRight:22}}  full rounded danger onPress={() => {this.setState({ Dialog: false });}}>
+                  <Text style={{fontSize:22}} >    Set reminder </Text>
+                  <FontAwesome5 name={"bell"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                </Button>
+
+       </View>
+
+     </View>
+
+                
+                </Dialog>
 
         </View>
     );
@@ -431,7 +475,30 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: '#f20000',
     transform: [{ scale: 0.6 }],
-  }
+  },
+  DialogBContainer:{
+    
+backgroundColor:"#e0dcdb",    //grey
+width:"100%",
+    justifyContent: 'center',
+    alignItems:'center'
+  },
+  CircleShapeView: {
+        marginTop:10,
+        marginBottom:10,
+    elevation:10,
+    justifyContent:'center',
+    alignItems:'center',
+    width: 150,
+    height: 150,
+    borderRadius: 150/2,
+    borderStyle:'solid',
+    borderWidth:10,
+    borderColor:'#ea5e33',
+    backgroundColor: '#fff'
+},
+ 
+
 });
 
 export default NearMeMap;
