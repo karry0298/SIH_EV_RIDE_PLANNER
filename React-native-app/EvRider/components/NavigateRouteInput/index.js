@@ -6,8 +6,7 @@ import Mapbox from '@mapbox/react-native-mapbox-gl';
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
-
-const CurrentPlace = { description: 'Current Location', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
+const CurrentPlace = { description: 'Current Location', geometry: { location: { lat: 18.968835, lng: 72.831353 } }};
  
 
 export default class NavigateRoute extends Component {
@@ -19,12 +18,11 @@ export default class NavigateRoute extends Component {
     this.state = {
         heighta : '100%',
         heightb : '0%',
-        location : {
-          uLat:'',
-          uLang:'',
-          dLat:'',
-          dLang:''
-        }
+        uLat:19.13566162451865,
+        uLang:19.13566162451865,
+        dLat:19.13566162451865,
+        dLang:19.13566162451865
+        
     };
   }
 
@@ -48,7 +46,10 @@ export default class NavigateRoute extends Component {
                 //console.log(data, details);
 
 
-                // console.log('1st Input',data.geometry.location.lat)
+              console.log('1st Input',data.geometry.location.lng)
+
+
+                
 
                 this.setState({uLang:data.geometry.location.lng,uLat:data.geometry.location.lat})
 
@@ -105,13 +106,19 @@ export default class NavigateRoute extends Component {
               renderDescription={row => row.description} // custom description render
               onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
                 
-                // console.log('2st Input',details.geometry.location)
+                console.log('2st Input',details.geometry.location)
 
                 this.setState({dLang:details.geometry.location.lng,dLat:details.geometry.location.lat})
+                
+                console.log("2nd stateasdff ",[details.geometry.location.lng,details.geometry.location.lat])
+
+                console.log("state varibale",[this.state.dLang,this.state.dLat])
 
                //this.props.navigation.navigate('nearmelist',{abc:this.state.myStateFinale})}}
-                this.props.navigation.navigate('navigateMaps',{abc:this.state.location})
-
+               this.props.navigation.navigate('navigateMaps',{abc:{uLat:this.state.uLat,
+                                                  uLang:this.state.uLang,
+                                                  dLat:this.state.dLat,
+                                                  dLang:this.state.dLang}})
               }}
               
               getDefaultValue={() => ''}
