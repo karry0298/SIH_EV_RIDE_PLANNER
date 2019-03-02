@@ -19,7 +19,7 @@ export default class RouteNearMe extends Component {
       dLon:72.8888,
       sLat:17.8888,
       sLon:73.8888,
-      route :{
+      routea :{
         "type": "FeatureCollection",
         "features": [
           {
@@ -33,7 +33,7 @@ export default class RouteNearMe extends Component {
           }
         ]
       },
-      rut:{
+      routeb :{
         "type": "FeatureCollection",
         "features": [
           {
@@ -42,19 +42,12 @@ export default class RouteNearMe extends Component {
             "geometry": {
               "type": "LineString",
               "coordinates": [
-                [
-                  62.86661427,
-                  32.26196225
-                ],
-                [
-                  60.86661427,
-                  39.26196225
-                ]
               ]
             }
           }
         ]
       }
+
     }  
   }
 
@@ -85,54 +78,59 @@ export default class RouteNearMe extends Component {
 
     //http://192.168.2.12:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
 
-
+    //http://192.168.2.12:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000
  
-    axios.post("http://192.168.2.12:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000")
+    //192.168.43.204:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000
+
+    //http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
+
+    axios.post("http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000")
     .then(s=>{
         
-        console.log("ahhhhhhhhhhhhh",[s.data[0][0].lon , s.data[0][0].lat])
-        // let cooors = s.data[0]
+        // console.log("ahhhhhhhhhhhhh",[s.data[0][0].lon , s.data[0][0].lat])
+        // // let cooors = s.data[0]
+         let FinCoooords =[]
+         let routFin = []
          let coooords = []
-        
-        for (i = 0 ; i < s.data[0].length ; i++ ){
-            coooords.push([parseFloat(s.data[0][i].lon),parseFloat( s.data[0][i].lat )])
-        }
 
-        //console.log("length" , s.data[0].length)
+       // console.log(s.data.length)
 
-        // let abc =[
-        //   [
-        //     72.86661427,
-        //     19.26196225
-        //   ],
-        //   [
-        //     70.86661427,
-        //     23.26196225
-        //   ]
-        // ]
+        for (i = 0 ; i < s.data.length ; i++ ){
+          
+          coooords = []
+          for (j= 0 ; j < s.data[i].length ; j++ ){
+            coooords.push([parseFloat(s.data[i][j].lon),parseFloat( s.data[i][j].lat )])
+          }
 
-        console.log("val",coooords)
-    
-        let rut = {
-          "type": "FeatureCollection",
-          "features": [
-            {
-              "type": "Feature",
-              "properties": {},
-              "geometry": {
-                "type": "LineString",
-                "coordinates": coooords
+          let rut = {
+            "type": "FeatureCollection",
+            "features": [
+              {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                  "type": "LineString",
+                  "coordinates": coooords
+                }
               }
-            }
-          ]
-        }
-    
+            ]
+          }
 
+          console.warn(i+"      ",coooords)
+
+          routFin.push(rut)
+          
+
+        }
+
+        console.log("lrngth", routFin.length )
+     
         this.setState({sLon:uLong,
                         sLat:uLat,
                         dLon:pLong,
                         dLat:pLat,
-                        route:rut})
+                        routea:routFin[0],
+                        routeb:routFin[1]})
 
     })
     .catch(e=>{
@@ -143,22 +141,11 @@ export default class RouteNearMe extends Component {
 
 
   render() {
-  
-    // const  {navigation}  = this.props;
-    // const uLong = navigation.getParam("uLongitude")
-    // const uLat = navigation.getParam("uLatitude")
-    // const pLongitude = navigation.getParam("pLongitude")
-    // const pLatitude = navigation.getParam("pLatitude")
-    // const name = navigation.getParam("name") 
-    // const distance = navigation.getParam("distance") 
-    // const mail = navigation.getParam("mail") 
-    // const contact = navigation.getParam("contact") 
-    // const rate = navigation.getParam("rate")
-    // const img = navigation.getParam("img")
-    // const charge =  navigation.getParam("charge")
-    // const type =  navigation.getParam("type")
 
-    console.warn("abababababakkkkkkakakaakakak",this.state.route)
+    let colorss = ["red" , "blue" , "brown"]
+
+    //console.log("ahahaahha",FinCoooords)
+    console.warn("abababababakkkkkkakakaakakak",this.state.routea)
 
     const route = {
       "type": "FeatureCollection",
@@ -180,9 +167,6 @@ export default class RouteNearMe extends Component {
     }
 
 
-//    this.state.route.features[0].geometry.coordinates.push([73.86661427,20.26196225])
-   // console.warn([uLat,uLong,pLatitude,pLongitude,name,distance,mail,contact,rate,img,charge,type])
-
     return (
       <View style={styles.container}>
 
@@ -199,7 +183,7 @@ export default class RouteNearMe extends Component {
           {this.renderAnnotations(this.state.sLon,this.state.sLat,"Source")}
 
 
-            <Mapbox.ShapeSource id='line1' shape={this.state.route} >
+            <Mapbox.ShapeSource id='line1' shape={this.state.routea} >
             {/* {console.log("ananananan",this.state.route.features[0].geometry.coordinates)}   */}
               <Mapbox.LineLayer id='linelayer1' style={{lineColor:'red'}}>
     
@@ -207,8 +191,7 @@ export default class RouteNearMe extends Component {
               
             </Mapbox.ShapeSource>
 
-
-            <Mapbox.ShapeSource id='line2' shape={this.state.rut} >
+            <Mapbox.ShapeSource id='line2' shape={this.state.routeb} >
             {/* {console.log("ananananan",this.state.route.features[0].geometry.coordinates)}   */}
               <Mapbox.LineLayer id='linelayer2' style={{lineColor:'red'}}>
     

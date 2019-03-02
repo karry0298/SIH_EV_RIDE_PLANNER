@@ -51,10 +51,11 @@ class NearMeMap extends Component {
 
               /> */}
               <View style={{
-    width: 30,
-    height: 20,
-    backgroundColor: 'white'
-}} ><Text>Hello</Text></View>
+                  width: 30,
+                  height: 20,
+                  backgroundColor: 'white'
+              }} ><Text>Hello</Text></View>
+              
               {/* onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,DialogRating:rating });
               }} */}
           <Mapbox.Callout title={tite} />
@@ -69,7 +70,7 @@ class NearMeMap extends Component {
 
   //  console.log("mount entered")
 
-    axios.get("http://192.168.2.13:2454/api/getAllStation")
+    axios.get("http://192.168.43.141:2454/api/getAllStation")
     .then(s=>{
 
         const rout = s.data.data;
@@ -196,7 +197,7 @@ class NearMeMap extends Component {
         <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:230,marginLeft:340,zIndex:10}}>
             <Button rounded style={{marginLeft:1,backgroundColor:"white",    width: 60, height: 60,borderRadius: 60}} 
                             onPress={() => {this.props.navigation.navigate('navigateRoute')}}>
-                        <FontAwesome5 name={"list-ul"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />        
+                        <FontAwesome5 name={"crosshairs"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />        
                 </Button>
         </View>
 

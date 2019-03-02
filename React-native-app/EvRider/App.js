@@ -19,7 +19,8 @@ import NearMeMap from './components/NearMeMap';
 import OfflineSms from './components/OfflineSms';
 import SideBar from './components/SideBar';
 import MyFavourite from './components/MyFavourite';
-import NavigateRoute from './components/NavigateRoute';
+import NavigateRouteInput from './components/NavigateRouteInput';
+import NavRouteMaps from './components/NavRouteMaps';
 import RouteNearMe from './components/RouteNearMe';
  
 
@@ -61,7 +62,8 @@ const AppNavigator = createStackNavigator({
   signup: { screen: SignUpPage },
   main:switchNav,
   profile: Mdn,
-  navigateRoute:{screen:NavigateRoute}
+  navigateRoute:{screen:NavigateRouteInput},
+  navigateMaps:{screen:NavRouteMaps}
 
 },
 {
