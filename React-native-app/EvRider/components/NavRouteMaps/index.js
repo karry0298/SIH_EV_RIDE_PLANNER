@@ -52,12 +52,14 @@ export default class NavRouteMaps extends Component {
             }
           }
         ]
-      }
+      },
+      route:{},
+      coords:{}
     }
   }
 
 
-  renderAnnotations (a,b,title){
+  renderAnno (a,b,title){
     //console.warn(imgPik)
       
     console.warn(title)
@@ -74,6 +76,35 @@ export default class NavRouteMaps extends Component {
       )  
   }
 
+  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating) {
+
+    var icoList = ["bolt","house-damage","city","street-view","hotel"]
+    var colors=["blue","black","brown","red","#ddbc00"]
+
+    var glyf = icoList[colors.indexOf(colr)] 
+
+    console.log("abcabca         ",glyf)
+
+    //console.warn(imgPik)
+      return (
+        <Mapbox.PointAnnotation
+          key={k}
+          id={k}    
+          coordinate={[a,b]}>
+
+              <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:"black"}}  
+            //   onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
+            //                     DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
+            //                     DialogRating:rating ,DialogIcon:glyf });
+            // }}
+              />
+        
+          <Mapbox.Callout title={tite} />
+        </Mapbox.PointAnnotation>
+      )
+   
+  }
+
   componentDidMount(){
     const  {navigation}  = this.props;
     console.log("ahjbdfabfbadhkfbsdbfjbhdbjhkasdbfgkjsbajkg",navigation.getParam("abc"))
@@ -83,29 +114,81 @@ export default class NavRouteMaps extends Component {
     const uLat = navigation.getParam("abc").uLat
     const pLat = navigation.getParam("abc").dLat
     const pLong = navigation.getParam("abc").dLang
+    var rout = navigation.getParam("abc").route
 
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",rout)
+
+    var cords = []
+    var cooords=[]
+    
+
+    for(i=0 ; i<rout.length ; i++){
+       
+        let colors=["blue","black","brown","red","#ddbc00"]
+        let DialogCharge=["chademo","css_sae","j-1772","supercharger","type2","wall"]
+        let colorTags=["Turbo","Home","Mall","Public","Hotel"]
+  
+          let long = rout[i].location.coordinates[0]
+          let lat = rout[i].location.coordinates[1]
+          let col = colors[colorTags.indexOf(rout[i].typeOfStation)]
+          let title = rout[i].name
+          let email = rout[i].email
+          let contact = rout[i].contactNo
+          let rating = rout[i].rating
+          let owner = rout[i].owner
+          let imgUri = rout[i].imageUrl
+          let imgPk = rout[i].slots
+          let icoList = ["bolt","house-damage","city","street-view","hotel"]
+          let img = [require("../../assets/images/chademo.png"),
+              require("../../assets/images/css_sae.png"),
+              require("../../assets/images/j-1772.png"),
+              require("../../assets/images/supercharger.png"),
+              require("../../assets/images/type2.png"),
+              require("../../assets/images/wall.png")]
+          let FinImag = []
+    
+        console.warn("hahahahahahah",rout[i])
+
+      // console.log("main FinImg",FinImag)  
+  
+        for(j=0 ; j<imgPk.length;j++){
+            let z = DialogCharge.indexOf(imgPk[j].connector)
+            //console.warn(i , imgPk[j].connector)
+            FinImag.push(img[z])
+          }
+
+          
+
+       //console.warn("main FinImg",FinImag)  
+          let dict = {uLongitude:uLong,uLatitude:uLat,pLongitude:long,pLatitude:lat, colr:col,
+            name:title ,  mail:email , contact , rate:rating ,img:imgUri,charge:FinImag,
+            type:icoList[colorTags.indexOf(rout[i].typeOfStation)],typeName:rout[i].typeOfStation}
+
+         cords.push(dict)      
+         cooords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating))                            
+                     
+      }
 
     this.setState({sLon:uLong,
       sLat:uLat,
       dLon:pLong,
-      dLat:pLat})
+      dLat:pLat,
+      route:cords,
+    coords:cooords})
  
-    console.log([uLong , uLat , pLat , pLong])
+   // console.log([uLong , uLat , pLat , pLong])
     // //192.168.43.204:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000
 
     // //http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
 
-    axios.post("http://192.168.43.229:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=3000000")
+    axios.post("http://192.168.43.229:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=3000000")
     .then(s=>{
         
-        // console.log("ahhhhhhhhhhhhh",[s.data[0][0].lon , s.data[0][0].lat])
-        // // let cooors = s.data[0]
          let FinCoooords =[]
          let routFin = []
          let coooords = []
          let errorDiag = true
 
-       // console.log(s.data.length)
 
         for (i = 0 ; i < s.data.length ; i++ ){
           
@@ -162,6 +245,8 @@ export default class NavRouteMaps extends Component {
   
 
   render() {
+
+
     return (
       <View style={{flex:1}}>
 
@@ -171,12 +256,14 @@ export default class NavRouteMaps extends Component {
             style={styles.container}>
             
          
-          {this.renderAnnotations(this.state.dLon,this.state.dLat,"Destination")}
+          {this.renderAnno(this.state.dLon,this.state.dLat,"Destination")}
 
           {console.warn("ababbababa",[this.state.sLon,this.state.sLat])}
 
-          {this.renderAnnotations(this.state.sLon,this.state.sLat,"Source")}
+          {this.renderAnno(this.state.sLon,this.state.sLat,"Source")}
 
+
+          {this.state.coords}
 
             <Mapbox.ShapeSource id='line1' shape={this.state.routea} >
             {/* {console.log("ananananan",this.state.route.features[0].geometry.coordinates)}   */}
