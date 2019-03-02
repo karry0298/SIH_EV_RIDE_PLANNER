@@ -477,7 +477,7 @@ class NearMeList extends Component {
             FinImag.push(img[z])
           }
 
-       console.warn("main FinImg",FinImag)  
+       //console.warn("main FinImg",FinImag)  
 
          let dist = Math.round(this.getDistanceFromLatLonInKm(this.state.latitude,this.state.longitude,lat,long))
          let dict = {uLongitude:this.state.longitude,uLatitude:this.state.latitude,pLongitude:long,pLatitude:lat, 
