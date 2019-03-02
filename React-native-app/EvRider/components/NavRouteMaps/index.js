@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text , StyleSheet } from 'react-native';
-import { Button } from 'native-base';
-import { NetInfo } from 'react-native';
+import { View, Text,StyleSheet,Image,FlatList,TouchableOpacity, AppState} from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
+import {Button,List,Fab,Icon} from 'native-base';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
+import { Rating} from 'react-native-elements';
 import Dialog, { DialogTitle,DialogContent,DialogFooter,DialogButton,SlideAnimation} from 'react-native-popup-dialog';
+import geolib from 'geolib'
+import { IP } from '../../utils/constants' 
+import openMap from 'react-native-open-maps';
+
 
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
@@ -25,6 +29,16 @@ export default class NavRouteMaps extends Component {
       dLon:72.8888,
       sLat:17.8888,
       sLon:73.8888,
+      Dialog:false,
+      DialogTitle:"abcTitle",
+      dialogC:[2,3,4],
+      DialogCharge:["chademo","css_sae","j-1772","supercharger","type2","wall"],
+      DialogRating: 4,
+      DialogMail:"abc@abc",
+      DialogUri:'https://dqbasmyouzti2.cloudfront.net/assets/content/cache/made/content/images/articles/EV_ChargingII_XL_721_420_80_s_c1.jpg',
+      DialogContact: 999233233,
+      myStateFinale:[],
+      DialogIcon:'public',
       routea :{
         "type": "FeatureCollection",
         "features": [
@@ -93,10 +107,10 @@ export default class NavRouteMaps extends Component {
           coordinate={[a,b]}>
 
               <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:"black"}}  
-            //   onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
-            //                     DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
-            //                     DialogRating:rating ,DialogIcon:glyf });
-            // }}
+              onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
+                                DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
+                                DialogRating:rating ,DialogIcon:glyf });
+            }}
               />
         
           <Mapbox.Callout title={tite} />
@@ -315,6 +329,92 @@ export default class NavRouteMaps extends Component {
                 </View>
 
             </Dialog>
+
+{/* -------------------------------------------------------------------------------------------------------------------------------------------- */}
+
+
+            <Dialog
+                onDismiss={() => {
+                this.setState({ Dialog: false });
+                }}
+                width={0.85}
+                visible={this.state.Dialog}
+                rounded
+                actionsBordered >
+
+
+                <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center"}}>
+                    <Text style={{marginLeft:10,fontSize:23}} ></Text>
+                </View>
+            
+                <Image style={{width:"100%",height:150,borderBottomWidth:0.7,borderColor:"#bab8b8"}} source={{uri:this.state.DialogUri}}></Image>
+
+                <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center",marginTop:10}}>
+                    <Text style={{marginLeft:10,fontSize:15}} >{this.state.DialogMail}</Text>
+                    <Text style={{marginRight:10,fontSize:15}}>{this.state.contact}</Text> 
+                </View>
+
+                <View style={{marginTop:5, borderBottomColor: '#e5e5e5',borderBottomWidth: 0.8,}} />
+
+
+                <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center",marginTop:10}}>
+                    <Rating
+                        imageSize={30}
+                        readonly
+                        startingValue={this.state.DialogRating}
+                        style={{marginLeft:10}}
+                        />
+                    <View style={{flexDirection:"row",marginRight:10}}>
+                        <FontAwesome5 name={this.state.DialogIcon} brand style={{marginRight:10,paddingLeft:5 , fontSize: 30, color:'black'}} />   
+                        <Text style={{paddingTop:3}}>{this.state.DialogIcon}</Text> 
+                    </View>   
+                </View>
+
+                <View style={{marginTop:5, borderBottomColor: '#e5e5e5',borderBottomWidth: 0.8,}} />
+
+                <View style={{marginTop:10}}>
+                      <FlatList 
+                        numColumns={4}
+                        data = {this.state.dialogC}
+                        
+                        renderItem={i => {
+                            // console.warn("Baka Entered") 
+                            return (
+                                <View style={{marginLeft:10}}><Image style={{width:45,height:45,margin:10}} source={i.item} ></Image></View>
+                            )}}
+                      >
+                    </FlatList>
+                </View>
+
+
+                <Text style={{marginLeft:10}}>Descrpition abt the place will come here when nehal bhaiya sends the info</Text>
+
+            <View>
+
+                <Button style={{backgroundColor:'red' , width:'100%'}} onPress={() => {this.goToYosemite([19.13566162451865,72.86615863993508])}}>
+                  <Text style={{fontSize:21 , paddingLeft:130 , color:"white"}} >  Nav </Text>
+                  <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:130 , fontSize: 20, color:"white"}} />        
+                </Button>                              
+
+            </View>
+
+            <View style={{flexDirection:"row"}}>
+                <Button light onPress={() => {this.setState({ Dialog: false });}}>
+                  <Text style={{fontSize:21 , paddingLeft:35}}>    Back </Text>
+                  <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , paddingRight:35 , fontSize: 20, color:'black'}} />        
+                </Button>
+
+
+                <Button light onPress={() => {this.setState({ Dialog: false });}}>
+                  <Text style={{fontSize:21}} >          Fav </Text>
+                  <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black', paddingRight:85}} />        
+                </Button>
+
+            </View>
+
+            </Dialog>
+
+
 
       </View>
     );
