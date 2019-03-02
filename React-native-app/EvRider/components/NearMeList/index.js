@@ -88,7 +88,7 @@ class NearMeList extends Component {
       
   render() {
 
-        
+    console.disableYellowBox = true
     // let rout = this.state.route.data
    // console.log("ba",this.state.finCoord)
 

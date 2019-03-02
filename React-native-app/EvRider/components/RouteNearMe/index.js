@@ -80,11 +80,11 @@ export default class RouteNearMe extends Component {
 
     //http://192.168.2.12:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000
  
-    //192.168.43.204:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000
+    //192.168.43.204:5003/route?slon=72.831353&slat=18.968835&elon=72.5714&elat=23.0225&range=30000
 
     //http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
 
-    axios.post("http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000")
+    axios.post("http://192.168.43.229:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000")
     .then(s=>{
         
         // console.log("ahhhhhhhhhhhhh",[s.data[0][0].lon , s.data[0][0].lat])
