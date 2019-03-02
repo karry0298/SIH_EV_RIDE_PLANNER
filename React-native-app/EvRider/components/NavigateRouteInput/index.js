@@ -48,8 +48,9 @@ export default class NavigateRoute extends Component {
                 //console.log(data, details);
 
 
-                console.log('1st Input',data.geometry.location.lat)
+                // console.log('1st Input',data.geometry.location.lat)
 
+                this.setState({uLang:data.geometry.location.lng,uLat:data.geometry.location.lat})
 
                 this.setState({heighta:45 , heightb:'100%'})
               }}
@@ -103,10 +104,13 @@ export default class NavigateRoute extends Component {
               fetchDetails={true}
               renderDescription={row => row.description} // custom description render
               onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                console.log(data, details);
                 
-                console.log('2st Input',data.geometry.location.lat)
-               // this.props.navigation.navigate('navigateMaps')
+                // console.log('2st Input',details.geometry.location)
+
+                this.setState({dLang:details.geometry.location.lng,dLat:details.geometry.location.lat})
+
+               //this.props.navigation.navigate('nearmelist',{abc:this.state.myStateFinale})}}
+                this.props.navigation.navigate('navigateMaps',{abc:this.state.location})
 
               }}
               

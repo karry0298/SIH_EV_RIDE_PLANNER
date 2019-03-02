@@ -19,6 +19,11 @@ export default class NavRouteMaps extends Component {
     };
   }
 
+  componentDidMount(){
+    const  {navigation}  = this.props;
+    console.log("ahjbdfabfbadhkfbsdbfjbhdbjhkasdbfgkjsbajkg",navigation.abc)
+  }
+
   render() {
     return (
       <View style={{flex:1}}>
