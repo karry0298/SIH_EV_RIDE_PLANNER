@@ -99,8 +99,13 @@ class OfflineSms extends Component {
       <View style={{ flex: 1 }}>
 
       <Text style={styles.headline}>Help Section</Text>
-      <Text style={styles.mainbody}>Welcome to Help Section. We provide you 3 services namely Towing, NearBy Charging Stations and remote Charging Facilities.These Facilities are available to you via SMS </Text>
-      <View style={[styles.circle ,{ backgroundColor: '#DD5144',marginLeft:10 }]} ><Icon type="FontAwesome"  name="truck" /></View>
+      <Text style={[styles.mainbody,{marginBottom:10}]}>Welcome to Help Section. We provide services namely Towing, NearBy Charging Stations and Remote Charging Facilities.These Facilities are available to you offline via SMS </Text>
+     
+      <View style={{flexDirection:'row',}}><View style={[styles.circle ,{ backgroundColor: '#DD5144',marginLeft:10,marginBottom:15 }]} ><Icon type="FontAwesome" style={{marginLeft:9,marginTop:9}} name="truck" /></View><Text style={{marginLeft:9,marginTop:9,fontSize:17}} >Towing service </Text></View> 
+      <View style={{flexDirection:'row',}}><View style={[styles.circle ,{ backgroundColor: '#3B5998',marginLeft:10,marginBottom:15 }]} ><Icon type="FontAwesome" style={{marginLeft:9,marginTop:9}} name="battery-quarter" /></View><Text style={{marginLeft:9,marginTop:9,fontSize:17}} >Remote charging facilities</Text></View>
+      <View style={{flexDirection:'row',}}><View style={[styles.circle ,{ backgroundColor: '#34A34F',marginLeft:10,marginBottom:5 }]} ><Icon type="FontAwesome" style={{marginLeft:9,marginTop:9}} name="institution" /></View><Text style={{marginLeft:9,marginTop:9,fontSize:17}} >Nearby charging stations </Text></View>
+      {/* <View style={[styles.circle ,{ backgroundColor: '#3B5998',marginLeft:10,marginBottom:5 }]} ><Icon type="FontAwesome" style={{marginLeft:9,marginTop:9}} name="battery-quarter" /></View>
+      <View style={[styles.circle ,{ backgroundColor: '#34A34F',marginLeft:10,marginBottom:5 }]} ><Icon type="FontAwesome" style={{marginLeft:9,marginTop:9}} name="institution" /></View> */}
       <Fab
         active={this.state.active}
         direction="up"
@@ -111,7 +116,7 @@ class OfflineSms extends Component {
         >
         <Icon name="mail" />
             <Button onPress={(e) => this.smsFunction("tow", e)} style={{ backgroundColor: '#34A34F' }}>
-              <Icon style={{ marginTop:10}} type="FontAwesome"  name="truck" />
+              <Icon  type="FontAwesome"  name="truck" />
             </Button>
             <Button onPress={(e) => this.smsFunction("batteryDead", e)} style={{ backgroundColor: '#3B5998' }}>
               <Icon type="FontAwesome" name="battery-quarter" />
@@ -155,14 +160,15 @@ const styles = StyleSheet.create({
     marginTop: 10,  
   },
   mainbody: {
-    textAlign: 'center', // <-- the magic
+    textAlign: 'left', // <-- the magic
     fontWeight: '100',
+    marginLeft:19,
     fontSize: 18,
     marginTop: 10,  
   },
   circle: {
     width: 50,
-    height: 50,
+    height:50,
     borderRadius: 50/2
 }
 
