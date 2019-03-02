@@ -22,12 +22,15 @@ import MyFavourite from './components/MyFavourite';
 import NavigateRouteInput from './components/NavigateRouteInput';
 import NavRouteMaps from './components/NavRouteMaps';
 import RouteNearMe from './components/RouteNearMe';
- 
+import filterScreen from './components/Filter';
+import Start from './Start';
+
 
 const Mdn = createDrawerNavigator({
   nearmeMap: {screen:NearMeMap},  
   nearmelist: {screen:NearMeList},
-  nearmerout:{screen:RouteNearMe}
+  nearmerout:{screen:RouteNearMe},
+  filter : { screen : filterScreen }
 },
 {
   contentComponent: SideBar,
