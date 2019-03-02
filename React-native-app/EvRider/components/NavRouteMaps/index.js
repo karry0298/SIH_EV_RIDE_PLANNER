@@ -52,7 +52,8 @@ export default class NavRouteMaps extends Component {
             }
           }
         ]
-      }
+      },
+      route:{}
     }
   }
 
@@ -83,6 +84,9 @@ export default class NavRouteMaps extends Component {
     const uLat = navigation.getParam("abc").uLat
     const pLat = navigation.getParam("abc").dLat
     const pLong = navigation.getParam("abc").dLang
+    const route = navigation.getParam("abc").route
+
+    
 
 
     this.setState({sLon:uLong,
@@ -95,17 +99,14 @@ export default class NavRouteMaps extends Component {
 
     // //http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
 
-    axios.post("http://192.168.43.229:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=3000000")
+    axios.post("http://192.168.43.229:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000")
     .then(s=>{
         
-        // console.log("ahhhhhhhhhhhhh",[s.data[0][0].lon , s.data[0][0].lat])
-        // // let cooors = s.data[0]
          let FinCoooords =[]
          let routFin = []
          let coooords = []
          let errorDiag = true
 
-       // console.log(s.data.length)
 
         for (i = 0 ; i < s.data.length ; i++ ){
           

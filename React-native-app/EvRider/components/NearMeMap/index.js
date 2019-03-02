@@ -6,7 +6,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
 import { Rating} from 'react-native-elements';
 import Dialog, { DialogTitle,DialogContent,DialogFooter,DialogButton,SlideAnimation} from 'react-native-popup-dialog';
-import geolib from 'geolib'
+import geolib from 'geolib';
+import openMap from 'react-native-open-maps';
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
@@ -35,7 +36,6 @@ class NearMeMap extends Component {
         DialogIcon:'public',
         prevLatLng: {},
         coordinate:{latitude: 19.26196225,longitude: 72.86661427},
-
         prevLoc : {
           lat : '',
           lon : '',
@@ -49,7 +49,12 @@ class NearMeMap extends Component {
     this.callServer = this.callServer.bind(this);
   }
 
+  goToYosemite(coors) {
+    openMap( { travelType : "drive",
+    end : "43.570,11.356", start :"43.540, 11.486"} )
+  }
 
+  
   //charging-station
   //map-marker-alt  
   renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating) {
@@ -365,7 +370,7 @@ class NearMeMap extends Component {
                             return (
                                 <View style={{marginLeft:10}}><Image style={{width:45,height:45,margin:10}} source={i.item} ></Image></View>
                             )}}
-                    >
+                      >
                     </FlatList>
                 </View>
 
@@ -374,23 +379,23 @@ class NearMeMap extends Component {
 
             <View>
 
-                <Button style={{backgroundColor:'red'}} onPress={() => {this.setState({ Dialog: false });}}>
-                  <Text style={{fontSize:21 , color:"white"}} >  Nav </Text>
-                  <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:30 , fontSize: 20, color:"white"}} />        
+                <Button style={{backgroundColor:'red' , width:'100%'}} onPress={() => {this.goToYosemite([19.13566162451865,72.86615863993508])}}>
+                  <Text style={{fontSize:21 , paddingLeft:130 , color:"white"}} >  Nav </Text>
+                  <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:130 , fontSize: 20, color:"white"}} />        
                 </Button>                              
 
             </View>
 
             <View style={{flexDirection:"row"}}>
                 <Button light onPress={() => {this.setState({ Dialog: false });}}>
-                  <Text style={{fontSize:21}}>    Back </Text>
-                  <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                  <Text style={{fontSize:21 , paddingLeft:35}}>    Back </Text>
+                  <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , paddingRight:35 , fontSize: 20, color:'black'}} />        
                 </Button>
 
 
                 <Button light onPress={() => {this.setState({ Dialog: false });}}>
                   <Text style={{fontSize:21}} >          Fav </Text>
-                  <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                  <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black', paddingRight:85}} />        
                 </Button>
 
             </View>
