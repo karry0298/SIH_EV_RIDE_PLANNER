@@ -294,12 +294,6 @@ class NearMeMap extends Component {
       <View style={styles.container}>
     
         <View style={{flexDirection:"row"}}>
-                <Button style={{backgroundColor:"white",paddingLeft:25,paddingRight:23}}
-                        onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
-                    <Text style={{fontSize:21}}>Map </Text>
-                    <FontAwesome5 name={"map-marked-alt"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
-                </Button>
-
                 <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:14}} >
                     <Text style={{fontSize:21}} > {"charge:20%"} </Text>
                     <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginTop:5,paddingLeft:5 , fontSize: 20, color:'black'}} />        
