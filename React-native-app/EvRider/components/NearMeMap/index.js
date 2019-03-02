@@ -372,21 +372,27 @@ class NearMeMap extends Component {
 
                 <Text style={{marginLeft:10}}>Descrpition abt the place will come here when nehal bhaiya sends the info</Text>
 
+            <View>
+
+                <Button style={{backgroundColor:'red'}} onPress={() => {this.setState({ Dialog: false });}}>
+                  <Text style={{fontSize:21 , color:"white"}} >  Nav </Text>
+                  <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:30 , fontSize: 20, color:"white"}} />        
+                </Button>                              
+
+            </View>
+
             <View style={{flexDirection:"row"}}>
                 <Button light onPress={() => {this.setState({ Dialog: false });}}>
-                <Text style={{fontSize:21}}>    Back </Text>
-                <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                  <Text style={{fontSize:21}}>    Back </Text>
+                  <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
                 </Button>
 
-                <Button light onPress={() => {this.setState({ Dialog: false });}}>
-                <Text style={{fontSize:21}} >          Fav </Text>
-                <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
-                </Button>
 
                 <Button light onPress={() => {this.setState({ Dialog: false });}}>
-                <Text style={{fontSize:21}} >         Nav </Text>
-                <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:30 , fontSize: 20, color:'black'}} />        
+                  <Text style={{fontSize:21}} >          Fav </Text>
+                  <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
                 </Button>
+
             </View>
 
             </Dialog>
