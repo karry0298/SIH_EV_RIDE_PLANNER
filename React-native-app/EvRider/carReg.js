@@ -61,7 +61,7 @@ export default class CarReg extends Component {
   }
 
   submit(){
-console.warn("submitted data ",this.state.)
+// console.warn("submitted data ",this.state.)
 
   }
   onSelectedItemsChange = (selectedItems) => {

@@ -70,7 +70,7 @@ export default class Register extends Component {
         };
     }
     submit(){
-        console.warn("submitted data ",this.state.)
+        // console.warn("submitted data ",this.state.)
         
           }
     onValueChange2(value) {
