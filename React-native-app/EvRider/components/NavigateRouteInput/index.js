@@ -56,9 +56,6 @@ export default class NavigateRoute extends Component {
 
               console.log('1st Input',data.geometry.location.lng)
 
-
-                
-
                 this.setState({uLang:data.geometry.location.lng,uLat:data.geometry.location.lat})
 
                 this.setState({heighta:45 , heightb:'100%'})

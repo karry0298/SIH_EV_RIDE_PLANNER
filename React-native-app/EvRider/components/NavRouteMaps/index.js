@@ -53,7 +53,8 @@ export default class NavRouteMaps extends Component {
           }
         ]
       },
-      route:{}
+      route:{},
+      coords:{}
     }
   }
 
@@ -118,6 +119,8 @@ export default class NavRouteMaps extends Component {
     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",rout)
 
     var cords = []
+    var cooords=[]
+    
 
     for(i=0 ; i<rout.length ; i++){
        
@@ -154,19 +157,24 @@ export default class NavRouteMaps extends Component {
             FinImag.push(img[z])
           }
 
+          
+
        //console.warn("main FinImg",FinImag)  
           let dict = {uLongitude:uLong,uLatitude:uLat,pLongitude:long,pLatitude:lat, colr:col,
             name:title ,  mail:email , contact , rate:rating ,img:imgUri,charge:FinImag,
             type:icoList[colorTags.indexOf(rout[i].typeOfStation)],typeName:rout[i].typeOfStation}
 
-         cords.push(dict)                           
+         cords.push(dict)      
+         cooords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating))                            
+                     
       }
 
     this.setState({sLon:uLong,
       sLat:uLat,
       dLon:pLong,
       dLat:pLat,
-      route:cords})
+      route:cords,
+    coords:cooords})
  
    // console.log([uLong , uLat , pLat , pLong])
     // //192.168.43.204:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000
@@ -238,27 +246,6 @@ export default class NavRouteMaps extends Component {
 
   render() {
 
-    // let dict = {uLongitude:uLong,uLatitude:uLat,pLongitude:long,pLatitude:lat, 
-    //   name:title ,  mail:email , contact , rate:rating ,img:imgUri,charge:FinImag,
-    //   type:icoList[colorTags.indexOf(rout[i].typeOfStation)],typeName:rout[i].typeOfStation}
-
-    var coooords=[]
-
-    for( i=0 ; i<this.state.route.length ;i++)
-    {
-      console.log(i+"      "+this.state.route[i].uLongitude)
-      let long = this.state.route[i].uLongitude
-      let lat = this.state.route[i].uLatitude
-      let col = this.state.rout[i].colr
-      let title = this.state.rout[i].name
-      let FinImag = this.state.rout[i].charge
-      let imgUri = this.state.rout[i].img
-      let email = this.state.rout[i].mail
-      let contact = this.state.rout[i].contact
-      let rating = this.state.rout[i].rate
-      coooords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating))                            
-    }
-
 
     return (
       <View style={{flex:1}}>
@@ -276,7 +263,7 @@ export default class NavRouteMaps extends Component {
           {this.renderAnno(this.state.sLon,this.state.sLat,"Source")}
 
 
-          {coooords}
+          {this.state.coords}
 
             <Mapbox.ShapeSource id='line1' shape={this.state.routea} >
             {/* {console.log("ananananan",this.state.route.features[0].geometry.coordinates)}   */}
