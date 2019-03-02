@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Rating} from 'react-native-elements';
 import Dialog, { DialogTitle,DialogContent,DialogFooter,DialogButton,SlideAnimation} from 'react-native-popup-dialog';
 import geolib from 'geolib'
+import { IP } from '../../utils/constants' 
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
@@ -83,13 +84,28 @@ class NearMeMap extends Component {
    
   }
 
-  callServer(lat,lon,range,options){
+  callServer(lat,lon,range,options,takenTime){
 
-    axios.post(' http://192.168.43.141:2454/range/checkWarning', {
+    axios.post( IP + '/range/checkWarning', {
       lat : lat,
       lon : lon,
       range : range,
       options : options
+    })
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    axios.post( IP + '/range/AnonyData', {
+      slat : this.state.prevLoc.lat,
+      slon : this.state.prevLoc.lon,
+      elat : lat,
+      elon : lon,
+      takenTime,
+      time : Date.now()
     })
     .then(function (response) {
       console.log(response.data);
@@ -189,7 +205,7 @@ class NearMeMap extends Component {
 
   if ( dist > 200 ){
     var range = 1000, options = ['css_sae', 'chademo'];
-    this.callServer( nlat, nlon, range, options );
+    this.callServer( nlat, nlon, range, options, takenTime = dist/speed );
   }
   
 
