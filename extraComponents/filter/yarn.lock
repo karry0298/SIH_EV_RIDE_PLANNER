@@ -3544,10 +3544,10 @@ metro-babel7-plugin-react-transform@0.49.2:
   dependencies:
     "@babel/helper-module-imports" "^7.0.0"
 
-metro-babel7-plugin-react-transform@0.52.0:
-  version "0.52.0"
-  resolved "https://registry.yarnpkg.com/metro-babel7-plugin-react-transform/-/metro-babel7-plugin-react-transform-0.52.0.tgz#642a58691ec609dc76398b9380fd847090bc483b"
-  integrity sha512-7T3f2zmzPHy/NS6TAw4OysAwD8XDFwuEbbUXVxP38FnPjBsH+ykVWbI+Uxm7jU5bB4/u3bA/eKSRmHi6NK+jOg==
+metro-babel7-plugin-react-transform@0.53.0:
+  version "0.53.0"
+  resolved "https://registry.yarnpkg.com/metro-babel7-plugin-react-transform/-/metro-babel7-plugin-react-transform-0.53.0.tgz#44b0703297a2e389917eb45f9bbda73a088f2750"
+  integrity sha512-xDx6j0ArTJYbqQdgvADVjf01ypvU615mT1ayfwEJhJFwa45JRZ8UEmC+AWHFvOUnE071kRA5xczxeg+TSywO4g==
   dependencies:
     "@babel/helper-module-imports" "^7.0.0"
 
@@ -3635,10 +3635,10 @@ metro-react-native-babel-preset@0.49.2:
     metro-babel7-plugin-react-transform "0.49.2"
     react-transform-hmr "^1.0.4"
 
-metro-react-native-babel-preset@0.52.0:
-  version "0.52.0"
-  resolved "https://registry.yarnpkg.com/metro-react-native-babel-preset/-/metro-react-native-babel-preset-0.52.0.tgz#2b261d97c13cd14a617ba0d6b03e00a0b2168722"
-  integrity sha512-Z/bWNIexZ5k4JXUjTjhmjoOpF1Cil+eEm1PNh4TVDvO3wEE3eKajMuuJCFa/a992OSpk3wUlFwQkYl7VO6NQSg==
+metro-react-native-babel-preset@0.53.0:
+  version "0.53.0"
+  resolved "https://registry.yarnpkg.com/metro-react-native-babel-preset/-/metro-react-native-babel-preset-0.53.0.tgz#4e8147dd56c94b6f4e09e8b067b27f2e0ec757a1"
+  integrity sha512-KP8LVPs8az1x0hbZzZRFWmLxT9rYA8QhJATMlYLQfArahrGhhdw+9+LbHDyvTDmqRKBzR3nnLGar2/Rjxg7cgw==
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.0.0"
     "@babel/plugin-proposal-export-default-from" "^7.0.0"
@@ -3674,7 +3674,7 @@ metro-react-native-babel-preset@0.52.0:
     "@babel/plugin-transform-typescript" "^7.0.0"
     "@babel/plugin-transform-unicode-regex" "^7.0.0"
     "@babel/template" "^7.0.0"
-    metro-babel7-plugin-react-transform "0.52.0"
+    metro-babel7-plugin-react-transform "0.53.0"
     react-transform-hmr "^1.0.4"
 
 metro-resolver@0.49.2:
@@ -4687,11 +4687,6 @@ react-native-range-slider@^0.1.1:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-sms-x@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/react-native-sms-x/-/react-native-sms-x-1.0.6.tgz#33d0a0a9851d7c05d5e45a05ed8e3d207ef7b1c1"
-  integrity sha512-1GScpwR3ET8q9h73R8UpnQBeCEwMxX6WPAoxVU4/ZsdTF1mjn35Udgm7TNaYzh6BW+2WXGUwwd96jwVPK/IPww==
-
 react-native-vector-icons@6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.1.0.tgz#770a3f8ced692d75deb3afbb9829195ceed1eedd"
@@ -4701,10 +4696,10 @@ react-native-vector-icons@6.1.0:
     prop-types "^15.6.2"
     yargs "^8.0.2"
 
-react-native@0.58.5:
-  version "0.58.5"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.58.5.tgz#672709bafd845e35ab4dd32b8ccccae32d54d552"
-  integrity sha512-wCWjUAtvRK7A1YxnCANAW8/3+x3gh2WUifYqdvKSAJ6wGsftLgvj1JxIaUMQ3mKi0aUeAlHnz0cO21ZPCLgd+g==
+react-native@0.58.6:
+  version "0.58.6"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.58.6.tgz#a6d273cd2f51b0e3b141dad5f19622e0000497b3"
+  integrity sha512-m/7L0gYXS4yHjs+PKmyurh1LLr7/tpobAX8Iv7Dwu4XT1ZcZFeCATn420E9U3nC2XsT54AmRR2Fv7VGgf+M2vQ==
   dependencies:
     "@babel/runtime" "^7.0.0"
     absolute-path "^0.0.0"

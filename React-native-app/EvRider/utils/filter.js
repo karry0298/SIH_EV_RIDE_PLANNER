@@ -1,4 +1,4 @@
-const dummy = require('../dump/data').data;
+const dummy = require('./dummyData').data;
 
 const optType = {
     type : [ 'Public', 'Turbo' ],
@@ -79,7 +79,6 @@ module.exports.filter =  ( options = [ 'type', 'price', 'connector', 'rating'] ,
 
                 // console.log( res.price  )
                 if ( res.price >= optTypes['price'] ) {
-                    res.price = 101 //remove it
                     temp.push( res )
                 }
 
