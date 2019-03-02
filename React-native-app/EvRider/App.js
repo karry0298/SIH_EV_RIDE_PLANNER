@@ -56,7 +56,8 @@ const AppNavigator = createStackNavigator({
     return {
       headerLeft:(
         <FontAwesome5 name={"bars"} brand style={{paddingLeft:15 , fontSize: 30, color:'black'}} onPress={() => navigation.toggleDrawer()}/>
-      )
+      ),
+      title:('EVAN')
     };
   }
 });
