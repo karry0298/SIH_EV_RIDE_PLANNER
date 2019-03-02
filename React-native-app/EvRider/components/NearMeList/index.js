@@ -122,8 +122,10 @@ class NearMeList extends Component {
           let contact = rout[i].contactNo
           let rating = rout[i].rating
           let owner = rout[i].owner
+          let price =  rout[i].price
           let imgUri = rout[i].imageUrl
           let imgPk = rout[i].slots
+          let description=rout[i].description
           let icoList = ["bolt","house-damage","city","street-view","hotel"]
           let img = [require("../../assets/images/chademo.png"),
               require("../../assets/images/css_sae.png"),
@@ -147,7 +149,7 @@ class NearMeList extends Component {
 
          let dist = Math.round(this.getDistanceFromLatLonInKm(this.state.latitude,this.state.longitude,lat,long))
          let dict = {uLongitude:this.state.longitude,uLatitude:this.state.latitude,pLongitude:long,pLatitude:lat, 
-            name:title , distance : dist , mail:email , contact , rate:rating ,img:imgUri,charge:FinImag,
+            name:title , distance : dist , mail:email , contact , rate:rating ,img:imgUri,charge:FinImag,description:description,price:price,
             type:icoList[this.state.colorTags.indexOf(rout[i].typeOfStation)],typeName:rout[i].typeOfStation}
 
          cords.push(dict)                           
