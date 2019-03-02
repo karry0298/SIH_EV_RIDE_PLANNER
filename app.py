@@ -54,7 +54,7 @@ def route():
     end_lon = request.args.get('elon')
     end_lat = request.args.get('elat')
     range_car = request.args.get('range')
-    #print(rp.plan_route(start_lon,start_lat,end_lon,end_lat,range_car))
+    print(range_car)
     return jsonify(rp.plan_route(start_lon,start_lat,end_lon,end_lat,float(range_car)))
 
 
