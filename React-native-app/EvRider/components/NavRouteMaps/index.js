@@ -161,7 +161,7 @@ export default class NavRouteMaps extends Component {
               require("../../assets/images/wall.png")]
           let FinImag = []
     
-        console.warn("hahahahahahah",rout[i])
+       // console.warn("hahahahahahah",rout[i])
 
       // console.log("main FinImg",FinImag)  
   
@@ -195,7 +195,7 @@ export default class NavRouteMaps extends Component {
 
     // //http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
 
-    axios.post("http://192.168.43.229:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=3000000")
+    axios.post("http://192.168.43.229:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=300000")
     .then(s=>{
         
          let FinCoooords =[]
@@ -232,14 +232,14 @@ export default class NavRouteMaps extends Component {
             ]
           }
 
-          console.warn(i+"      ",coooords)
+      //    console.warn(i+"      ",coooords)
 
           routFin.push(rut)
           
 
         }
 
-        if (!errorDiag){
+        if (errorDiag){
           this.setState({showAleart : errorDiag})
         }
 
@@ -302,7 +302,7 @@ export default class NavRouteMaps extends Component {
 
         <Dialog
                 onDismiss={() => {
-                this.setState({ showAleart: false });
+                this.setState({ showAleart: this.state.showAleart });
                 }}
                 width={0.9}
                 visible={false}
