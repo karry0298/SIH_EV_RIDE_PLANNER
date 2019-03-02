@@ -7,8 +7,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "geolib": "^2.0.24",
     "react": "16.6.3",
-    "react-native": "0.58.5"
+    "react-native": "0.58.5",
+    "react-native-push-notification-popup": "^1.2.0"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",

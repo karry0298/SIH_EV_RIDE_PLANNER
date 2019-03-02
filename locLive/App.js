@@ -9,6 +9,9 @@
 
 import React, {Component} from 'react';
 import {AppState,Platform, StyleSheet, Text, View} from 'react-native';
+import geolib from 'geolib';
+import axios from 'axios';
+// import NotificationPopup from 'react-native-push-notification-popup';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -23,15 +26,65 @@ export default class App extends Component{
     super(props);
 
     this.state = {
-      lat:124,
-      lng:123
+      prevLoc : {
+        lat : '',
+        lon : '',
+        time : ''
+      },
+      started : false,
+      distanceTravelled : 0
     }
-    this.abc = this.abc.bind(this)
+    this.tracker = this.tracker.bind(this);
+    this.callServer = this.callServer.bind(this);
   }
 
+  callServer(lat,lon,range,options){
 
-  abc(){
+    axios.post(' http://192.168.43.141:2454/range/checkWarning', {
+      lat : lat,
+      lon : lon,
+      range : range,
+      options : options
+    })
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    console.log("Called")
+  }
+
+  tracker(nlat, nlon, time = Date.now()){
     console.log("location changed")
+    console.log("prev lat lon: ", this.state.prevLoc.lat, this.state.prevLoc.lon,this.state.prevLoc.time)
+    console.log("new lat lon: ", nlat, nlon,time)
+    var speed = geolib.getSpeed(
+      { lat :  this.state.prevLoc.lat , lng :  this.state.prevLoc.lon, time : this.state.prevLoc.time},
+      {lat : nlat, lng : nlon , time: time},
+      { unit : 'mph'})
+      geolib.getDistance(
+        {latitude: 51.5103, longitude: 7.49347},
+        {latitude: "51° 31' N", longitude: "7° 28' E"}
+    );
+
+    var dist = geolib.getDistance(
+      { lat :  this.state.prevLoc.lat , lng :  this.state.prevLoc.lon},
+      {lat : nlat, lng : nlon}
+  );
+
+  this.setState({ distanceTravelled : dist });
+
+  if ( dist > 200 ){
+    var range = 1000, options = ['css_sae', 'chademo'];
+    this.callServer( nlat, nlon, range, options );
+  }
+  
+
+  console.log("Speed and Distance", speed , dist);
+
+
   }
 
   componentDidMount()
@@ -45,12 +98,34 @@ export default class App extends Component{
         this.state.lat = latitude
         this.state.lng = longitude
 
-       console.log([latitude,longitude])    
-
-        this.abc()
+      //  console.log([latitude,longitude])    
+        var status = this.state.started;
+        if ( !status ){
+          this.setState({ started : true,
+          prevLoc : {
+            lat : latitude,
+            lon : longitude,
+            time : Date.now()
+          } });
+        }
+        if ( latitude != undefined ){
+          this.tracker(latitude, longitude)
+        }
+        
     },
     (error) => alert(error.message),
     { enableHighAccuracy: true, maximumAge: 500 })
+
+
+
+    this.popup.show({
+      onPress: function() {console.log('Pressed')},
+      appIconSource: require('./assets/icon.jpg'),
+      appTitle: 'Some App',
+      timeText: 'Now',
+      title: 'Hello World',
+      body: 'This is a sample message.\nTesting emoji 😀',
+    });
 
       
     console.log("entered Mount")
@@ -59,10 +134,11 @@ export default class App extends Component{
   render() {
     return (
       <View style={styles.container}>
-        {this.abc()}
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
+        <Text style={styles.welcome}>Hello to React Native!</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
+        <Text style={styles.instructions} onPress={()=>this.callServer()} > Click </Text>
+        {/* <NotificationPopup ref={ref => this.popup = ref} /> */}
       </View>
     );
   }
