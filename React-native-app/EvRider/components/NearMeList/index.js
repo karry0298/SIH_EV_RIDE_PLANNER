@@ -220,7 +220,7 @@ class NearMeList extends Component {
                 </View>
 
 
-                <Text style={{marginLeft:10}}>Descrpition abt the place will come here when nehal bhaiya sends the info</Text>
+                <Text style={{marginLeft:10}}>There will be loading shedding between 6 PM to 9PM on 9 March 2019 </Text>
 
             <View style={{flexDirection:"row"}}>
                 <Button light onPress={() => {this.setState({ Dialog: false });}}>
@@ -315,7 +315,7 @@ class NearMeList extends Component {
                                     <Image style={{width:"100%",height:150,borderBottomWidth:0.7,borderColor:"#bab8b8"}} source={{uri:item.img}}></Image>
 
                                     <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center",marginTop:10}}>
-                                        <Text style={{marginLeft:10,fontSize:15}} >{item.mail}</Text>
+                                        <Text style={{marginLeft:10,fontSize:15}} >Owner: MrAlex</Text>
                                         <Text style={{marginRight:10,fontSize:15}}>{item.contact}</Text> 
                                     </View>
 
@@ -353,7 +353,7 @@ class NearMeList extends Component {
 
                     
                                 <CardItem footer bordered>
-                                    <Text>Descrpition abt the place will come here when nehal bhaiya sends the info</Text>
+                                    <Text>There will be loading shedding between 6 PM to 9PM on 9 March 2019 </Text>
                                 </CardItem>
                     
                                 </Card>
@@ -367,7 +367,7 @@ class NearMeList extends Component {
 
             <View style={{flexDirection:"row"}}>
             <Button style={{backgroundColor:"white",paddingLeft:55,paddingRight:55}}
-                    onPress={() => {this.setState({ Dialog: true });}}>
+                    onPress={() => {this.props.navigation.navigate('filter')}}>
                 <Text style={{fontSize:21}}> Filters </Text>
                 <FontAwesome5 name={"filter"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
             </Button>

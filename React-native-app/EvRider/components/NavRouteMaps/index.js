@@ -404,7 +404,7 @@ export default class NavRouteMaps extends Component {
                 </View>
 
 
-                <Text style={{marginLeft:10}}>Descrpition abt the place will come here when nehal bhaiya sends the info</Text>
+                <Text style={{marginLeft:10}}>There will be loading shedding between 6 PM to 9PM on 9 March 2019 </Text>
 
             <View>
 
