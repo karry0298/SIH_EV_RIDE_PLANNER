@@ -170,7 +170,9 @@ onpress = () =>
   console.log(res)
   // alert(filterList)
 
-  this.props.navigation.getParam('updateStations')
+  // var funUpdateStation = this.props.navigation.getParam('updateStations')
+
+  // funUpdateStation(res)
 
   this.props.navigation.navigate('nearmeMap')
 }

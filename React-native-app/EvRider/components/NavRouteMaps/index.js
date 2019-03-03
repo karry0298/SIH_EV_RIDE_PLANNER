@@ -342,7 +342,7 @@ export default class NavRouteMaps extends Component {
               
 
                 <View style={{flexDirection:"row"}}>
-                    <Button light onPress={() => {this.setState({ showAleart: false });}}>
+                    <Button light onPress={() => {this.setState({ showAl: false });}}>
                     <Text style={{fontSize:21}}>    Back </Text>
                     <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
                     </Button>

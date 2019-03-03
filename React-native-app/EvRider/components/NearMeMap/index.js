@@ -52,7 +52,8 @@ class NearMeMap extends Component {
         valueBattery:88,
         borderColor:'orange',
         statusMessage:'charging',
-        colorText:'black'
+        colorText:'black',
+        DialogPrice:120
     };
 
     this.tracker = this.tracker.bind(this);
@@ -68,7 +69,7 @@ class NearMeMap extends Component {
   
   //charging-station
   //map-marker-alt  
-  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr) {
+  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr,price) {
 
     var icoList = ["bolt","house-damage","city","street-view","hotel"]
     var colors=["blue","black","brown","red","#ddbc00"]
@@ -77,7 +78,7 @@ class NearMeMap extends Component {
     
     // this.setState( { placeLat : b , placeLon : a } )
 
-    console.log("abcabca         ",glyf)
+    // console.log("abcabca         ",glyf)
 
     //console.warn(imgPik)
       return (
@@ -86,6 +87,7 @@ class NearMeMap extends Component {
           id={k}    
           coordinate={[a,b]}>
 
+              <Text style={{color:"black" , backgroundColor:"white"}}>{price}</Text>
               <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:locColr}}  
               onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
                                 DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
@@ -252,7 +254,13 @@ else{
         id='pointAnnotation'
         coordinate={[this.state.longitude,this.state.latitude]}>
 
-            <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:"red"}} />
+            <View style={styles.annotationContainer}>
+              <View style={styles.annotationFill}>
+
+  
+
+              </View>
+            </View>
 
 
         <Mapbox.Callout title='user Location' />
@@ -286,6 +294,7 @@ else{
         let owner = rout[i].owner
         let imgUri = rout[i].imageUrl
         let imgPik = rout[i].slots
+        let price = rout[i].price
         let img = [require("../../assets/images/chademo.png"),
             require("../../assets/images/css_sae.png"),
             require("../../assets/images/j-1772.png"),
@@ -324,7 +333,7 @@ else{
 
      //   console.warn(FinImag)
 
-        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor))                            
+        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor,price))                            
     }
 
 
@@ -365,7 +374,7 @@ else{
 
         <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:150,marginLeft:340,zIndex:10}}>
             <Button rounded style={{marginLeft:1,backgroundColor:"white",    width: 60, height: 60,borderRadius: 60}} 
-                            onPress={() => {this.props.navigation.navigate('filter', {data:"stuff transfered", updateStations : updateStations})}}>
+                            onPress={() => {this.props.navigation.navigate('filter')}}>
                         <FontAwesome5 name={"filter"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />
                 </Button>
         </View>
@@ -532,7 +541,7 @@ const styles = StyleSheet.create({
     height: bord,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'rgba(218, 82, 82, 0)',
+    backgroundColor:'rgba(218, 82, 82, 0.25)',
     borderRadius: bord,
   },
   annotationFill: {
