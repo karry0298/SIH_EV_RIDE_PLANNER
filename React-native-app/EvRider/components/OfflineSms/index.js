@@ -53,6 +53,8 @@ class OfflineSms extends Component {
 
   // }
 
+  smsFunction(e,typeSMS) {
+    console.log(typeSMS)
   smsFunction(typeSms,e) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -65,6 +67,7 @@ class OfflineSms extends Component {
           // this.setState({lat:latitude,lon:longitude});
           // console.log(this.state.lat);
           SendSMS.send({
+            body: 'LAPYT type='+typeSMS+'&id=7945&coords='+latitude+','+longitude+"&rad="+radius,
             body: 'LAPYT type='+typeSms+'&id=7945&coords='+latitude+','+longitude+"&rad="+radius,
             recipients: ['+919220592205'],
             successTypes: ['sent', 'queued'],

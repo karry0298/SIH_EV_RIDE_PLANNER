@@ -49,6 +49,10 @@ class NearMeMap extends Component {
         DialogBattery:false,
         valueBattery:55,
         borderColor:'orange',
+        statusMessage:'charging',
+        DialogBattery:false,
+        valueBattery:55,
+        borderColor:'orange',
         statusMessage:'charging'
     };
 
@@ -64,7 +68,7 @@ class NearMeMap extends Component {
   
   //charging-station
   //map-marker-alt  
-  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating) {
+  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr) {
 
     var icoList = ["bolt","house-damage","city","street-view","hotel"]
     var colors=["blue","black","brown","red","#ddbc00"]
@@ -80,7 +84,7 @@ class NearMeMap extends Component {
           id={k}    
           coordinate={[a,b]}>
 
-              <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:"black"}}  
+              <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:locColr}}  
               onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
                                 DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
                                 DialogRating:rating ,DialogIcon:glyf });
@@ -172,7 +176,7 @@ class NearMeMap extends Component {
 
   //  console.log("mount entered")
 
-    axios.get("http://192.168.43.78:2454/api/getAllStation")
+    axios.get("http://192.168.43.141:2454/api/getAllStation")
     .then(s=>{
 
         const rout = s.data.data;
@@ -245,9 +249,8 @@ else{
         id='pointAnnotation'
         coordinate={[this.state.longitude,this.state.latitude]}>
 
-        <View style={styles.annotationContainer}>
-          <View style={styles.annotationFill} />
-        </View>
+            <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:"red"}} />
+
 
         <Mapbox.Callout title='user Location' />
       </Mapbox.PointAnnotation>
@@ -286,7 +289,25 @@ else{
             require("../../assets/images/supercharger.png"),
             require("../../assets/images/type2.png"),
             require("../../assets/images/wall.png")]
-        let FinImag = []
+
+            let FinImag = []
+            let totalSlots = rout[i].totalSlots
+            let usedSlots = rout[i].slotsAvailable
+
+            let locColor = "black"
+
+            if(usedSlots/totalSlots*100 > 75){
+                locColor = "green"
+            }
+            else if(usedSlots/totalSlots*100 > 40){
+                locColor = "#e8c812"
+            }
+            else{
+              locColor = "red"
+            }
+
+
+
 
       //  console.warn(img)
 
@@ -300,7 +321,7 @@ else{
 
      //   console.warn(FinImag)
 
-        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating))                            
+        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor))                            
     }
 
 
@@ -311,15 +332,15 @@ else{
       <View style={styles.container}>
     
         <View style={{flexDirection:"row"}}>
-                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:15}} >
-                    <Text style={{fontSize:21 , paddingLeft:25}} > {"charge:20%"} </Text>
-                    <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginBottom:23 ,fontSize: 20, color:'black' , paddingRight:25}} />        
+                <Button style={{marginLeft:1,backgroundColor:"red",paddingLeft:11,paddingRight:15}} >
+                    <Text style={{fontSize:21 , paddingLeft:25 ,color:"white"}} > {"charge:20%"} </Text>
+                    <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginBottom:23 ,fontSize: 20, color:"white" , paddingRight:25}} />        
                 </Button>
 
-                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:23,paddingRight:27}} 
+                <Button style={{marginLeft:1,backgroundColor:"red",paddingLeft:23,paddingRight:27}} 
                         onPress={() => {this.props.navigation.navigate('nearmelist',{abc:this.state.myStateFinale})}}>
-                    <Text style={{fontSize:21,paddingLeft:30}} > List </Text>
-                    <FontAwesome5 name={"list-ul"} brand style={{paddingLeft:5 ,paddingRight:50 , fontSize: 20, color:'black'}} />        
+                    <Text style={{fontSize:21,paddingLeft:30,color:"white"}} > List </Text>
+                    <FontAwesome5 name={"list-ul"} brand style={{paddingLeft:5 ,paddingRight:50 , fontSize: 20, color:"white"}} />        
                 </Button>
         </View>
 
@@ -480,7 +501,52 @@ else{
      </View>
 
                 
-                </Dialog>
+      </Dialog>
+
+
+      <Dialog
+        onDismiss={() => {
+        this.setState({ DialogBattery: false });
+        }}
+        width={0.75}
+        visible={this.state.DialogBattery}
+        rounded
+        actionsBordered
+        onTouchOutside  ={()=>{
+        this.setState({DialogBattery:false})
+        }}
+        >
+          <View style={{height:"65%",flexDirection:"column",justifyContent: "space-between",alignItems: "center", }} >
+          <View style ={styles.DialogBContainer}>
+          
+          <View style={[styles.CircleShapeView,{borderColor:this.state.borderColor}]}>
+          <Text style={{ paddingLeft:20, textAlign:'center', fontSize:45,fontWeight:'bold',color:'black',}} > {this.state.valueBattery}% </Text>
+          
+          </View>
+          </View>
+
+
+          <View>
+          <Text style={{fontSize:22,fontWeight:'bold',alignItems:'center' ,color:'#000',marginTop:10}} > Status:{this.state.statusMessage}</Text>
+          </View>
+          <View >
+          <Text style={{fontSize:22,fontWeight:'bold',color:'#000',marginTop:10}} > Estimated Range</Text>
+
+
+          </View>
+
+          <View style={{margin:10,marginTop:55}}>
+          <Button style={{paddingRight:22,backgroundColor:"#f1813b"}} rounded onPress={() => {this.setState({ Dialog: false });}}>
+          <Text style={{fontSize:22}} > Set reminder </Text>
+          <FontAwesome5 name={"bell"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} /> 
+          </Button>
+
+          </View>
+
+        </View>
+
+      
+      </Dialog>
 
         </View>
     );

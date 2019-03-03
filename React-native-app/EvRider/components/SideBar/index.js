@@ -9,7 +9,8 @@ const routes = [{title:"rout" , name:"Help Section" , icon:"user"},
                 {title:"nearmelist" , name:"eCharging List", icon:"map-marked-alt"},
                 {title:"nearmeMap",name:"Navigation Maps", icon:"user"},
                 {title:"filter",name:"Filter", icon:"user"},
-                {title:"feedback",name:"Feedback", icon:"user"}];
+                {title:"feedback",name:"Feedback", icon:"user"},
+                {title:"chat",name:"Chatroom", icon:"user"}];
 
 export default class SideBar extends React.Component {
   render() {
