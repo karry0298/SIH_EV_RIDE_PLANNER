@@ -39,7 +39,8 @@ export default class SignIn extends Component {
                     </View>
                     <View style={{paddingLeft: 20, paddingRight: 20}}>
                         {this.state.errorMessage &&
-                        <View style={{border:"red", backgroundColor:"lightpink"}}>
+                        <View style={{backgroundColor:"lightpink", padding:20,
+                         borderRadius:10, borderWidth:2, borderColour:"red", textAlign:"center", marginTop:20}}>
                             <Text>{this.state.errorMessage}</Text>
                         </View> }
                         <Form block style={styles.item}>
@@ -57,14 +58,14 @@ export default class SignIn extends Component {
                                        value={this.state["formPassword"]}/>
                             </Item>
                         </Form>
-                        <Button rounded info block style={{marginTop: 50}}
+                        <Button rounded info block  style={{marginTop: 50, backgroundColor:"#3700B3"  }}
                                 onPress={(e)=>{if (this.authenticate(this.state['formEmail'], this.state['formPassword'])) {
                                     this.props.successCallback();
                                 }
                                 else this.setState({errorMessage :"Wrong Username/Password"})}}>
                             <Text>Sign In</Text>
                         </Button>
-                        <Button rounded info block style={{marginTop: 30, alignSelf: 'center'}}>
+                        <Button rounded info block style={{marginTop: 30, alignSelf: 'center', backgroundColor:"#3700B3"}}>
                             <Text>Forgot Password?</Text>
                         </Button>
 

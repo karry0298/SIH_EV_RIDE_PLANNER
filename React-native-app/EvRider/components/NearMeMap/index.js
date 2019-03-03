@@ -10,6 +10,7 @@ import geolib from 'geolib'
 import { IP } from '../../utils/constants' 
 import openMap from 'react-native-open-maps';
 
+import BatteryDialog from '../BatteryDialog/batteryDialog'
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
 //"charge":["chademo","css_sae","j-1772","supercharger","type2","wall"]
@@ -36,6 +37,7 @@ class NearMeMap extends Component {
         DialogMail:"abc@abc",
         DialogUri:'https://dqbasmyouzti2.cloudfront.net/assets/content/cache/made/content/images/articles/EV_ChargingII_XL_721_420_80_s_c1.jpg',
         DialogContact: 999233233,
+        DialogOwner: 'Mr Alex',
         myStateFinale:[],
         myStateFinaleDup:[],
         DialogIcon:'public',
@@ -70,7 +72,7 @@ class NearMeMap extends Component {
   
   //charging-station
   //map-marker-alt  
-  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr,price) {
+  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr,owner,price) {
 
     var icoList = ["bolt","house-damage","city","street-view","hotel"]
     var colors=["blue","black","brown","red","#ddbc00"]
@@ -340,7 +342,7 @@ else{
 
      //   console.warn(FinImag)
 
-        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor,price))                            
+        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor,owner,price))                            
     }
 
 
@@ -360,9 +362,12 @@ else{
                 </View>
               </Button>
 
-                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:5,paddingRight:5}} onPress={()=>this.setState({DialogBattery:true})} >
-                    <Text style={{fontSize:21 , paddingLeft:25 ,color:"black"}} > charge:{this.state.valueBattery} </Text>
-                    <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginBottom:23 ,fontSize: 20, color:"white" , paddingRight:25}} />        
+                <Button style={{flex:3, backgroundColor:"#6200EE", }} onPress={()=>this.setState({DialogBattery:true})} >
+                <View style={{paddingLeft:4, paddingRight:4, flexDirection:"row",justifyContent: 'space-around',  }}>
+
+                    <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],fontSize: 20, color:"white" }} />
+                    <Text style={{fontSize:21 ,color:"white"}} > {"charge:" + this.state.valueBattery +"%"} </Text>
+                </View>
                 </Button>
                 <Button style={{flex:2, backgroundColor:"#6200EE", }}
                         onPress={() => {this.props.navigation.navigate('nearmelist',{abc:this.state.myStateFinale})}}>
@@ -409,7 +414,6 @@ else{
                 this.setState({ Dialog: false });
                 }}
                 width={0.90}
-                height={0.9}
                 visible={this.state.Dialog}
                 rounded
                 actionsBordered
@@ -423,12 +427,8 @@ else{
                 <Image style={{width:"100%",height:200,borderBottomWidth:0.7,borderColor:"#bab8b8"}} source={{uri:this.state.DialogUri}}></Image>
 
                 <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center",marginTop:10}}>
-                    <Text style={{marginLeft:10,fontSize:20}} >{this.state.DialogMail}</Text>
-
-                    <View style={{flexDirection:"row"}}>
-                      <FontAwesome5 name="phone" brand style={{color:'black',fontSize:20,   transform: [{ rotate: '90deg'}], marginRight:10}} />   
-                      <Text style={{marginRight:10,fontSize:20}}>{this.state.DialogContact}</Text> 
-                    </View>
+                    <Text style={{marginLeft:10,fontSize:15}} >{this.state.DialogMail}</Text>
+                    <Text style={{marginRight:10,fontSize:15}}>{this.state.owner}</Text> 
                 </View>
 
                 <View style={{marginTop:5, borderBottomColor: '#e5e5e5',borderBottomWidth: 0.8,}} />
@@ -469,6 +469,7 @@ else{
 
 
                 <Text style={{marginLeft:10, fontSize:15, paddingTop:10, paddingBottom:10 }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</Text>
+                <Text style={{marginLeft:10}}>There will be loading shedding between 6 PM to 9PM on 9 March 2019 </Text>
 
 <View style={{bottom:0}}>
             <View>
@@ -479,11 +480,11 @@ else{
                 </Button>                              
             </View>
             <View style={{flexDirection:"row"}}>
-                <Button light onPress={() => {this.setState({ Dialog: false });}}>
+                <Button style ={{flex:1}} light onPress={() => {this.setState({ Dialog: false });}}>
                   <Text style={{fontSize:21 , paddingLeft:35}}>    Back </Text>
                   <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , paddingRight:35 , fontSize: 20, color:'black'}} />        
                 </Button>
-                <Button light onPress={() => {this.setState({ Dialog: false });}}>
+                <Button style ={{flex:1}} light onPress={() => {this.setState({ Dialog: false });}}>
                   <Text style={{fontSize:21}} >          Fav </Text>
                   <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black', paddingRight:85}} />        
                 </Button>
@@ -492,50 +493,13 @@ else{
             </Dialog>
 
 
-
-      <Dialog
-        onDismiss={() => {
-        this.setState({ DialogBattery: false });
-        }}
-        width={0.75}
-        visible={this.state.DialogBattery}
-        rounded
-        actionsBordered
-        onTouchOutside  ={()=>{
-        this.setState({DialogBattery:false})
-        }}
-        >
-          <View style={{height:"65%",flexDirection:"column",justifyContent: "space-between",alignItems: "center", }} >
-          <View style ={styles.DialogBContainer}>
-          
-          <View style={[styles.CircleShapeView,{borderColor:this.state.borderColor}]}>
-          <Text style={{ paddingLeft:20, textAlign:'center', fontSize:45,fontWeight:'bold',color:'black',}} > {this.state.valueBattery}% </Text>
-          
-          </View>
-          </View>
-
-
-          <View>
-          <Text style={[styles.status,{color:this.state.colorText}]} > Status:{this.state.statusMessage}</Text>
-          </View>
-          <View >
-          <Text style={{fontSize:22,fontWeight:'bold',color:'#000',marginTop:10}} > Estimated Range</Text>
-
-
-          </View>
-
-          <View style={{margin:10,marginTop:55}}>
-          <Button style={{paddingRight:22,backgroundColor:"#f1813b"}} rounded onPress={() => {this.setState({ Dialog: false });}}>
-          <Text style={{fontSize:22}} > Set reminder </Text>
-          <FontAwesome5 name={"bell"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} /> 
-          </Button>
-
-          </View>
-
-        </View>
-
-      
-      </Dialog>
+            <BatteryDialog 
+              setDialogBattery={(val) => this.setState({ DialogBattery: val })}
+              batteryValue={this.state.valueBattery}
+              dialogVisible={this.state.DialogBattery}
+              borderColor={this.state.borderColor}
+              colorText={this.state.colorText}
+            />
 
         </View>
     );
