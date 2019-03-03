@@ -24,6 +24,7 @@ import NavRouteMaps from './components/NavRouteMaps';
 import RouteNearMe from './components/RouteNearMe';
 import filterScreen from './components/Filter';
 import feedbackScreen from './components/Feedback'
+import ChatScreen from './components/Chat'
 import Start from './Start';
 
 
@@ -32,7 +33,8 @@ const Mdn = createDrawerNavigator({
   nearmelist: {screen:NearMeList},
   nearmerout:{screen:RouteNearMe},
   filter : { screen : filterScreen },
-  feedback : { screen : feedbackScreen }
+  feedback : { screen : feedbackScreen },
+  chat : { screen : ChatScreen}
 },
 {
   contentComponent: SideBar,
