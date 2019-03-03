@@ -165,9 +165,11 @@ onpress = () =>
 
   var { Home, Public, Turbo, Hotel, Mall } = this.state;
   var { chademo, css_sae, j_1772, supercharger, type2, wall  } = this.state;
-  var { women, available, price } = this.state;
+  var { women, available } = this.state;
+  var { lt100 , b100200, g200 } = this.state;
   var typeInput = { Home, Public, Turbo, Hotel, Mall }, typeStatus = false;
   var conInput = { chademo, css_sae, j_1772, supercharger, type2, wall  }, conStatus = false;
+  var price = '';
 
   for ( var key in typeInput ){
     if ( typeInput[key] ){
@@ -188,6 +190,21 @@ onpress = () =>
     options.push( 'available' )
   }
 
+  if ( lt100 || b100200 || g200 ){
+    options.push( 'price' )
+
+    if (lt100){
+      price = 'lt100'
+    }
+    else if (b100200){
+      price = 'b100200'
+    }else if(g200){
+      price = 'g200'
+    }else{
+      price = '0'
+    }
+  }
+
   for ( var key in conInput ){
     if ( conInput[key] ){
       connector.push( key )
@@ -200,10 +217,11 @@ onpress = () =>
   }
 
   var optTypes = {
-    type,connector,price
+    type,connector,price,women
   }
   // console.log( optTypes, options )
 
+  console.log(optTypes)
   var res = filter(options, optTypes )
   console.log(res)
   // alert(filterList)
