@@ -63,21 +63,21 @@ export default class Sort extends Component {
          <Content>
          <Text style={{fontSize:25,fontWeight:'500',padding:8}}>Type :</Text>
            <ListItem>
-             <CheckBox value={this.state.Home} onChange={()=>this.checkBox()} />
+             <CheckBox value={this.state.Price} onChange={()=>this.checkBox()} />
              <Body>
                <Text>Price</Text>
              </Body>
            </ListItem>
            
            <ListItem>
-             <CheckBox value={this.state.Public} onChange={()=>this.checkBox1()} />
+             <CheckBox value={this.state.UserRating} onChange={()=>this.checkBox1()} />
              <Body>
                <Text>User Rating</Text>
              </Body>
            </ListItem>
            
            <ListItem>
-             <CheckBox value={this.state.Turbo} onChange={()=>this.checkBox2()} />
+             <CheckBox value={this.state.WomenFriendly} onChange={()=>this.checkBox2()} />
              <Body>
                <Text>Women Friendly</Text>
              </Body>

@@ -34,8 +34,6 @@ export default class NavigateRoute extends Component {
 
   }
 
-  //style={{height:this.state.heighta}}
-
   render() {
 
     return (
@@ -57,8 +55,26 @@ export default class NavigateRoute extends Component {
               console.log('1st Input',data.geometry.location.lng)
 
                 this.setState({uLang:data.geometry.location.lng,uLat:data.geometry.location.lat})
-
                 this.setState({heighta:45 , heightb:'100%'})
+
+
+                console.log('111111st Input',details)
+  
+                // if(data == undefined){
+                //     this.setState({uLang:data.geometry.location.lng,uLat:data.geometry.location.lat})
+                //     this.setState({heighta:45 , heightb:'100%'})
+                //     console.log("A entered")
+                // }
+                // else{
+                //   this.setState({uLang:details.geometry.location.lng,uLat:details.geometry.location.lat})  
+                //   this.setState({heighta:45 , heightb:'100%'})              
+                //   console.log("B entered")
+                // }
+
+
+
+
+
               }}
               
               getDefaultValue={() => ''}
