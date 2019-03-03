@@ -7,10 +7,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 //const routes = ["Cam", "Ram"];
 
 const routes = [
-                {title:"profile",name:"Profile", icon:"user"},
+                {title:"prof",name:"Profile", icon:"user"},
                 {title:"rout" , name:"Help Section" , icon:"question-circle"},
-                {title:"nearmelist" , name:"eCharging List", icon:"charging-station"},
-                {title:"nearmeMap",name:"Navigation Maps", icon:"map"},
                 {title:"filter",name:"Filter", icon:"filter"},
                 {title:"feedback",name:"Feedback", icon:"comments"},
                 {title:"chat",name:"Chatroom", icon:"comment-dots"}];

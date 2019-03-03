@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
+import profileImage from './assets/images/avatar6.png'
 
 export default class Profile extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ componentDidMount(){
     return (
       <View style={styles.container}>
           <View style={styles.header}></View>
-          <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+          <Image style={styles.avatar} source={profileImage}/>
           <View style={styles.body}>
             <View style={styles.bodyContent}>
               <Text style={styles.name}>John Doe</Text>

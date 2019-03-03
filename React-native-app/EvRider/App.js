@@ -28,14 +28,14 @@ import ChatScreen from './components/Chat'
 import Start from './Start';
 import Profile from './profile.js'
 
-
 const Mdn = createDrawerNavigator({
   nearmeMap: {screen:NearMeMap},  
   nearmelist: {screen:NearMeList},
   nearmerout:{screen:RouteNearMe},
   filter : { screen : filterScreen },
   feedback : { screen : feedbackScreen },
-  chat : { screen : ChatScreen}
+  chat : { screen : ChatScreen},
+  prof : { screen : Profile }
 },
 {
   contentComponent: SideBar,
@@ -51,7 +51,7 @@ const AppNavigator = createStackNavigator({
   navigateRoute:{screen:NavigateRouteInput},
   navigateMaps:{screen:NavRouteMaps},
   filter : { screen : filterScreen },
-  prof : { screen : Profile }
+
 
 
     },
