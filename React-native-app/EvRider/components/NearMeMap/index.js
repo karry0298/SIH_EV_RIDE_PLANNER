@@ -37,7 +37,7 @@ class NearMeMap extends Component {
         myStateFinale:[],
         DialogIcon:'public',
         prevLatLng: {},
-        coordinate:{latitude: 19.26196225,longitude: 72.86661427},
+        coordinate:{},
 
         prevLoc : {
           lat : '',
@@ -62,7 +62,7 @@ class NearMeMap extends Component {
 
   goToYosemite(coors) {
     openMap( { travelType : "drive",
-    end : "43.570,11.356", start :"43.540, 11.486"} )
+    end : `${coors[0]},${coors[1]}`} )
   }
 
   
@@ -87,7 +87,7 @@ class NearMeMap extends Component {
               <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:locColr}}  
               onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
                                 DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
-                                DialogRating:rating ,DialogIcon:glyf });
+                                DialogRating:rating ,DialogIcon:glyf, coordinates : { latitude : b, longitude : a } });
             }}
               />
               
@@ -436,7 +436,7 @@ else{
 
             <View>
 
-                <Button style={{backgroundColor:'red' , width:'100%'}} onPress={() => {this.goToYosemite([19.13566162451865,72.86615863993508])}}>
+                <Button style={{backgroundColor:'red' , width:'100%'}} onPress={() => {this.goToYosemite([ this.state.coordinate.latitude, this.state.coordinate.longitude ])}}>
                   <Text style={{fontSize:21 , paddingLeft:130 , color:"white"}} >  Nav </Text>
                   <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:130 , fontSize: 20, color:"white"}} />        
                 </Button>                              
