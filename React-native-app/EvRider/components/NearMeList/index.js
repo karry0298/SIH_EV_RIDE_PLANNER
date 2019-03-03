@@ -7,6 +7,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
 import Dialog, { DialogTitle,DialogContent,DialogFooter,DialogButton,SlideAnimation} from 'react-native-popup-dialog';
 //http://192.168.2.13:2454/api/findStation
+import BatteryDialog from '../BatteryDialog/batteryDialog'
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
@@ -14,8 +15,12 @@ class NearMeList extends Component {
 
     constructor(props) {
         super(props);
-    
+              
         this.state = {
+            valueBattery: 88,
+            DialogBattery: false,
+            borderColor: "green",
+            colorText: "green",
             Dialog:true,
             latitude: 19.13566162451865,
             longitude: 72.86615863993508,
@@ -237,27 +242,13 @@ class NearMeList extends Component {
             </Dialog>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <BatteryDialog 
+              setDialogBattery={(val) => this.setState({ DialogBattery: val })}
+              batteryValue={this.state.valueBattery}
+              dialogVisible={this.state.DialogBattery}
+              borderColor={this.state.borderColor}
+              colorText={this.state.colorText}
+            />
 
         <View style={{flexDirection:"row"}}>
                 <Button style={{backgroundColor:"white",paddingLeft:25,paddingRight:23}}
@@ -267,8 +258,8 @@ class NearMeList extends Component {
                 </Button>
 
                 <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:14}} 
-                        onPress={() => {this.props.navigation.navigate('nearmelist')}}>
-                    <Text style={{fontSize:21}} > {"charge:"+this.state.battery+"%"} </Text>
+                        onPress={(val) => this.setState({ DialogBattery: val })}>
+                    <Text style={{fontSize:21}} > {"charge:"+this.state.valueBattery+"%"} </Text>
                     <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginTop:5,paddingLeft:5 , fontSize: 20, color:'black'}} />        
                 </Button>
 

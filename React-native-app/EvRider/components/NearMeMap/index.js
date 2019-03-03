@@ -10,6 +10,7 @@ import geolib from 'geolib'
 import { IP } from '../../utils/constants' 
 import openMap from 'react-native-open-maps';
 
+import BatteryDialog from '../BatteryDialog/batteryDialog'
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
 //"charge":["chademo","css_sae","j-1772","supercharger","type2","wall"]
@@ -364,7 +365,7 @@ else{
                 <View style={{paddingLeft:4, paddingRight:4, flexDirection:"row",justifyContent: 'space-around',  }}>
 
                     <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],fontSize: 20, color:"white" }} />
-                    <Text style={{fontSize:21 ,color:"white"}} > {"charge:20%"} </Text>
+                    <Text style={{fontSize:21 ,color:"white"}} > {"charge:" + this.state.valueBattery +"%"} </Text>
                 </View>
                 </Button>
                 <Button style={{flex:2, backgroundColor:"#6200EE", }}
@@ -412,7 +413,6 @@ else{
                 this.setState({ Dialog: false });
                 }}
                 width={0.90}
-                height={0.9}
                 visible={this.state.Dialog}
                 rounded
                 actionsBordered
@@ -482,11 +482,11 @@ else{
                 </Button>                              
             </View>
             <View style={{flexDirection:"row"}}>
-                <Button light onPress={() => {this.setState({ Dialog: false });}}>
+                <Button style ={{flex:1}} light onPress={() => {this.setState({ Dialog: false });}}>
                   <Text style={{fontSize:21 , paddingLeft:35}}>    Back </Text>
                   <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , paddingRight:35 , fontSize: 20, color:'black'}} />        
                 </Button>
-                <Button light onPress={() => {this.setState({ Dialog: false });}}>
+                <Button style ={{flex:1}} light onPress={() => {this.setState({ Dialog: false });}}>
                   <Text style={{fontSize:21}} >          Fav </Text>
                   <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black', paddingRight:85}} />        
                 </Button>
@@ -495,50 +495,13 @@ else{
             </Dialog>
 
 
-
-      <Dialog
-        onDismiss={() => {
-        this.setState({ DialogBattery: false });
-        }}
-        width={0.75}
-        visible={this.state.DialogBattery}
-        rounded
-        actionsBordered
-        onTouchOutside  ={()=>{
-        this.setState({DialogBattery:false})
-        }}
-        >
-          <View style={{height:"65%",flexDirection:"column",justifyContent: "space-between",alignItems: "center", }} >
-          <View style ={styles.DialogBContainer}>
-          
-          <View style={[styles.CircleShapeView,{borderColor:this.state.borderColor}]}>
-          <Text style={{ paddingLeft:20, textAlign:'center', fontSize:45,fontWeight:'bold',color:'black',}} > {this.state.valueBattery}% </Text>
-          
-          </View>
-          </View>
-
-
-          <View>
-          <Text style={[styles.status,{color:this.state.colorText}]} > Status:{this.state.statusMessage}</Text>
-          </View>
-          <View >
-          <Text style={{fontSize:22,fontWeight:'bold',color:'#000',marginTop:10}} > Estimated Range</Text>
-
-
-          </View>
-
-          <View style={{margin:10,marginTop:55}}>
-          <Button style={{paddingRight:22,backgroundColor:"#f1813b"}} rounded onPress={() => {this.setState({ Dialog: false });}}>
-          <Text style={{fontSize:22}} > Set reminder </Text>
-          <FontAwesome5 name={"bell"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} /> 
-          </Button>
-
-          </View>
-
-        </View>
-
-      
-      </Dialog>
+            <BatteryDialog 
+              setDialogBattery={(val) => this.setState({ DialogBattery: val })}
+              batteryValue={this.state.valueBattery}
+              dialogVisible={this.state.DialogBattery}
+              borderColor={this.state.borderColor}
+              colorText={this.state.colorText}
+            />
 
         </View>
     );
