@@ -311,21 +311,15 @@ else{
       <View style={styles.container}>
     
         <View style={{flexDirection:"row"}}>
-                <Button style={{backgroundColor:"white",paddingLeft:25,paddingRight:23}}
-                        onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
-                    <Text style={{fontSize:21}}>Map </Text>
-                    <FontAwesome5 name={"map-marked-alt"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
-                </Button>
-
-                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:14}} onPress={()=>this.setState({DialogBattery:true})}  >
-                    <Text style={{fontSize:21}} > charge:{this.state.valueBattery}% </Text>
-                    <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginTop:5,paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:15}} >
+                    <Text style={{fontSize:21 , paddingLeft:25}} > {"charge:20%"} </Text>
+                    <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginBottom:23 ,fontSize: 20, color:'black' , paddingRight:25}} />        
                 </Button>
 
                 <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:23,paddingRight:27}} 
                         onPress={() => {this.props.navigation.navigate('nearmelist',{abc:this.state.myStateFinale})}}>
-                    <Text style={{fontSize:21}} > List </Text>
-                    <FontAwesome5 name={"list-ul"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                    <Text style={{fontSize:21,paddingLeft:30}} > List </Text>
+                    <FontAwesome5 name={"list-ul"} brand style={{paddingLeft:5 ,paddingRight:50 , fontSize: 20, color:'black'}} />        
                 </Button>
         </View>
 

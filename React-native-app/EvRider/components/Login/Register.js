@@ -70,7 +70,7 @@ export default class Register extends Component {
         };
     }
     submit(){
-        console.warn("submitted data ",this.state.)
+         console.warn("submitted data ",this.state.selectedObject);
         
           }
     onValueChange2(value) {
@@ -134,6 +134,7 @@ export default class Register extends Component {
           showDropDowns={true}
           readOnlyHeadings={true}
           onSelectedItemsChange={this.state.selectedObject}
+          onSelectedItemObjectsChange	={this.state.selectedObject}
           selectedItems={this.state.selectedItems}
         />
   
