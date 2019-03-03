@@ -21,6 +21,9 @@ constructor(props){
     women:false,
     available:false,
     price: 0,
+    lt100 : false,
+    b100200 : false,
+    g200 : false
   };
 
   console.log(this.props.navigation.getParam("data", "stuff failed transfer"))
@@ -66,6 +69,7 @@ checkBox4()
 }
 checkBox5()
 {
+  console.log("chademo")
   this.setState({
      chademo:!this.state.chademo,
      
@@ -120,6 +124,40 @@ checkBox12()
      
   })
 }
+
+checkBox13(){
+
+  this.setState({
+    lt100 : true,
+    b100200 : false,
+    g200 : false
+
+  })
+
+}
+
+checkBox14(){
+
+  this.setState({
+    lt100 : false,
+    b100200 : true,
+    g200 : false
+
+  })
+
+}
+
+checkBox15(){
+
+  this.setState({
+    lt100 : false,
+    b100200 : false,
+    g200 : true
+
+  })
+
+}
+
 onpress = () =>
 {
   
@@ -127,9 +165,11 @@ onpress = () =>
 
   var { Home, Public, Turbo, Hotel, Mall } = this.state;
   var { chademo, css_sae, j_1772, supercharger, type2, wall  } = this.state;
-  var { women, available, price } = this.state;
+  var { women, available } = this.state;
+  var { lt100 , b100200, g200 } = this.state;
   var typeInput = { Home, Public, Turbo, Hotel, Mall }, typeStatus = false;
   var conInput = { chademo, css_sae, j_1772, supercharger, type2, wall  }, conStatus = false;
+  var price = '';
 
   for ( var key in typeInput ){
     if ( typeInput[key] ){
@@ -150,6 +190,21 @@ onpress = () =>
     options.push( 'available' )
   }
 
+  if ( lt100 || b100200 || g200 ){
+    options.push( 'price' )
+
+    if (lt100){
+      price = 'lt100'
+    }
+    else if (b100200){
+      price = 'b100200'
+    }else if(g200){
+      price = 'g200'
+    }else{
+      price = '0'
+    }
+  }
+
   for ( var key in conInput ){
     if ( conInput[key] ){
       connector.push( key )
@@ -162,10 +217,11 @@ onpress = () =>
   }
 
   var optTypes = {
-    type,connector,price
+    type,connector,price,women
   }
   // console.log( optTypes, options )
 
+  console.log(optTypes)
   var res = filter(options, optTypes )
   console.log(res)
   // alert(filterList)
@@ -187,31 +243,31 @@ onpress = () =>
   <Content>
   <Text style={{fontSize:25,fontWeight:'500',padding:8}}>Type :</Text>
     <ListItem>
-      <CheckBox value={this.state.check} onChange={()=>this.checkBox()} />
+      <CheckBox value={this.state.Home} onChange={()=>this.checkBox()} />
       <Body>
         <Text>Home</Text>
       </Body>
     </ListItem>
     <ListItem>
-      <CheckBox value={this.state.check1} onChange={()=>this.checkBox1()} />
+      <CheckBox value={this.state.Public} onChange={()=>this.checkBox1()} />
       <Body>
         <Text>Public</Text>
       </Body>
     </ListItem>
     <ListItem>
-      <CheckBox value={this.state.check2} onChange={()=>this.checkBox2()} />
+      <CheckBox value={this.state.Turbo} onChange={()=>this.checkBox2()} />
       <Body>
         <Text>Turbo</Text>
       </Body>
     </ListItem>
     <ListItem>
-      <CheckBox value={this.state.check3} onChange={()=>this.checkBox3()} />
+      <CheckBox value={this.state.Hotel} onChange={()=>this.checkBox3()} />
       <Body>
         <Text>Hotel</Text>
       </Body>
     </ListItem>
     <ListItem>
-      <CheckBox value={this.state.check4} onChange={()=>this.checkBox4()} />
+      <CheckBox value={this.state.Mall} onChange={()=>this.checkBox4()} />
       <Body>
         <Text>Mall</Text>
       </Body>
@@ -220,37 +276,37 @@ onpress = () =>
     
     <Text style={{fontSize:25,fontWeight:'500',padding:8}}>Connector :</Text>
     <ListItem>
-      <CheckBox value={this.state.check5} onChange={()=>this.checkBox5()} />
+      <CheckBox value={this.state.chademo} onChange={()=>this.checkBox5()} />
       <Body>
         <Text>CHA DEMO</Text>
       </Body>
     </ListItem>
     <ListItem>
-      <CheckBox value={this.state.check6} onChange={()=>this.checkBox6()} />
+      <CheckBox value={this.state.css_sae} onChange={()=>this.checkBox6()} />
       <Body>
         <Text>CSS_SAE</Text>
       </Body>
     </ListItem>
     <ListItem>
-      <CheckBox value={this.state.check7} onChange={()=>this.checkBox7()} />
+      <CheckBox value={this.state.j_1772} onChange={()=>this.checkBox7()} />
       <Body>
         <Text>J_1772</Text>
       </Body>
     </ListItem>
     <ListItem>
-      <CheckBox value={this.state.check8} onChange={()=>this.checkBox8()} />
+      <CheckBox value={this.state.supercharger} onChange={()=>this.checkBox8()} />
       <Body>
         <Text>Supercharger</Text>
       </Body>
     </ListItem>
     <ListItem>
-      <CheckBox value={this.state.check9} onChange={()=>this.checkBox9()} />
+      <CheckBox value={this.state.type2} onChange={()=>this.checkBox9()} />
       <Body>
         <Text>Type2</Text>
       </Body>
     </ListItem>
     <ListItem>
-      <CheckBox value={this.state.check10} onChange={()=>this.checkBox10()} />
+      <CheckBox value={this.state.wall} onChange={()=>this.checkBox10()} />
       <Body>
         <Text>Wall</Text>
       </Body>
@@ -258,7 +314,7 @@ onpress = () =>
 
     <Text style={{fontSize:25,fontWeight:'500',padding:8}}>Price :</Text> 
  
-    <Slider style={{ width: 400}} step={1}
+    {/* <Slider style={{ width: 400}} step={1}
          minimumValue={0}
          maximumValue={500}
        
@@ -267,17 +323,39 @@ onpress = () =>
          onSlidingComplete={ val => this.getVal(val)} />
     <Text style={styles.welcome}>
           {this.state.price}
-        </Text>  
+        </Text>   */}
+
+      <ListItem>
+        <CheckBox value={this.state.lt100} onChange={()=>this.checkBox13()} />
+        <Body>
+          <Text> less than 100 </Text>
+        </Body>
+      </ListItem>
+      <ListItem>
+        <CheckBox value={this.state.b100200} onChange={()=>this.checkBox14()} />
+        <Body>
+          <Text> between 100 - 200 </Text>
+        </Body>
+      </ListItem>
+      <ListItem>
+        <CheckBox value={this.state.g200} onChange={()=>this.checkBox15()} />
+        <Body>
+          <Text> greater than 200 </Text>
+        </Body>
+      </ListItem>
+
+
+  <Text style={{fontSize:25,fontWeight:'500',padding:8}}>Women Friendly</Text>
     <ListItem>
-      <CheckBox value={this.state.check11} onChange={()=>this.checkBox11()} />
+      <CheckBox value={this.state.women} onChange={()=>this.checkBox11()} />
       <Body>
-        <Text>Safe for Women</Text>
+        <Text> rating greater than 4 </Text>
       </Body>
     </ListItem>
     
     <Text style={{fontSize:25,fontWeight:'500',padding:8}}>Status :</Text>
     <ListItem>
-      <CheckBox value={this.state.check12} onChange={()=>this.checkBox12()} />
+      <CheckBox value={this.state.available} onChange={()=>this.checkBox12()} />
       <Body>
         <Text>Available</Text>
       </Body>
