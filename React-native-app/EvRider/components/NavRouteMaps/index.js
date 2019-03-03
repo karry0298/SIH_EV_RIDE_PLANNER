@@ -325,6 +325,7 @@ export default class NavRouteMaps extends Component {
                 this.setState({ showAl: false });
                 }}
                 width={0.9}
+                height={0.7}
                 visible={this.state.showAl}
                 rounded
                 actionsBordered
