@@ -53,8 +53,6 @@ class OfflineSms extends Component {
 
   // }
 
-  smsFunction(e,typeSMS) {
-    console.log(typeSMS)
   smsFunction(typeSms,e) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -86,8 +84,7 @@ class OfflineSms extends Component {
       },
       {enableHighAccuracy: Platform.OS != 'android', timeout: 2000}
   );
-
-
+    }
 }
 
 
