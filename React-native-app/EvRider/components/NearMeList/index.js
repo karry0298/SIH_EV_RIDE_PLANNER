@@ -19,6 +19,8 @@ class NearMeList extends Component {
             Dialog:true,
             latitude: 19.13566162451865,
             longitude: 72.86615863993508,
+            placeLat : '',
+            placeLon : '',
             DialogCard: [],
             battery:60,
             dialogC:[2,3,4],
