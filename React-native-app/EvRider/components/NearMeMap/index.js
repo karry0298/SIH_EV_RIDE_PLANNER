@@ -64,7 +64,7 @@ class NearMeMap extends Component {
   
   //charging-station
   //map-marker-alt  
-  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating) {
+  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr) {
 
     var icoList = ["bolt","house-damage","city","street-view","hotel"]
     var colors=["blue","black","brown","red","#ddbc00"]
@@ -80,7 +80,7 @@ class NearMeMap extends Component {
           id={k}    
           coordinate={[a,b]}>
 
-              <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:"black"}}  
+              <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:locColr}}  
               onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
                                 DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
                                 DialogRating:rating ,DialogIcon:glyf });
@@ -172,7 +172,7 @@ class NearMeMap extends Component {
 
   //  console.log("mount entered")
 
-    axios.get("http://192.168.43.78:2454/api/getAllStation")
+    axios.get("http://192.168.43.141:2454/api/getAllStation")
     .then(s=>{
 
         const rout = s.data.data;
@@ -286,6 +286,23 @@ else{
             require("../../assets/images/type2.png"),
             require("../../assets/images/wall.png")]
         let FinImag = []
+        let totalSlots = rout[i].totalSlots
+        let usedSlots = rout[i].slotsAvailable
+
+        let locColor = "black"
+
+        if(usedSlots/totalSlots*100 > 75){
+            locColor = "green"
+        }
+        else if(usedSlots/totalSlots*100 > 40){
+            locColor = "yellow"
+        }
+        else{
+          locColor = "red"
+        }
+
+
+
 
       //  console.warn(img)
 
@@ -299,7 +316,7 @@ else{
 
      //   console.warn(FinImag)
 
-        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating))                            
+        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor))                            
     }
 
 
