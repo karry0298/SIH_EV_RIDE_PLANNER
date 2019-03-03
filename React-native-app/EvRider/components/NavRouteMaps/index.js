@@ -335,10 +335,6 @@ export default class NavRouteMaps extends Component {
                     <Text style={{marginLeft:10,fontSize:23 , color:'black' }} >Error Message</Text>
                 </View>
             
-                <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center"}}>
-                    <FontAwesome5 name={this.state.DialogIcon} brand style={{marginRight:10,paddingLeft:5 , fontSize: 30, color:'black'}} />  
-                </View>
-
               
 
                 <View style={{flexDirection:"row"}}>
