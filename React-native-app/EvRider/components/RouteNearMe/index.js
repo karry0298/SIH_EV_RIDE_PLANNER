@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image ,ScrollView, } from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
@@ -189,85 +189,112 @@ export default class RouteNearMe extends Component {
     const imgURL = navigation.getParam('img')
 
     return (
-      <Container>
-        <Content>
-          <View style={styles.container}>
-            <Image style={{ width: "100%", height: 200 }}
-              source={{ uri: imgURL }}
-            />
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={{ fontWeight: 'bold', fontSize: 22, marginLeft: 25, marginTop: 10, color: 'black' }}>{navigation.getParam('name')}</Text>
-              <View style={{ backgroundColor: "green", marginRight: 15, width: 50, borderRadius: 12, marginTop: 10, height: 30 }}><Text style={{ textAlign: 'center', fontSize: 19, color: 'white' }}>{parseFloat(navigation.getParam('rate'))}</Text></View>
 
-            </View>
-            <Text style={{ marginLeft: 25, marginRight: 100, marginTop: 5 }}>{navigation.getParam('description')}</Text>
-            <Text style={{ marginLeft: 25, marginRight: 25, marginTop: 5, color: '#000011' }}>Address: Nagpada,Mumbai Central,Mumbai</Text>
-            <View style={{flexDirection:'row',justifyContent:'space-between',marginLeft:25}}>
-            <Text style={{fontSize:16,color:'black'}}>Prices: {navigation.getParam('price')}</Text>
-            <Text style={{fontSize:16, marginRight:25,color:'black'}}> WaitTime :50 Min</Text>
-            </View>
-            <View
-              style={{
-                borderBottomColor: 'grey',
-                borderBottomWidth: 1,
-                marginLeft: 20,
-                marginRight: 20,
-                marginTop: 10
-              }}
-            />
-            <View style={{ backgroundColor: '#FFFFFF', marginLeft: 20, marginRight: 20 }}>
-              <Text style={{ fontSize: 23, color: '#4cb8ce', fontWeight: '200' }}>Rate this station</Text>
-              <View style={{ flexDirection: 'row' }}>
-              <Button onPress={(e) => this.colorBox(0) } transparent><View  style={[styles.ratebox,{backgroundColor:this.state.colorArr[0]}] }><View style={{ flexDirection: 'row' }}><Text style={styles.innerText}>1</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
-               <Button onPress={(e) => this.colorBox(1) } transparent ><View style={[styles.ratebox,{backgroundColor:this.state.colorArr[1]}]}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >2</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
-               <Button onPress={(e) => this.colorBox(2) } transparent ><View style={[styles.ratebox,{backgroundColor:this.state.colorArr[2]}]}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >3</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
-               <Button onPress={(e) => this.colorBox(3) } transparent ><View style={[styles.ratebox,{backgroundColor:this.state.colorArr[3]}]}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText}>4</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
-               <Button onPress={(e) => this.colorBox(4) } transparent ><View style={[styles.ratebox,{backgroundColor:this.state.colorArr[4]}]}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >5</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
+      
+
+        <Container>
+          <Content>
+            <View style={styles.container}>
+
+            <ScrollView>
+              <Image style={{ width: "100%", height: 200 }}
+                source={{ uri: imgURL }}
+              />
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Text style={{ fontWeight: 'bold', fontSize: 22, marginLeft: 25, marginTop: 10, color: 'black' }}>{navigation.getParam('name')}</Text>
+                <View style={{ backgroundColor: "green", marginRight: 15, width: 50, borderRadius: 12, marginTop: 10, height: 30 }}><Text style={{ textAlign: 'center', fontSize: 19, color: 'white' }}>{parseFloat(navigation.getParam('rate'))}</Text></View>
+
               </View>
+              <Text style={{ marginLeft: 25, marginRight: 100, marginTop: 5 }}>{navigation.getParam('description')}</Text>
+              <Text style={{ marginLeft: 25, marginRight: 25, marginTop: 5, color: '#000011' }}>Address: Nagpada,Mumbai Central,Mumbai</Text>
+              <View style={{flexDirection:'row',justifyContent:'space-between',marginLeft:25}}>
+              <Text style={{fontSize:16,color:'black'}}>Prices: {navigation.getParam('price')}</Text>
+              <Text style={{fontSize:16, marginRight:25,color:'black'}}> WaitTime :50 Min</Text>
+              </View>
+              <View
+                style={{
+                  borderBottomColor: 'grey',
+                  borderBottomWidth: 1,
+                  marginLeft: 20,
+                  marginRight: 20,
+                  marginTop: 10
+                }}
+              />
+              <View style={{ backgroundColor: '#FFFFFF', marginLeft: 20, marginRight: 20 }}>
+                <Text style={{ fontSize: 23, color: '#4cb8ce', fontWeight: '200' }}>Rate this station</Text>
+                <View style={{ flexDirection: 'row' }}>
+                <Button onPress={(e) => this.colorBox(0) } transparent><View  style={[styles.ratebox,{backgroundColor:this.state.colorArr[0]}] }><View style={{ flexDirection: 'row' }}><Text style={styles.innerText}>1</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
+                <Button onPress={(e) => this.colorBox(1) } transparent ><View style={[styles.ratebox,{backgroundColor:this.state.colorArr[1]}]}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >2</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
+                <Button onPress={(e) => this.colorBox(2) } transparent ><View style={[styles.ratebox,{backgroundColor:this.state.colorArr[2]}]}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >3</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
+                <Button onPress={(e) => this.colorBox(3) } transparent ><View style={[styles.ratebox,{backgroundColor:this.state.colorArr[3]}]}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText}>4</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
+                <Button onPress={(e) => this.colorBox(4) } transparent ><View style={[styles.ratebox,{backgroundColor:this.state.colorArr[4]}]}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >5</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
+                </View>
+              </View>
+              <View
+                style={{
+                  borderBottomColor: 'grey',
+                  borderBottomWidth: 1,
+                  marginLeft: 20,
+                  marginRight: 20,
+                  marginTop: 10
+                }}
+              />
+              <View style={{ backgroundColor: '#FFFFFF', marginLeft: 20, marginRight: 20, marginTop: 5 }}>
+                <Text style={{ fontSize:18, color: '#4cb8ce', fontWeight: '200' }}>Women Friendliness: <Text style={{color:'black'}}>4/5</Text></Text>
+                <Text style={{ fontSize:18, color: '#4cb8ce', fontWeight: '200' }}>Charging Experience: <Text style={{color:'black'}}>3/5</Text> </Text>
+              </View>
+
+              <View
+                style={{
+                  borderBottomColor: 'black',
+                  borderBottomWidth: 1,
+                  marginLeft: 20,
+                  marginRight: 20,
+                  marginTop: 10
+                }}
+              />
+
+              <View style={{ backgroundColor: '#FFFFFF', marginLeft: 20, marginRight: 20, marginTop: 5 }}>
+                <Text style={{ fontSize: 22, color: '#4cb8ce', fontWeight: '200' }}>Promotions:</Text>
+                <Text>25% Off between 1 AM to 6 AM </Text>
+              </View>
+
+              <View
+                style={{
+                  borderBottomColor: 'black',
+                  borderBottomWidth: 1,
+                  marginLeft: 20,
+                  marginRight: 20,
+                  marginTop: 10
+                }}
+              />
+
+              <View style={{marginLeft: 20, marginRight: 20, marginTop: 5}}>
+                  <Text style={{fontSize: 22, color: '#4cb8ce', fontWeight: '200'}}>Reviews</Text>              
+              </View>
+
+
+              <View style={{marginLeft: 20, marginRight: 20, marginTop: 5 , marginBottom:25}}> 
+                  <Text style={{fontSize: 17, color: 'black', fontWeight: '200' ,  borderBottomColor: 'black',borderBottomWidth: 1, }}>This was a nice place</Text>              
+                </View>
+
+                <View style={{marginLeft: 20, marginRight: 20, marginTop: 5 , marginBottom:25}}> 
+                  <Text style={{fontSize: 17, color: 'black', fontWeight: '200' ,  borderBottomColor: 'black',borderBottomWidth: 1, }}>Great Place for Charging</Text>              
+                </View>
+
+                <View style={{marginLeft: 20, marginRight: 20, marginTop: 5 , marginBottom:25}}> 
+                  <Text style={{fontSize: 17, color: 'black', fontWeight: '200' ,  borderBottomColor: 'black',borderBottomWidth: 1, }}>Prices are reasonable</Text>              
+                </View>
+
+                <View style={{marginLeft: 20, marginRight: 20, marginTop: 5 , marginBottom:25}}> 
+                  <Text style={{fontSize: 17, color: 'black', fontWeight: '200' ,  borderBottomColor: 'black',borderBottomWidth: 1, }}>Charging is slow</Text>              
+                </View>
+
+              </ScrollView>
             </View>
-            <View
-              style={{
-                borderBottomColor: 'grey',
-                borderBottomWidth: 1,
-                marginLeft: 20,
-                marginRight: 20,
-                marginTop: 10
-              }}
-            />
-            <View style={{ backgroundColor: '#FFFFFF', marginLeft: 20, marginRight: 20, marginTop: 5 }}>
-              <Text style={{ fontSize:18, color: '#4cb8ce', fontWeight: '200' }}>Women Friendliness: <Text style={{color:'black'}}>4/5</Text></Text>
-              <Text style={{ fontSize:18, color: '#4cb8ce', fontWeight: '200' }}>Charging Experience: <Text style={{color:'black'}}>3/5</Text> </Text>
-            </View>
+          </Content>
+        </Container>
 
-            <View
-              style={{
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
-                marginLeft: 20,
-                marginRight: 20,
-                marginTop: 10
-              }}
-            />
-
-            <View style={{ backgroundColor: '#FFFFFF', marginLeft: 20, marginRight: 20, marginTop: 5 }}>
-              <Text style={{ fontSize: 22, color: '#4cb8ce', fontWeight: '200' }}>Promotions:</Text>
-              <Text>25% Off between 1 AM to 6 AM </Text>
-            </View>
-
-            <View
-              style={{
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
-                marginLeft: 20,
-                marginRight: 20,
-                marginTop: 10
-              }}
-            />
-
-
-          </View>
-        </Content>
-      </Container>
 
     );
   }
