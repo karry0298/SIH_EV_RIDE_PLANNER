@@ -357,7 +357,7 @@ else{
                 <FontAwesome5 name={"map-marked-alt"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />
               </Button>
 
-                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:5,paddingRight:5}} >
+                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:5,paddingRight:5}} onPress={()=>this.setState({DialogBattery:true})} >
                     <Text style={{fontSize:21 , paddingLeft:25 ,color:"black"}} > {"charge:20%"} </Text>
                     <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginBottom:23 ,fontSize: 20, color:"white" , paddingRight:25}} />        
                 </Button>
