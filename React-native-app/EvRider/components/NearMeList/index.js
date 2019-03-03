@@ -250,7 +250,33 @@ class NearMeList extends Component {
               colorText={this.state.colorText}
             />
 
-        <View style={{flexDirection:"row"}}>
+        <View style={{flexDirection:"row" ,justifyContent: 'center', }}>
+              <Button style={{flex:2, backgroundColor:"#6200EE", }}
+                      onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
+                <View style={{paddingLeft:4, paddingRight:4, flexDirection:"row",justifyContent: 'space-around',  }}>
+                  <FontAwesome5 name={"map-marked-alt"} brand style={{paddingLeft:5 , fontSize: 20, color:'white', flex:1}} />
+                  <Text style={{fontSize:21, flex:2, color:'white'}}>Map </Text>
+                </View>
+              </Button>
+
+                <Button style={{flex:3, backgroundColor:"#6200EE", }} onPress={()=>this.setState({DialogBattery:true})} >
+                <View style={{paddingLeft:4, paddingRight:4, flexDirection:"row",justifyContent: 'space-around',  }}>
+
+                    <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],fontSize: 20, color:"white" }} />
+                    <Text style={{fontSize:21 ,color:"white"}} > {"charge:" + this.state.valueBattery +"%"} </Text>
+                </View>
+                </Button>
+                <Button style={{flex:2, backgroundColor:"#3700B3", }}
+                        onPress={() => {this.props.navigation.navigate('nearmelist',{abc:this.state.myStateFinale})}}>
+                  <View style={{paddingLeft:4, paddingRight:4, flexDirection:"row" ,justifyContent: 'space-around', }}>
+                    <FontAwesome5 name={"list-ul"} brand style={{fontSize: 20, color:"white", flex:1}} />     
+                    <Text style={{fontSize:21,color:"white", flex:2}} > List </Text>
+                </View>
+                </Button>
+        </View>
+
+
+        {/* <View style={{flexDirection:"row"}}>
                 <Button style={{backgroundColor:"white",paddingLeft:25,paddingRight:23}}
                         onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
                     <Text style={{fontSize:21}}>Map </Text>
@@ -268,7 +294,7 @@ class NearMeList extends Component {
                     <Text style={{fontSize:21}} > List </Text>
                     <FontAwesome5 name={"list-ul"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
                 </Button>
-        </View>
+        </View> */}
 
             <ScrollView>
                {
