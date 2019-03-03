@@ -2,10 +2,11 @@ const dummy = require('./dummyData').data;
 
 const optType = {
     type : [ 'Public', 'Turbo' ],
-    price : 100,
+    price : 'lt100',
     connector : [ 'css_sae' ],
     rating : 4.3,
-    state : ''
+    state : '',
+    women : true
 }
 
 
@@ -30,12 +31,6 @@ module.exports.filter =  ( options = [ 'type', 'price', 'connector', 'rating'] ,
 
             })
 
-            // console.log( temp[0], "case type" )
-
-            // result = []
-            // for ( let t in temp ){
-            //     console.log( t,  temp )
-            // }
             result = temp ;
 
 
@@ -76,20 +71,64 @@ module.exports.filter =  ( options = [ 'type', 'price', 'connector', 'rating'] ,
 
             case 'price':
 
-            console.log( "price case" )
+            
 
             var temp = []
-            // console.log( result[0] )
-            for ( let res of result ){
+            
+            var val = optTypes['price'];
 
-                // console.log( res.price  )
-                if ( res.price >= optTypes['price'] ) {
-                    temp.push( res )
+            console.log( "price case" , val)
+
+            switch (val){
+
+                case 'lt100':
+
+                for ( let res of result ){
+
+                    // console.log( res.price  )
+                    if ( res.price < 101 ) {
+                        temp.push( res )
+                    }
+    
                 }
+
+                break;
+
+                case 'b100200':
+
+                for ( let res of result ){
+
+                    // console.log( res.price  )
+                    if ( res.price > 100 && res.price <= 200  ) {
+                        temp.push( res )
+                    }
+    
+                }
+
+                // console.log(temp)
+
+                break;
+
+                case 'g200':
+
+                for ( let res of result ){
+
+                    // console.log( res.price  )
+                    if ( res.price > 200  ) {
+                        temp.push( res )
+                    }
+    
+                }
+
+                break;
+
+                default:
+                    temp = result;
 
             }
 
-            result = temp
+
+            result = temp;
 
 
             break;
@@ -114,6 +153,14 @@ module.exports.filter =  ( options = [ 'type', 'price', 'connector', 'rating'] ,
             break;
 
             case 'state':
+
+            break;
+
+            case 'women':
+
+            result = result.filter( res => res.socialRating.womenSafety > 3.5 )
+            // temp = temp.concat(t)
+            console.log( result.length , "lengths")
 
             break;
 
