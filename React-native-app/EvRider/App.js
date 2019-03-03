@@ -23,6 +23,7 @@ import NavigateRouteInput from './components/NavigateRouteInput';
 import NavRouteMaps from './components/NavRouteMaps';
 import RouteNearMe from './components/RouteNearMe';
 import filterScreen from './components/Filter';
+import feedbackScreen from './components/Feedback'
 import Start from './Start';
 
 
@@ -30,7 +31,8 @@ const Mdn = createDrawerNavigator({
   nearmeMap: {screen:NearMeMap},  
   nearmelist: {screen:NearMeList},
   nearmerout:{screen:RouteNearMe},
-  filter : { screen : filterScreen }
+  filter : { screen : filterScreen },
+  feedback : { screen : feedbackScreen }
 },
 {
   contentComponent: SideBar,
@@ -44,15 +46,18 @@ const AppNavigator = createStackNavigator({
   signup: { screen: SignUpPage },
   profile: Mdn,
   navigateRoute:{screen:NavigateRouteInput},
-  navigateMaps:{screen:NavRouteMaps}
+  navigateMaps:{screen:NavRouteMaps},
+        filter : { screen : filterScreen }
 
-},
+
+    },
 {
   defaultNavigationOptions: ({navigation}) => {
     return {
       headerLeft:(
         <FontAwesome5 name={"bars"} brand style={{paddingLeft:15 , fontSize: 30, color:'black'}} onPress={() => navigation.toggleDrawer()}/>
-      )
+      ),
+      title:("EVAN")
     };
   }
 });

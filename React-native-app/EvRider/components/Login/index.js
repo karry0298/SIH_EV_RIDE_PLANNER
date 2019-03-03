@@ -14,7 +14,7 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            abc: 1
+            abc: 1,
         };
     }
 
@@ -38,13 +38,13 @@ export default class Login extends Component {
         return (
             <Container>
                 <Header style={{height: 0}} hasTabs/>
-                <Tabs tabBarUnderlineStyle={{backgroundColor: '#5291F6', opacity:0}}>
+                <Tabs tabBarUnderlineStyle={{backgroundColor: '#5291F6', opacity:0}} >
                     <Tab activeTextStyle={{color: '#fff', fontWeight: 'bold'}}
                          textStyle={{color: '#fff', fontSize: 12}}
                          tabStyle={{backgroundColor: '#62B1F6', height: 60}}
                          activeTabStyle={{backgroundColor: '#5291F6', height: 60}}
                          heading="Sign in">
-                        <SignIn/>
+                        <SignIn successCallback={() => this.switchMap()}/>
                     </Tab>
                     <Tab activeTextStyle={{color: '#fff', fontWeight: 'bold'}}
                          textStyle={{color: '#fff', fontSize: 12}}

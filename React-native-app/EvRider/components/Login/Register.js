@@ -4,18 +4,75 @@ import {
     Container, Header, Title, Content, Button, Item, Label, Input, Body, Left, Right, Icon, Form,
     Text, Tab, Tabs, DeckSwiper, Card, CardItem, View, Picker
 } from "native-base";
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+
+
+const cars = [
+  {
+    name: "Car1",
+    
+    model: [{
+        name: "Google",
+        range: 10,
+        efficiency:'23'
+      },{
+        name: "Strawberry",
+        rane:180,
+        efficiency:"23"
+      },{
+        name: "Pineapple",
+        range:170,
+        efficiency:"23"
+      },{
+        name: "Banana",
+        range:155,
+        efficiency:"29"
+      },
+    ]
+  },
+  {
+    name: "ok",   
+    model: [{
+        name: "Apple",
+        range: 10,
+        efficiency:'23'
+      },{
+        name: "Strawberry",
+        rane:180,
+        efficiency:"23"
+      },{
+        name: "Pineapple",
+        range:170,
+        efficiency:"23"
+      },{
+        name: "Banana",
+        range:155,
+        efficiency:"29"
+      },
+    ]
+  },
+]
+
 
 import logo from '../../assets/images/logo.png';
-
+import CarReg from '../../carReg';
 export default class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
             view: false,
-            selected2: undefined
+            selected2: undefined,
+            email:'',
+            password:'',
+            selectedItems: [],
+            selectedObject :[]
+
         };
     }
-
+    submit(){
+        // console.warn("submitted data ",this.state.)
+        
+          }
     onValueChange2(value) {
         this.setState({
             selected2: value
@@ -27,6 +84,9 @@ export default class Register extends Component {
     };
 
     render() {
+        if(!this.state.view){
+
+        
         return (
             <Container >
                 <View style={styles.logoContainer}>
@@ -37,11 +97,15 @@ export default class Register extends Component {
                     <Form block style={styles.item}>
                         <Item block floatingLabel>
                             <Label block>Email</Label>
-                            <Input block/>
+                            <Input  value={this.state.email} onChange={(email)=>{
+                                this.setState({email})
+                            }} block/>
                         </Item>
                         <Item block floatingLabel>
                             <Label block>Password</Label>
-                            <Input block secureTextEntry/>
+                            <Input value={this.state.password} onChange={(password)=>{
+                                    this.setState({password})
+                            }} block secureTextEntry/>
                         </Item>
                         <Item block floatingLabel>
                             <Label block>Confirm Password</Label>
@@ -55,6 +119,29 @@ export default class Register extends Component {
                 </Content>
             </Container>
         );
+    }
+    else{
+        return (
+
+
+            <View>
+        <Text>email is {this.state.email}</Text>
+        <SectionedMultiSelect
+          items={cars}
+          uniqueKey='name'
+          subKey='model'
+          selectText='Choose some things...'
+          showDropDowns={true}
+          readOnlyHeadings={true}
+          onSelectedItemsChange={this.state.selectedObject}
+          selectedItems={this.state.selectedItems}
+        />
+  
+  <Button onPress={this.submit()} title="Submit"/>
+      </View>
+  
+        );
+    }
     }
 }
 
