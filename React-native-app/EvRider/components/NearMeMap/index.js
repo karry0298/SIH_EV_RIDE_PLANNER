@@ -49,6 +49,10 @@ class NearMeMap extends Component {
         DialogBattery:false,
         valueBattery:55,
         borderColor:'orange',
+        statusMessage:'charging',
+        DialogBattery:false,
+        valueBattery:55,
+        borderColor:'orange',
         statusMessage:'charging'
     };
 
@@ -285,21 +289,22 @@ else{
             require("../../assets/images/supercharger.png"),
             require("../../assets/images/type2.png"),
             require("../../assets/images/wall.png")]
-        let FinImag = []
-        let totalSlots = rout[i].totalSlots
-        let usedSlots = rout[i].slotsAvailable
 
-        let locColor = "black"
+            let FinImag = []
+            let totalSlots = rout[i].totalSlots
+            let usedSlots = rout[i].slotsAvailable
 
-        if(usedSlots/totalSlots*100 > 75){
-            locColor = "green"
-        }
-        else if(usedSlots/totalSlots*100 > 40){
-            locColor = "yellow"
-        }
-        else{
-          locColor = "red"
-        }
+            let locColor = "black"
+
+            if(usedSlots/totalSlots*100 > 75){
+                locColor = "green"
+            }
+            else if(usedSlots/totalSlots*100 > 40){
+                locColor = "#e8c812"
+            }
+            else{
+              locColor = "red"
+            }
 
 
 
@@ -496,7 +501,52 @@ else{
      </View>
 
                 
-                </Dialog>
+      </Dialog>
+
+
+      <Dialog
+        onDismiss={() => {
+        this.setState({ DialogBattery: false });
+        }}
+        width={0.75}
+        visible={this.state.DialogBattery}
+        rounded
+        actionsBordered
+        onTouchOutside  ={()=>{
+        this.setState({DialogBattery:false})
+        }}
+        >
+          <View style={{height:"65%",flexDirection:"column",justifyContent: "space-between",alignItems: "center", }} >
+          <View style ={styles.DialogBContainer}>
+          
+          <View style={[styles.CircleShapeView,{borderColor:this.state.borderColor}]}>
+          <Text style={{ paddingLeft:20, textAlign:'center', fontSize:45,fontWeight:'bold',color:'black',}} > {this.state.valueBattery}% </Text>
+          
+          </View>
+          </View>
+
+
+          <View>
+          <Text style={{fontSize:22,fontWeight:'bold',alignItems:'center' ,color:'#000',marginTop:10}} > Status:{this.state.statusMessage}</Text>
+          </View>
+          <View >
+          <Text style={{fontSize:22,fontWeight:'bold',color:'#000',marginTop:10}} > Estimated Range</Text>
+
+
+          </View>
+
+          <View style={{margin:10,marginTop:55}}>
+          <Button style={{paddingRight:22,backgroundColor:"#f1813b"}} rounded onPress={() => {this.setState({ Dialog: false });}}>
+          <Text style={{fontSize:22}} > Set reminder </Text>
+          <FontAwesome5 name={"bell"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} /> 
+          </Button>
+
+          </View>
+
+        </View>
+
+      
+      </Dialog>
 
         </View>
     );
