@@ -27,6 +27,7 @@ import feedbackScreen from './components/Feedback'
 import ChatScreen from './components/Chat'
 import Start from './Start';
 import Profile from './profile.js'
+import Sort from './components/Sort'
 
 const Mdn = createDrawerNavigator({
   nearmeMap: {screen:NearMeMap},  
@@ -35,6 +36,7 @@ const Mdn = createDrawerNavigator({
   filter : { screen : filterScreen },
   feedback : { screen : feedbackScreen },
   chat : { screen : ChatScreen},
+  sort : {screen : Sort},
   prof : { screen : Profile }
 },
 {

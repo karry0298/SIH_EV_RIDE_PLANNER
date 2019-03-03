@@ -396,7 +396,7 @@ else{
 
         <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:150,marginLeft:340,zIndex:10}}>
             <Button rounded style={{marginLeft:1,backgroundColor:"white",    width: 60, height: 60,borderRadius: 60}} 
-                            onPress={() => {this.props.navigation.navigate('filter', { updateFunc : this.updateFunc})}}>
+                            onPress={() => {this.props.navigation.navigate('filter', { updateFunc : this.updateFunc , origin : 'nearmerout'})}}>
                         <FontAwesome5 name={"filter"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />
                 </Button>
         </View>
