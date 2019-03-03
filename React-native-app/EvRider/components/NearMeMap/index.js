@@ -26,6 +26,8 @@ class NearMeMap extends Component {
     this.state = {
         latitude: 19.13566162451865,
         longitude: 72.86615863993508,
+        placeLat : '',
+        placeLon : '',
         Dialog:false,
         DialogTitle:"abcTitle",
         dialogC:[2,3,4],
@@ -35,10 +37,10 @@ class NearMeMap extends Component {
         DialogUri:'https://dqbasmyouzti2.cloudfront.net/assets/content/cache/made/content/images/articles/EV_ChargingII_XL_721_420_80_s_c1.jpg',
         DialogContact: 999233233,
         myStateFinale:[],
+        myStateFinaleDup:[],
         DialogIcon:'public',
         prevLatLng: {},
-        coordinate:{latitude: 19.26196225,longitude: 72.86661427},
-
+        coordinate:{},
         prevLoc : {
           lat : '',
           lon : '',
@@ -47,31 +49,36 @@ class NearMeMap extends Component {
         started : false,
         distanceTravelled : 0,
         DialogBattery:false,
-        valueBattery:55,
+        valueBattery:88,
         borderColor:'orange',
-        statusMessage:'charging'
+        statusMessage:'charging',
+        colorText:'black',
+        DialogPrice:120
     };
 
     this.tracker = this.tracker.bind(this);
     this.callServer = this.callServer.bind(this);
+    this.updateStations = this.updateStations.bind(this);
   }
 
   goToYosemite(coors) {
     openMap( { travelType : "drive",
-    end : "43.570,11.356", start :"43.540, 11.486"} )
+    end : `${coors[0]},${coors[1]}`} )
   }
 
   
   //charging-station
   //map-marker-alt  
-  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr) {
+  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr,price) {
 
     var icoList = ["bolt","house-damage","city","street-view","hotel"]
     var colors=["blue","black","brown","red","#ddbc00"]
 
-    var glyf = icoList[colors.indexOf(colr)] 
+    var glyf = icoList[colors.indexOf(colr)]
+    
+    // this.setState( { placeLat : b , placeLon : a } )
 
-    console.log("abcabca         ",glyf)
+    // console.log("abcabca         ",glyf)
 
     //console.warn(imgPik)
       return (
@@ -80,10 +87,11 @@ class NearMeMap extends Component {
           id={k}    
           coordinate={[a,b]}>
 
+              <Text style={{color:"black" , backgroundColor:"white"}}>{price}</Text>
               <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:locColr}}  
               onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
                                 DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
-                                DialogRating:rating ,DialogIcon:glyf });
+                                DialogRating:rating ,DialogIcon:glyf, placeLat : b , placeLon : a });
             }}
               />
               
@@ -128,6 +136,10 @@ class NearMeMap extends Component {
     console.log("Called")
   }  
 
+  updateStations(stations){
+      this.setState( { myStateFinale : stations } )
+  }
+
 
   componentDidMount(){
 
@@ -135,8 +147,7 @@ class NearMeMap extends Component {
 
     console.disableYellowBox = true
 
-    // Navigator by nCheck
-//    console.log("Did Mount ",AppState.currentState)
+
     
     this.watchID = navigator.geolocation.watchPosition(
       position => {
@@ -165,12 +176,13 @@ class NearMeMap extends Component {
     { enableHighAccuracy: true, maximumAge: 500 })
 
 
+    let rout = this.props.navigation.getParam("abc");
 
-
+    console.log("check" , rout)
 
     console.log("entered Mount")  
 
-  //  console.log("mount entered")
+
 
     axios.get("http://192.168.43.141:2454/api/getAllStation")
     .then(s=>{
@@ -188,20 +200,17 @@ class NearMeMap extends Component {
 
 if(this.state.valueBattery>75)
 {
-  this.setState({backgroundColor:'green',statusMessage:"Idle"})
+  this.setState({borderColor:'green',statusMessage:"Good condition",colorText:"green"})
   
 
 }
 else if(this.state.valueBattery>20)
 {
-  this.setState({backgroundColor:'#f2cd3c',statusMessage:"Charging"})
+  this.setState({borderColor:'#f2cd3c',statusMessage:"Charging",colorText:'#f2cd3c'})
 }
 else{
-  this.setState({backgroundColor:'#d10808',statusMessage:"Needs charging"})
+  this.setState({borderColor:'#d10808',statusMessage:"Charging required",colorText:'#d10808'})
 }
-
-
-
 
   }
 
@@ -245,7 +254,13 @@ else{
         id='pointAnnotation'
         coordinate={[this.state.longitude,this.state.latitude]}>
 
-            <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:"red"}} />
+            <View style={styles.annotationContainer}>
+              <View style={styles.annotationFill}>
+
+  
+
+              </View>
+            </View>
 
 
         <Mapbox.Callout title='user Location' />
@@ -279,27 +294,29 @@ else{
         let owner = rout[i].owner
         let imgUri = rout[i].imageUrl
         let imgPik = rout[i].slots
+        let price = rout[i].price
         let img = [require("../../assets/images/chademo.png"),
             require("../../assets/images/css_sae.png"),
             require("../../assets/images/j-1772.png"),
             require("../../assets/images/supercharger.png"),
             require("../../assets/images/type2.png"),
             require("../../assets/images/wall.png")]
-        let FinImag = []
-        let totalSlots = rout[i].totalSlots
-        let usedSlots = rout[i].slotsAvailable
 
-        let locColor = "black"
+            let FinImag = []
+            let totalSlots = rout[i].totalSlots
+            let usedSlots = rout[i].slotsAvailable
 
-        if(usedSlots/totalSlots*100 > 75){
-            locColor = "green"
-        }
-        else if(usedSlots/totalSlots*100 > 40){
-            locColor = "yellow"
-        }
-        else{
-          locColor = "red"
-        }
+            let locColor = "black"
+
+            if(usedSlots/totalSlots*100 > 75){
+                locColor = "green"
+            }
+            else if(usedSlots/totalSlots*100 > 40){
+                locColor = "#e8c812"
+            }
+            else{
+              locColor = "red"
+            }
 
 
 
@@ -316,7 +333,7 @@ else{
 
      //   console.warn(FinImag)
 
-        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor))                            
+        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor,price))                            
     }
 
 
@@ -363,7 +380,7 @@ else{
 
         <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:150,marginLeft:340,zIndex:10}}>
             <Button rounded style={{marginLeft:1,backgroundColor:"white",    width: 60, height: 60,borderRadius: 60}} 
-                            onPress={() => {this.props.navigation.navigate('filter', {data:"stuff transfered"})}}>
+                            onPress={() => {this.props.navigation.navigate('filter')}}>
                         <FontAwesome5 name={"filter"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />
                 </Button>
         </View>
@@ -437,7 +454,7 @@ else{
 
             <View>
 
-                <Button style={{backgroundColor:'red' , width:'100%'}} onPress={() => {this.goToYosemite([19.13566162451865,72.86615863993508])}}>
+                <Button style={{backgroundColor:'red' , width:'100%'}} onPress={() => {this.goToYosemite( [this.state.placeLat, this.state.placeLon] )}}>
                   <Text style={{fontSize:21 , paddingLeft:130 , color:"white"}} >  Nav </Text>
                   <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:130 , fontSize: 20, color:"white"}} />        
                 </Button>                              
@@ -460,49 +477,51 @@ else{
 
             </Dialog>
 
-            <Dialog
-                onDismiss={() => {
-                this.setState({ DialogBattery: false });
-                }}
-                width={0.75}
-                visible={this.state.DialogBattery}
-                rounded
-                actionsBordered
-                onTouchOutside	={()=>{
-                  this.setState({DialogBattery:false})
-                }}
-                >
-            <View style={{height:"65%",flexDirection:"column",justifyContent: "space-between",alignItems: "center", }} >
-                <View style ={styles.DialogBContainer}>
-       
-       <View style={[styles.CircleShapeView,{borderColor:this.state.borderColor}]}>
-       <Text style={{ paddingLeft:20, textAlign:'center', fontSize:45,fontWeight:'bold',color:'black',}} > {this.state.valueBattery}%  </Text>
-       
-       </View>
-</View>
 
 
-<View>
- <Text   style={{fontSize:22,fontWeight:'bold',alignItems:'center' ,color:'#000',marginTop:10}}  > Status:{this.state.statusMessage}</Text>
-</View>
-<View >
-<Text style={{fontSize:22,fontWeight:'bold',color:'#000',marginTop:10}} > Estimated Range</Text>
+      <Dialog
+        onDismiss={() => {
+        this.setState({ DialogBattery: false });
+        }}
+        width={0.75}
+        visible={this.state.DialogBattery}
+        rounded
+        actionsBordered
+        onTouchOutside  ={()=>{
+        this.setState({DialogBattery:false})
+        }}
+        >
+          <View style={{height:"65%",flexDirection:"column",justifyContent: "space-between",alignItems: "center", }} >
+          <View style ={styles.DialogBContainer}>
+          
+          <View style={[styles.CircleShapeView,{borderColor:this.state.borderColor}]}>
+          <Text style={{ paddingLeft:20, textAlign:'center', fontSize:45,fontWeight:'bold',color:'black',}} > {this.state.valueBattery}% </Text>
+          
+          </View>
+          </View>
 
 
-</View>
+          <View>
+          <Text style={[styles.status,{color:this.state.colorText}]} > Status:{this.state.statusMessage}</Text>
+          </View>
+          <View >
+          <Text style={{fontSize:22,fontWeight:'bold',color:'#000',marginTop:10}} > Estimated Range</Text>
 
-       <View style={{margin:10,marginTop:55}}>
-       <Button style={{paddingRight:22,backgroundColor:"#f1813b"}}   rounded  onPress={() => {this.setState({ Dialog: false });}}>
-                  <Text style={{fontSize:22}} >    Set reminder </Text>
-                  <FontAwesome5 name={"bell"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
-                </Button>
 
-       </View>
+          </View>
 
-     </View>
+          <View style={{margin:10,marginTop:55}}>
+          <Button style={{paddingRight:22,backgroundColor:"#f1813b"}} rounded onPress={() => {this.setState({ Dialog: false });}}>
+          <Text style={{fontSize:22}} > Set reminder </Text>
+          <FontAwesome5 name={"bell"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} /> 
+          </Button>
 
-                
-                </Dialog>
+          </View>
+
+        </View>
+
+      
+      </Dialog>
 
         </View>
     );
@@ -528,7 +547,7 @@ const styles = StyleSheet.create({
     height: bord,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'rgba(218, 82, 82, 0)',
+    backgroundColor:'rgba(218, 82, 82, 0.25)',
     borderRadius: bord,
   },
   annotationFill: {
@@ -559,6 +578,10 @@ width:"100%",
     borderColor:'#ea5e33',
     backgroundColor: '#fff'
 },
+status:{fontSize:22,
+  fontWeight:'bold',
+  alignItems:'center' ,
+  marginTop:10}
  
 
 });

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { Button, Row } from 'native-base';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
+import { Container, Header, Row, Button, Icon, Fab, Content } from 'native-base';
 
 
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
@@ -172,41 +172,68 @@ export default class RouteNearMe extends Component {
     const imgURL = navigation.getParam('img')
 
     return (
-      <View style={styles.container}>
-        <Image style={{ width: "100%", height: 200 }}
-          source={{ uri: imgURL }}
-        />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 22, marginLeft: 25, marginTop: 10, color: 'black' }}>{navigation.getParam('name')}</Text>
-          <View style={{ backgroundColor: "green", marginRight: 15, width: 50, borderRadius: 12, marginTop: 10, height: 30 }}><Text style={{ textAlign: 'center', fontSize: 19, color: 'white' }}>{parseFloat(navigation.getParam('rate'))}</Text></View>
+      <Container>
+        <Content>
+          <View style={styles.container}>
+            <Image style={{ width: "100%", height: 200 }}
+              source={{ uri: imgURL }}
+            />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={{ fontWeight: 'bold', fontSize: 22, marginLeft: 25, marginTop: 10, color: 'black' }}>{navigation.getParam('name')}</Text>
+              <View style={{ backgroundColor: "green", marginRight: 15, width: 50, borderRadius: 12, marginTop: 10, height: 30 }}><Text style={{ textAlign: 'center', fontSize: 19, color: 'white' }}>{parseFloat(navigation.getParam('rate'))}</Text></View>
 
-        </View>
-        <Text style={{ marginLeft: 25, marginRight: 100, marginTop: 5 }}>{navigation.getParam('description')}</Text>
-        <Text style={{ marginLeft: 25, marginRight: 25, marginTop: 5, color: '#000011' }}>Address: Nagpada,Mumbai Central,Mumbai</Text>
-        <View
-          style={{
-            borderBottomColor: 'black',
-            borderBottomWidth: 1,
-            marginLeft:20,
-            marginRight:20
-          }}
-        />
-        <View style={{backgroundColor:'#e84c4c',marginLeft:20,marginRight:20}}>
-        <Text style={{fontSize:20 }}>Promotions:</Text>
-        <Text>50% Off between 1 AM to 6 AM </Text>
-        </View>
-          
-        <View
-          style={{
-            borderBottomColor: 'black',
-            borderBottomWidth: 1,
-            marginLeft:20,
-            marginRight:20
-          }}
-        />
+            </View>
+            <Text style={{ marginLeft: 25, marginRight: 100, marginTop: 5 }}>{navigation.getParam('description')}</Text>
+            <Text style={{ marginLeft: 25, marginRight: 25, marginTop: 5, color: '#000011' }}>Address: Nagpada,Mumbai Central,Mumbai</Text>
+            <View
+              style={{
+                borderBottomColor: 'grey',
+                borderBottomWidth: 1,
+                marginLeft: 20,
+                marginRight: 20,
+                marginTop: 10
+              }}
+            />
+            <View style={{ backgroundColor: '#FFFFFF', marginLeft: 20, marginRight: 20 }}>
+              <Text style={{ fontSize: 23, color: '#4cb8ce', fontWeight: '200' }}>Rate this station</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={styles.ratebox}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText}>1</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View>
+                <View style={styles.ratebox}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >2</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View>
+                <View style={styles.ratebox}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >3</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View>
+                <View style={styles.ratebox}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText}>4</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View>
+                <View style={styles.ratebox}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >5</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View>
+              </View>
+            </View>
+
+            <View
+              style={{
+                borderBottomColor: 'grey',
+                borderBottomWidth: 1,
+                marginLeft: 20,
+                marginRight: 20,
+                marginTop: 10
+              }}
+            />
+            <View style={{ backgroundColor: '#FFFFFF', marginLeft: 20, marginRight: 20, marginTop: 5 }}>
+              <Text style={{ fontSize: 22, color: '#4cb8ce', fontWeight: '200' }}>Promotions:</Text>
+              <Text>25% Off between 1 AM to 6 AM </Text>
+            </View>
+
+            <View
+              style={{
+                borderBottomColor: 'black',
+                borderBottomWidth: 1,
+                marginLeft: 20,
+                marginRight: 20,
+                marginTop: 20
+              }}
+            />
 
 
-      </View>
+          </View>
+        </Content>
+      </Container>
+
     );
   }
 }
@@ -225,6 +252,9 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  ratebox: {
+    borderColor: 'black', borderWidth: 1, marginRight: 15, width: 50, borderRadius: 12, marginTop: 10, height: 30
+  },
   annotationContainer: {
     width: 18,
     height: 18,
@@ -232,6 +262,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'white',
     borderRadius: 15,
+  },
+  innerText: {
+    marginLeft: 10, marginTop: 3
+  },
+  iconStar: {
+    color: 'black', marginTop: 3, marginLeft: 2, marginRight: 20, fontSize: 20
   },
   annotationFill: {
     width: 20,

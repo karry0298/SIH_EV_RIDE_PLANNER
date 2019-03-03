@@ -90,7 +90,7 @@ export default class NavRouteMaps extends Component {
       )  
   }
 
-  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating) {
+  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr) {
 
     var icoList = ["bolt","house-damage","city","street-view","hotel"]
     var colors=["blue","black","brown","red","#ddbc00"]
@@ -106,7 +106,7 @@ export default class NavRouteMaps extends Component {
           id={k}    
           coordinate={[a,b]}>
 
-              <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:"black"}}  
+              <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:locColr}}  
               onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
                                 DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
                                 DialogRating:rating ,DialogIcon:glyf });
@@ -160,6 +160,20 @@ export default class NavRouteMaps extends Component {
               require("../../assets/images/type2.png"),
               require("../../assets/images/wall.png")]
           let FinImag = []
+          let totalSlots = rout[i].totalSlots
+          let usedSlots = rout[i].slotsAvailable
+
+          let locColor = "black"
+
+          if(usedSlots/totalSlots*100 > 75){
+              locColor = "green"
+          }
+          else if(usedSlots/totalSlots*100 > 40){
+              locColor = "blue"
+          }
+          else{
+            locColor = "red"
+          }
     
        // console.warn("hahahahahahah",rout[i])
 
@@ -179,7 +193,7 @@ export default class NavRouteMaps extends Component {
             type:icoList[colorTags.indexOf(rout[i].typeOfStation)],typeName:rout[i].typeOfStation}
 
          cords.push(dict)      
-         cooords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating))                            
+         cooords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor))                            
                      
       }
 
@@ -188,20 +202,22 @@ export default class NavRouteMaps extends Component {
       dLon:pLong,
       dLat:pLat,
       route:cords,
-    coords:cooords})
+    coords:cooords,
+      showAl:false})
  
    // console.log([uLong , uLat , pLat , pLong])
     // //192.168.43.204:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000
-
+//192.168.43.204:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=300000
     // //http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
 
-    axios.post("http://192.168.43.229:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=300000")
+    axios.post("http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=300000")
     .then(s=>{
         
          let FinCoooords =[]
          let routFin = []
          let coooords = []
-         let errorDiag = true
+         let errorDiag = false
+         let len = []
 
 
         for (i = 0 ; i < s.data.length ; i++ ){
@@ -214,9 +230,7 @@ export default class NavRouteMaps extends Component {
 
           console.log("insiode",coooords.length)
 
-          if(coooords.length > 0){
-            errorDiag = false
-          }
+          len.push(coooords.length)
 
           let rut = {
             "type": "FeatureCollection",
@@ -239,14 +253,20 @@ export default class NavRouteMaps extends Component {
 
         }
 
-        if (errorDiag){
-          this.setState({showAleart : errorDiag})
+        // if (errorDiag){
+        //   this.setState({showAleart : errorDiag})
+        // }
+
+        if(len[0]==0 && len[1]==0){
+          errorDiag = true
         }
+
 
         console.log("lrngth", routFin.length )
      
         this.setState({ routea:routFin[0],
-                        routeb:routFin[1]})
+                        routeb:routFin[1],
+                        showAl:errorDiag})
 
     })
     .catch(e=>{
@@ -302,10 +322,10 @@ export default class NavRouteMaps extends Component {
 
         <Dialog
                 onDismiss={() => {
-                this.setState({ showAleart: this.state.showAleart });
+                this.setState({ showAl: false });
                 }}
                 width={0.9}
-                visible={false}
+                visible={this.state.showAl}
                 rounded
                 actionsBordered
 
@@ -322,7 +342,7 @@ export default class NavRouteMaps extends Component {
               
 
                 <View style={{flexDirection:"row"}}>
-                    <Button light onPress={() => {this.setState({ showAleart: false });}}>
+                    <Button light onPress={() => {this.setState({ showAl: false });}}>
                     <Text style={{fontSize:21}}>    Back </Text>
                     <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
                     </Button>
