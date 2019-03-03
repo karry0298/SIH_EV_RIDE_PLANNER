@@ -8,7 +8,7 @@ class SignUpPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        abc:1
+        abc:4
     };
   }
 

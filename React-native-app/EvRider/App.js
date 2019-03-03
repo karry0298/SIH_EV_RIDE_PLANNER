@@ -24,6 +24,7 @@ import NavRouteMaps from './components/NavRouteMaps';
 import RouteNearMe from './components/RouteNearMe';
 import filterScreen from './components/Filter';
 import feedbackScreen from './components/Feedback'
+import ChatScreen from './components/Chat'
 import Start from './Start';
 
 
@@ -32,7 +33,8 @@ const Mdn = createDrawerNavigator({
   nearmelist: {screen:NearMeList},
   nearmerout:{screen:RouteNearMe},
   filter : { screen : filterScreen },
-  feedback : { screen : feedbackScreen }
+  feedback : { screen : feedbackScreen },
+  chat : { screen : ChatScreen}
 },
 {
   contentComponent: SideBar,
@@ -57,7 +59,14 @@ const AppNavigator = createStackNavigator({
       headerLeft:(
         <FontAwesome5 name={"bars"} brand style={{paddingLeft:15 , fontSize: 30, color:'black'}} onPress={() => navigation.toggleDrawer()}/>
       ),
-      title:('EVAN')
+      title:("EVAN"),
+      headerTitleStyle: {
+        fontWeight: "bold",
+        fontSize:30,
+        paddingLeft:100,
+        color: "#000",
+        alignSelf: 'center',
+      },
     };
   }
 });

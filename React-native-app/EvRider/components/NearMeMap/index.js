@@ -64,7 +64,7 @@ class NearMeMap extends Component {
   
   //charging-station
   //map-marker-alt  
-  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating) {
+  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr) {
 
     var icoList = ["bolt","house-damage","city","street-view","hotel"]
     var colors=["blue","black","brown","red","#ddbc00"]
@@ -80,7 +80,7 @@ class NearMeMap extends Component {
           id={k}    
           coordinate={[a,b]}>
 
-              <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:"black"}}  
+              <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:locColr}}  
               onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
                                 DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
                                 DialogRating:rating ,DialogIcon:glyf });
@@ -172,7 +172,7 @@ class NearMeMap extends Component {
 
   //  console.log("mount entered")
 
-    axios.get("http://192.168.43.78:2454/api/getAllStation")
+    axios.get("http://192.168.43.141:2454/api/getAllStation")
     .then(s=>{
 
         const rout = s.data.data;
@@ -245,9 +245,8 @@ else{
         id='pointAnnotation'
         coordinate={[this.state.longitude,this.state.latitude]}>
 
-        <View style={styles.annotationContainer}>
-          <View style={styles.annotationFill} />
-        </View>
+            <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:"red"}} />
+
 
         <Mapbox.Callout title='user Location' />
       </Mapbox.PointAnnotation>
@@ -287,6 +286,23 @@ else{
             require("../../assets/images/type2.png"),
             require("../../assets/images/wall.png")]
         let FinImag = []
+        let totalSlots = rout[i].totalSlots
+        let usedSlots = rout[i].slotsAvailable
+
+        let locColor = "black"
+
+        if(usedSlots/totalSlots*100 > 75){
+            locColor = "green"
+        }
+        else if(usedSlots/totalSlots*100 > 40){
+            locColor = "yellow"
+        }
+        else{
+          locColor = "red"
+        }
+
+
+
 
       //  console.warn(img)
 
@@ -300,7 +316,7 @@ else{
 
      //   console.warn(FinImag)
 
-        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating))                            
+        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor))                            
     }
 
 
@@ -311,21 +327,15 @@ else{
       <View style={styles.container}>
     
         <View style={{flexDirection:"row"}}>
-                <Button style={{backgroundColor:"white",paddingLeft:25,paddingRight:23}}
-                        onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
-                    <Text style={{fontSize:21}}>Map </Text>
-                    <FontAwesome5 name={"map-marked-alt"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                <Button style={{marginLeft:1,backgroundColor:"red",paddingLeft:11,paddingRight:15}} >
+                    <Text style={{fontSize:21 , paddingLeft:25 ,color:"white"}} > {"charge:20%"} </Text>
+                    <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginBottom:23 ,fontSize: 20, color:"white" , paddingRight:25}} />        
                 </Button>
 
-                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:14}} onPress={()=>this.setState({DialogBattery:true})}  >
-                    <Text style={{fontSize:21}} > charge:{this.state.valueBattery}% </Text>
-                    <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginTop:5,paddingLeft:5 , fontSize: 20, color:'black'}} />        
-                </Button>
-
-                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:23,paddingRight:27}} 
+                <Button style={{marginLeft:1,backgroundColor:"red",paddingLeft:23,paddingRight:27}} 
                         onPress={() => {this.props.navigation.navigate('nearmelist',{abc:this.state.myStateFinale})}}>
-                    <Text style={{fontSize:21}} > List </Text>
-                    <FontAwesome5 name={"list-ul"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
+                    <Text style={{fontSize:21,paddingLeft:30,color:"white"}} > List </Text>
+                    <FontAwesome5 name={"list-ul"} brand style={{paddingLeft:5 ,paddingRight:50 , fontSize: 20, color:"white"}} />        
                 </Button>
         </View>
 
