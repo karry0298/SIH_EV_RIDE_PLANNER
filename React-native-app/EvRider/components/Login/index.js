@@ -61,7 +61,7 @@ export default class Login extends Component {
                         <View style={{
                             flex: 1, alignItems: 'center', textAlign: 'center',
                             paddingLeft: 20, paddingRight: 20
-                        }}><Text>Make loginPage here</Text><Button block style={{marginBottom: 20}}
+                        }}><Button block style={{marginBottom: 20}}
                                                                    onPress={() => this.switchMap()}><Text
                             style={{color: "white"}}> Map </Text></Button>
                         </View></Tab>
