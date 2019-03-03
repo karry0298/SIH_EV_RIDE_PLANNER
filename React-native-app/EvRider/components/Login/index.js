@@ -32,31 +32,31 @@ export default class Login extends Component {
                 this.props.navigation.navigate('rout');
             }
         })
-    }
+    } 
 
     render() {
-        return (
+        return ( 
             <Container>
                 <Header style={{height: 0}} hasTabs/>
-                <Tabs tabBarUnderlineStyle={{backgroundColor: '#5291F6', opacity:0}} >
+                <Tabs tabBarUnderlineStyle={{backgroundColor: '#3700B3', opacity:0}} >
                     <Tab activeTextStyle={{color: '#fff', fontWeight: 'bold'}}
                          textStyle={{color: '#fff', fontSize: 12}}
-                         tabStyle={{backgroundColor: '#62B1F6', height: 60}}
-                         activeTabStyle={{backgroundColor: '#5291F6', height: 60}}
+                         tabStyle={{backgroundColor: '#3700B3', height: 60}}
+                         activeTabStyle={{backgroundColor: '#6200EE', height: 60}}
                          heading="Sign in">
                         <SignIn successCallback={() => this.switchMap()}/>
                     </Tab>
                     <Tab activeTextStyle={{color: '#fff', fontWeight: 'bold'}}
                          textStyle={{color: '#fff', fontSize: 12}}
-                         tabStyle={{backgroundColor: '#62B1F6', height: 60}}
-                         activeTabStyle={{backgroundColor: '#5291F6', height: 60}}
+                         tabStyle={{backgroundColor: '#3700B3', height: 60}}
+                         activeTabStyle={{backgroundColor: '#6200EE', height: 60}}
                          heading="Register">
-                        <Register/>
+                        <Register navigation={this.props.navigation}/>
                     </Tab>
                     <Tab activeTextStyle={{color: '#fff', fontWeight: 'bold'}}
                          textStyle={{color: '#fff', fontSize: 12}}
-                         tabStyle={{backgroundColor: '#62B1F6', height: 60}}
-                         activeTabStyle={{backgroundColor: '#5291F6', height: 60}}
+                         tabStyle={{backgroundColor: '#3700B3', height: 60}}
+                         activeTabStyle={{backgroundColor: '#6200EE', height: 60}}
                          heading="Debug">
                         <View style={{
                             flex: 1, alignItems: 'center', textAlign: 'center',
