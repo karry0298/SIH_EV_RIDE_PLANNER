@@ -75,7 +75,7 @@ def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
     routes={'locations':route_array}
     # routes = { 'locations' : [ { 'lat' : 19 , 'lon' : 72 } , { 'lat' : 19 , 'lon' : 71 } ] }
     # print(routes)
-    findStationURL="http://192.168.43.78:2454/api/getStation"
+    findStationURL="http://192.168.43.141:2454/api/getStation"
     headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
     nearMeStations= requests.post(findStationURL, data=json.dumps(routes), headers=headers).json()['response']
     #print((nearMeStations))

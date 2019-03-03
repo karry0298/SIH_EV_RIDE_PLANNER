@@ -192,16 +192,16 @@ class NearMeMap extends Component {
 
 if(this.state.valueBattery>75)
 {
-  this.setState({backgroundColor:'green',statusMessage:"Idle"})
+  this.setState({borderColor:'green',statusMessage:"Idle"})
   
 
 }
 else if(this.state.valueBattery>20)
 {
-  this.setState({backgroundColor:'#f2cd3c',statusMessage:"Charging"})
+  this.setState({borderColor:'#f2cd3c',statusMessage:"Charging"})
 }
 else{
-  this.setState({backgroundColor:'#d10808',statusMessage:"Needs charging"})
+  this.setState({borderColor:'#d10808',statusMessage:"Needs charging"})
 }
 
 
@@ -332,7 +332,7 @@ else{
       <View style={styles.container}>
     
         <View style={{flexDirection:"row"}}>
-                <Button style={{marginLeft:1,backgroundColor:"red",paddingLeft:11,paddingRight:15} onPress={()=>this.setState({DialogBattery:true})} } >
+                <Button style={{marginLeft:1,backgroundColor:"red",paddingLeft:11,paddingRight:15}} onPress={()=>this.setState({DialogBattery:true})}  >
                     <Text style={{fontSize:21 , paddingLeft:25 ,color:"white"}} > Charge:{this.state.valueBattery}% </Text>
                     <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginBottom:23 ,fontSize: 20, color:"white" , paddingRight:25}} />        
                 </Button>
