@@ -174,6 +174,8 @@ onpress = () =>
 
   // funUpdateStation(res)
 
+  this.props.navigation.state.params.updateFunc(res)
+
   this.props.navigation.navigate('nearmeMap')
 }
 
