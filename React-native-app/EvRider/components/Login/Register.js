@@ -9,43 +9,43 @@ import logo from '../../assets/images/logo.png';
 
 const cars = [
   {
-    name: "Car1",
+    name: "Nissan",
     
     model: [{
-        name: "Google",
+        name: "Leaf",
         range: 10,
         efficiency:'23'
       },{
-        name: "Strawberry",
+        name: "E-nv 200 Combi",
         rane:180,
         efficiency:"23"
       },{
-        name: "Pineapple",
+        name: "E-NV 200 Van",
         range:170,
         efficiency:"23"
       },{
-        name: "Banana",
+        name: "E-PD 350",
         range:155,
         efficiency:"29"
       },
     ]
   },
   {
-    name: "ok",   
+    name: "Tesla",   
     model: [{
-        name: "Apple",
+        name: "Model S",
         range: 10,
         efficiency:'23'
       },{
-        name: "Strawberry",
+        name: "Model X",
         rane:180,
         efficiency:"23"
       },{
-        name: "Pineapple",
+        name: "Model 3",
         range:170,
         efficiency:"23"
       },{
-        name: "Banana",
+        name: "Roadster ",
         range:155,
         efficiency:"29"
       },
@@ -60,28 +60,20 @@ export default class Register extends Component {
         super(props);
         this.state = {
             view: false,
-            selected2: undefined,
             email:'',
             password:'',
             selectedItems: [],
-
         };
+        this.submit=this.submit.bind(this);
+
     }
     submit(){
-         console.warn("submitted data ",this.state.selectedObject);
+         console.warn("submitted data ",this.state);
         
           }
-    onValueChange2(value) {
-        this.setState({
-            selected2: value
-        });
-    }
+   
 
-    buttonPress = () => {
-        this.setState({view: true});
-        console.log(this.state.selectedObject);
-    };
-
+   
     onSelectedItemsChange = (selectedItems) => {
         this.setState({ selectedItems });
       }
@@ -99,13 +91,13 @@ export default class Register extends Component {
                     <Form block style={styles.item}>
                         <Item block floatingLabel>
                             <Label block>Email</Label>
-                            <Input  value={this.state.email} onChange={(email)=>{
+                            <Input  value={this.state.email} onChangeText={(email)=>{
                                 this.setState({email})
                             }} block/>
                         </Item>
                         <Item block floatingLabel>
                             <Label block>Password</Label>
-                            <Input value={this.state.password} onChange={(password)=>{
+                            <Input value={this.state.password} onChangeText={(password)=>{
                                     this.setState({password})
                             }} block secureTextEntry/>
                         </Item>
@@ -113,20 +105,20 @@ export default class Register extends Component {
                             <Label block>Confirm Password</Label>
                             <Input block secureTextEntry/>
                         </Item>
-                    </Form>
-                    <Button rounded dark block style={{margin: 15, marginTop: 50}} onPress={()=>{
+                        <Button rounded dark block style={{margin: 15, marginTop: 50}} onPress={()=>{
                         this.setState({view:true});
                     }}>
                         <Text>Next</Text>
                     </Button>
+                    </Form>
+                    
 
                 </Content>
             </Container>
         );
     }
     else{
-        return (<View>
-        <Text>email is {this.state.email}</Text>
+        return (<View style={styles.Container}>
         <SectionedMultiSelect
           items={cars}
           uniqueKey='name'
@@ -136,9 +128,12 @@ export default class Register extends Component {
           readOnlyHeadings={true}
           onSelectedItemsChange={this.onSelectedItemsChange}
           selectedItems={this.state.selectedItems}
+          onConfirm={()=>{
+              this.submit()
+              this.props.navigation.navigate('prof',{data:this.data})
+          }}
         />
   
-  <Button onPress={this.submit()} title="Submit"/>
       </View>
   
         );
@@ -147,6 +142,10 @@ export default class Register extends Component {
 }
 
 const styles = StyleSheet.create({
+    Container:{
+        flex:1,
+
+    },
     backgroundContainer: {
         flex: 1,
         width: null,

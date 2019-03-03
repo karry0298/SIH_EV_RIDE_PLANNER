@@ -26,6 +26,7 @@ import filterScreen from './components/Filter';
 import feedbackScreen from './components/Feedback'
 import ChatScreen from './components/Chat'
 import Start from './Start';
+import Profile from './profile.js'
 
 
 const Mdn = createDrawerNavigator({
@@ -49,7 +50,8 @@ const AppNavigator = createStackNavigator({
   profile: Mdn,
   navigateRoute:{screen:NavigateRouteInput},
   navigateMaps:{screen:NavRouteMaps},
-        filter : { screen : filterScreen }
+  filter : { screen : filterScreen },
+  prof : { screen : Profile }
 
 
     },

@@ -51,7 +51,7 @@ export default class Login extends Component {
                          tabStyle={{backgroundColor: '#62B1F6', height: 60}}
                          activeTabStyle={{backgroundColor: '#5291F6', height: 60}}
                          heading="Register">
-                        <Register/>
+                        <Register navigation={this.props.navigation}/>
                     </Tab>
                     <Tab activeTextStyle={{color: '#fff', fontWeight: 'bold'}}
                          textStyle={{color: '#fff', fontSize: 12}}
