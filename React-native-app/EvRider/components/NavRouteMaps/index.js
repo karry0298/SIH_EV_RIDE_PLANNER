@@ -202,20 +202,22 @@ export default class NavRouteMaps extends Component {
       dLon:pLong,
       dLat:pLat,
       route:cords,
-    coords:cooords})
+    coords:cooords,
+      showAl:false})
  
    // console.log([uLong , uLat , pLat , pLong])
     // //192.168.43.204:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000
-
+//192.168.43.204:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=300000
     // //http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
 
-    axios.post("http://192.168.43.229:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=300000")
+    axios.post("http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=300000")
     .then(s=>{
         
          let FinCoooords =[]
          let routFin = []
          let coooords = []
-         let errorDiag = true
+         let errorDiag = false
+         let len = []
 
 
         for (i = 0 ; i < s.data.length ; i++ ){
@@ -228,9 +230,7 @@ export default class NavRouteMaps extends Component {
 
           console.log("insiode",coooords.length)
 
-          if(coooords.length > 0){
-            errorDiag = false
-          }
+          len.push(coooords.length)
 
           let rut = {
             "type": "FeatureCollection",
@@ -253,14 +253,20 @@ export default class NavRouteMaps extends Component {
 
         }
 
-        if (errorDiag){
-          this.setState({showAleart : errorDiag})
+        // if (errorDiag){
+        //   this.setState({showAleart : errorDiag})
+        // }
+
+        if(len[0]==0 && len[1]==0){
+          errorDiag = true
         }
+
 
         console.log("lrngth", routFin.length )
      
         this.setState({ routea:routFin[0],
-                        routeb:routFin[1]})
+                        routeb:routFin[1],
+                        showAl:errorDiag})
 
     })
     .catch(e=>{
@@ -316,10 +322,10 @@ export default class NavRouteMaps extends Component {
 
         <Dialog
                 onDismiss={() => {
-                this.setState({ showAleart: this.state.showAleart });
+                this.setState({ showAl: false });
                 }}
                 width={0.9}
-                visible={false}
+                visible={this.state.showAl}
                 rounded
                 actionsBordered
 

@@ -35,10 +35,10 @@ class NearMeMap extends Component {
         DialogUri:'https://dqbasmyouzti2.cloudfront.net/assets/content/cache/made/content/images/articles/EV_ChargingII_XL_721_420_80_s_c1.jpg',
         DialogContact: 999233233,
         myStateFinale:[],
+        myStateFinaleDup:[],
         DialogIcon:'public',
         prevLatLng: {},
         coordinate:{},
-
         prevLoc : {
           lat : '',
           lon : '',
@@ -58,6 +58,7 @@ class NearMeMap extends Component {
 
     this.tracker = this.tracker.bind(this);
     this.callServer = this.callServer.bind(this);
+    this.updateStations = this.updateStations.bind(this);
   }
 
   goToYosemite(coors) {
@@ -132,6 +133,10 @@ class NearMeMap extends Component {
     console.log("Called")
   }  
 
+  updateStations(stations){
+      this.setState( { myStateFinale : stations } )
+  }
+
 
   componentDidMount(){
 
@@ -139,8 +144,7 @@ class NearMeMap extends Component {
 
     console.disableYellowBox = true
 
-    // Navigator by nCheck
-//    console.log("Did Mount ",AppState.currentState)
+
     
     this.watchID = navigator.geolocation.watchPosition(
       position => {
@@ -169,12 +173,13 @@ class NearMeMap extends Component {
     { enableHighAccuracy: true, maximumAge: 500 })
 
 
+    let rout = this.props.navigation.getParam("abc");
 
-
+    console.log("check" , rout)
 
     console.log("entered Mount")  
 
-  //  console.log("mount entered")
+
 
     axios.get("http://192.168.43.141:2454/api/getAllStation")
     .then(s=>{
@@ -190,22 +195,19 @@ class NearMeMap extends Component {
        console.log("some errp ",e);
     } )
 
-if(this.state.valueBattery>75)
-{
-  this.setState({backgroundColor:'green',statusMessage:"Idle"})
-  
+      if(this.state.valueBattery>75)
+      {
+        this.setState({backgroundColor:'green',statusMessage:"Idle"})
+        
 
-}
-else if(this.state.valueBattery>20)
-{
-  this.setState({backgroundColor:'#f2cd3c',statusMessage:"Charging"})
-}
-else{
-  this.setState({backgroundColor:'#d10808',statusMessage:"Needs charging"})
-}
-
-
-
+      }
+      else if(this.state.valueBattery>20)
+      {
+        this.setState({backgroundColor:'#f2cd3c',statusMessage:"Charging"})
+      }
+      else{
+        this.setState({backgroundColor:'#d10808',statusMessage:"Needs charging"})
+      }
 
   }
 
@@ -362,7 +364,7 @@ else{
 
         <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:150,marginLeft:340,zIndex:10}}>
             <Button rounded style={{marginLeft:1,backgroundColor:"white",    width: 60, height: 60,borderRadius: 60}} 
-                            onPress={() => {this.props.navigation.navigate('filter', {data:"stuff transfered"})}}>
+                            onPress={() => {this.props.navigation.navigate('filter', {data:"stuff transfered", updateStations : updateStations})}}>
                         <FontAwesome5 name={"filter"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />
                 </Button>
         </View>
