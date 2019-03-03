@@ -144,6 +144,9 @@ dependencies {
             force = true
         }
     }
+    implementation project(':react-native-sms')
+    implementation project(':react-native-keychain')
+
 }
 
 // Run this once to be able to run the application with BUCK

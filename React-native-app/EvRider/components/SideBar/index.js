@@ -2,9 +2,15 @@ import React from "react";
 import { AppRegistry, Image, StatusBar,Text } from "react-native";
 import { Button,Container,List,ListItem,Content,Icon,Thumbnail} from "native-base";
 
+
 //const routes = ["Cam", "Ram"];
 
-const routes = [{title:"rout" , icon:"user"},{title:"nearmelist" , icon:"map-marked-alt"},{title:"nearmeMap" , icon:"user"},];
+const routes = [{title:"rout" , name:"Help Section" , icon:"user"},
+                {title:"nearmelist" , name:"eCharging List", icon:"map-marked-alt"},
+                {title:"nearmeMap",name:"Navigation Maps", icon:"user"},
+                {title:"filter",name:"Filter", icon:"user"},
+                {title:"feedback",name:"Feedback", icon:"user"},
+                {title:"chat",name:"Chatroom", icon:"user"}];
 
 export default class SideBar extends React.Component {
   render() {
@@ -22,7 +28,7 @@ export default class SideBar extends React.Component {
             renderRow={data => {
               return (
                 <ListItem button onPress={() => this.props.navigation.navigate(data.title)}>
-                  <Text blurRadius={1} style={{color:'black' , fontSize:25, paddingLeft:20 ,paddingRight:5, elevation:3,fontFamily:"courbd"}}>{data.title}</Text>
+                  <Text blurRadius={1} style={{color:'black' , fontSize:25, paddingLeft:20 ,paddingRight:5, elevation:3,fontFamily:"courbd"}}>{data.name}</Text>
                 </ListItem>
                
               );

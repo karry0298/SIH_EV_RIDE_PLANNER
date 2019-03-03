@@ -2417,6 +2417,11 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
+geolib@^2.0.24:
+  version "2.0.24"
+  resolved "https://registry.yarnpkg.com/geolib/-/geolib-2.0.24.tgz#eb3d7fbc65f5ea3354a5af6054563ebe9f33e5f4"
+  integrity sha512-NR0AyYyEnGrFS9JvSFmmotQDxVCORJgDHdvBwSatxl5aHarOLMh3KuGI83bCvCfObjfoEiDe8Ung8GGLGAtthw==
+
 get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
@@ -4889,7 +4894,7 @@ qs@~6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-query-string@^6.2.0:
+query-string@^6.1.0, query-string@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.2.0.tgz#468edeb542b7e0538f9f9b1aeb26f034f19c86e1"
   integrity sha512-5wupExkIt8RYL4h/FE+WTg3JHk62e6fFPWtAZA9J5IWK1PfTfKkMS93HBUHcFpeYi9KsY5pFbh+ldvEyaz5MyA==
@@ -5032,6 +5037,11 @@ react-native-keyboard-aware-scroll-view@0.8.0:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
+react-native-keychain@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-keychain/-/react-native-keychain-3.1.1.tgz#119cbf734d8dceaf80de82ee979a4db268fbc380"
+  integrity sha512-+qZn6uRevd/rdyzuh4YBBhjhv/hxj+N408+vD8/otnsZ+c3mcc2FmRw3n+n2g0Z6tfgfT30jVETe6ZhfcER7yQ==
+
 react-native-menu@^0.23.0:
   version "0.23.0"
   resolved "https://registry.yarnpkg.com/react-native-menu/-/react-native-menu-0.23.0.tgz#3c023239aed95d419275df50c199982ad7eb062b"
@@ -5040,6 +5050,13 @@ react-native-menu@^0.23.0:
     create-react-class "^15.6.0"
     prop-types "^15.5.10"
     react-timer-mixin "^0.13.3"
+
+react-native-open-maps@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-open-maps/-/react-native-open-maps-0.3.3.tgz#5120a740dcbcf84d7205ede6ec308139a499c96f"
+  integrity sha512-Lr2eaGBq4U1Dbp6OjviJJjI4g0oB8/KIR0dkdi3jbA+9hiTMjpwaHUWojdOhXl4QFMvCohttFySXU9ZTtwDfGw==
+  dependencies:
+    query-string "^6.1.0"
 
 react-native-popup-dialog@^0.17.0:
   version "0.17.0"

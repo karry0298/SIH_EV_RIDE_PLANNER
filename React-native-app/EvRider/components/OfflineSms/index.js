@@ -7,12 +7,15 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 
 
 class OfflineSms extends Component {
+  static navigationOptions = {
+    header: null,};
+
   constructor(props) {
     super(props)
 
     this.smsFunction=this.smsFunction.bind(this);
     this.state = {
-      active: 'false',
+      active: false,
       showAlert: false,
       lat:null,
       lon:null,
@@ -52,6 +55,7 @@ class OfflineSms extends Component {
 
   smsFunction(e,typeSMS) {
     console.log(typeSMS)
+  smsFunction(typeSms,e) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
           // let latitude = JSON.stringify(position.coords.latitude);
@@ -64,6 +68,7 @@ class OfflineSms extends Component {
           // console.log(this.state.lat);
           SendSMS.send({
             body: 'LAPYT type='+typeSMS+'&id=7945&coords='+latitude+','+longitude+"&rad="+radius,
+            body: 'LAPYT type='+typeSms+'&id=7945&coords='+latitude+','+longitude+"&rad="+radius,
             recipients: ['+919220592205'],
             successTypes: ['sent', 'queued'],
             allowAndroidSendWithoutReadPermission: true
@@ -100,8 +105,13 @@ class OfflineSms extends Component {
       <View style={{ flex: 1 }}>
 
       <Text style={styles.headline}>Help Section</Text>
-      <Text style={styles.content}>This is Help Section.The Help Button is present in bottom corner. Please keep your GPS on to use this functionality.{"\n"} Network charges as applicable</Text>
-      
+      <Text style={[styles.mainbody,{marginBottom:10}]}>Welcome to Help Section. We provide services namely Towing, NearBy Charging Stations and Remote Charging Facilities.These Facilities are available to you offline via SMS </Text>
+     
+      <View style={{flexDirection:'row',}}><View style={[styles.circle ,{ backgroundColor: '#DD5144',marginLeft:10,marginBottom:15 }]} ><Icon type="FontAwesome" style={{marginLeft:9,marginTop:9}} name="truck" /></View><Text style={{marginLeft:9,marginTop:9,fontSize:17}} >Towing service </Text></View> 
+      <View style={{flexDirection:'row',}}><View style={[styles.circle ,{ backgroundColor: '#3B5998',marginLeft:10,marginBottom:15 }]} ><Icon type="FontAwesome" style={{marginLeft:9,marginTop:9}} name="battery-quarter" /></View><Text style={{marginLeft:9,marginTop:9,fontSize:17}} >Remote charging facilities</Text></View>
+      <View style={{flexDirection:'row',}}><View style={[styles.circle ,{ backgroundColor: '#34A34F',marginLeft:10,marginBottom:5 }]} ><Icon type="FontAwesome" style={{marginLeft:9,marginTop:9}} name="institution" /></View><Text style={{marginLeft:9,marginTop:9,fontSize:17}} >Nearby charging stations </Text></View>
+      {/* <View style={[styles.circle ,{ backgroundColor: '#3B5998',marginLeft:10,marginBottom:5 }]} ><Icon type="FontAwesome" style={{marginLeft:9,marginTop:9}} name="battery-quarter" /></View>
+      <View style={[styles.circle ,{ backgroundColor: '#34A34F',marginLeft:10,marginBottom:5 }]} ><Icon type="FontAwesome" style={{marginLeft:9,marginTop:9}} name="institution" /></View> */}
       <Fab
         active={this.state.active}
         direction="up"
@@ -111,13 +121,13 @@ class OfflineSms extends Component {
          onPress={ () => this.setState({ active: !this.state.active })}
         >
         <Icon name="mail" />
-            <Button onPress={(e) => this.smsFunction(e,'tow')} style={{ backgroundColor: '#34A34F' }}>
-              <Icon type="FontAwesome"  name="truck" />
+            <Button onPress={(e) => this.smsFunction("tow", e)} style={{ backgroundColor: '#34A34F' }}>
+              <Icon  type="FontAwesome"  name="truck" />
             </Button>
-            <Button onPress={(e) => this.smsFunction(e,'batterydead')} style={{ backgroundColor: '#3B5998' }}>
+            <Button onPress={(e) => this.smsFunction("batteryDead", e)} style={{ backgroundColor: '#3B5998' }}>
               <Icon type="FontAwesome" name="battery-quarter" />
             </Button>
-            <Button onPress={(e) => this.smsFunction(e,'nearestCharing')} style={{ backgroundColor: '#DD5144' }}>
+            <Button onPress={(e) => this.smsFunction("nearbyCharging", e)} style={{ backgroundColor: '#DD5144' }}>
               <Icon type="FontAwesome" name="institution" />
             </Button>
       </Fab>
@@ -152,15 +162,22 @@ const styles = StyleSheet.create({
   headline: {
     textAlign: 'center', // <-- the magic
     fontWeight: 'bold',
+    fontSize: 21,
+    marginTop: 10,  
+  },
+  mainbody: {
+    textAlign: 'left', // <-- the magic
+    fontWeight: '100',
+    marginLeft:19,
     fontSize: 18,
     marginTop: 10,  
   },
-  content: {
-    textAlign: 'center', // <-- the magic
-    fontWeight: '100',
-    fontSize: 18,
-    marginTop: 10,  
-  }
+  circle: {
+    width: 50,
+    height:50,
+    borderRadius: 50/2
+}
+
 });
 
 

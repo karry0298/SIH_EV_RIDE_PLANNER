@@ -19,57 +19,54 @@ import NearMeMap from './components/NearMeMap';
 import OfflineSms from './components/OfflineSms';
 import SideBar from './components/SideBar';
 import MyFavourite from './components/MyFavourite';
-import NavigateRoute from './components/NavigateRoute';
+import NavigateRouteInput from './components/NavigateRouteInput';
+import NavRouteMaps from './components/NavRouteMaps';
 import RouteNearMe from './components/RouteNearMe';
- 
+import filterScreen from './components/Filter';
+import feedbackScreen from './components/Feedback'
+import ChatScreen from './components/Chat'
+import Start from './Start';
+
 
 const Mdn = createDrawerNavigator({
   nearmeMap: {screen:NearMeMap},  
   nearmelist: {screen:NearMeList},
-  nearmerout:{screen:RouteNearMe}
-  // navigateRoute:{screen:NavigateRoute}
+  nearmerout:{screen:RouteNearMe},
+  filter : { screen : filterScreen },
+  feedback : { screen : feedbackScreen },
+  chat : { screen : ChatScreen}
 },
 {
   contentComponent: SideBar,
-  contentOptions:{activeTintColor:"red",}, 
 },
-{
-  defaultNavigationOptions: ({navigation}) => {
-    return {
-      headerRight:(
-        <FontAwesome5 name={"bars"} brand style={{paddingLeft:15 , fontSize: 30, color:'black'}}/>
-      )
-    };
-  }
-}
+
 )
-
-
-const TabNavigator = createBottomTabNavigator({
-  login: { screen: Login },
-  signup: { screen: SignUpPage },
-});
-
-const switchNav = createSwitchNavigator({
-
-  rout:{screen:OfflineSms},
-},
-{ headerMode: 'screen' });
 
 const AppNavigator = createStackNavigator({
   login: { screen: Login }, 
+  rout:{screen:OfflineSms},
   signup: { screen: SignUpPage },
-  main:switchNav,
   profile: Mdn,
-  navigateRoute:{screen:NavigateRoute}
+  navigateRoute:{screen:NavigateRouteInput},
+  navigateMaps:{screen:NavRouteMaps},
+        filter : { screen : filterScreen }
 
-},
+
+    },
 {
   defaultNavigationOptions: ({navigation}) => {
     return {
       headerLeft:(
         <FontAwesome5 name={"bars"} brand style={{paddingLeft:15 , fontSize: 30, color:'black'}} onPress={() => navigation.toggleDrawer()}/>
-      )
+      ),
+      title:("EVAN"),
+      headerTitleStyle: {
+        fontWeight: "bold",
+        fontSize:30,
+        paddingLeft:100,
+        color: "#000",
+        alignSelf: 'center',
+      },
     };
   }
 });

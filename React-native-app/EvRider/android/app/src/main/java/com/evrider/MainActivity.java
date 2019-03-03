@@ -3,7 +3,6 @@ package com.evrider;
 import com.facebook.react.ReactActivity;
 import android.content.Intent; // <-- include if not already there
 import com.tkporter.sendsms.SendSMSPackage;
-
 public class MainActivity extends ReactActivity {
 
     /**
@@ -14,7 +13,6 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "EvRider";
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
@@ -22,3 +20,4 @@ public class MainActivity extends ReactActivity {
     SendSMSPackage.getInstance().onActivityResult(requestCode, resultCode, data);
 }
 }
+
