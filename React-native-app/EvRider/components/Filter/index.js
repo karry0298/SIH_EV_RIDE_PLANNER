@@ -169,16 +169,15 @@ onpress = () =>
   var res = filter(options, optTypes )
   console.log(res)
   // alert(filterList)
+
+  this.props.navigation.navigate('nearmeMap')
 }
 
 
   render() {
  return (
   <Container>
-   
-  <Header style={{backgroundColor:'white'}}>
-    <Text style={{fontSize:30,fontWeight:'500',padding:8}}>Filter</Text>
-  </Header>
+
   <Content>
   <Text style={{fontSize:25,fontWeight:'500',padding:8}}>Type :</Text>
     <ListItem>

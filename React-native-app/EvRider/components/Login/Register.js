@@ -5,7 +5,7 @@ import {
     Text, Tab, Tabs, DeckSwiper, Card, CardItem, View, Picker
 } from "native-base";
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-
+import logo from '../../assets/images/logo.png';
 
 const cars = [
   {
@@ -54,8 +54,7 @@ const cars = [
 ]
 
 
-import logo from '../../assets/images/logo.png';
-import CarReg from '../../carReg';
+
 export default class Register extends Component {
     constructor(props) {
         super(props);
@@ -65,7 +64,6 @@ export default class Register extends Component {
             email:'',
             password:'',
             selectedItems: [],
-            selectedObject :[]
 
         };
     }
@@ -81,8 +79,12 @@ export default class Register extends Component {
 
     buttonPress = () => {
         this.setState({view: true});
+        console.log(this.state.selectedObject);
     };
 
+    onSelectedItemsChange = (selectedItems) => {
+        this.setState({ selectedItems });
+      }
     render() {
         if(!this.state.view){
 
@@ -112,7 +114,9 @@ export default class Register extends Component {
                             <Input block secureTextEntry/>
                         </Item>
                     </Form>
-                    <Button rounded dark block style={{margin: 15, marginTop: 50}} onPress={this.buttonPress}>
+                    <Button rounded dark block style={{margin: 15, marginTop: 50}} onPress={()=>{
+                        this.setState({view:true});
+                    }}>
                         <Text>Next</Text>
                     </Button>
 
@@ -121,20 +125,16 @@ export default class Register extends Component {
         );
     }
     else{
-        return (
-
-
-            <View>
+        return (<View>
         <Text>email is {this.state.email}</Text>
         <SectionedMultiSelect
           items={cars}
           uniqueKey='name'
           subKey='model'
-          selectText='Choose some things...'
+          selectText='Select your cars'
           showDropDowns={true}
           readOnlyHeadings={true}
-          onSelectedItemsChange={this.state.selectedObject}
-          onSelectedItemObjectsChange	={this.state.selectedObject}
+          onSelectedItemsChange={this.onSelectedItemsChange}
           selectedItems={this.state.selectedItems}
         />
   
