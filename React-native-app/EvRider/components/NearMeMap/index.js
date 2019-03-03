@@ -358,7 +358,7 @@ else{
               </Button>
 
                 <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:5,paddingRight:5}} onPress={()=>this.setState({DialogBattery:true})} >
-                    <Text style={{fontSize:21 , paddingLeft:25 ,color:"black"}} > {"charge:20%"} </Text>
+                    <Text style={{fontSize:21 , paddingLeft:25 ,color:"black"}} > charge:{this.state.valueBattery} </Text>
                     <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginBottom:23 ,fontSize: 20, color:"white" , paddingRight:25}} />        
                 </Button>
 
