@@ -24,14 +24,19 @@ module.exports.filter =  ( options = [ 'type', 'price', 'connector', 'rating'] ,
             optTypes['type'].forEach( type =>{
 
                 let t = result.filter( res => res.typeOfStation == type  )
-                temp.push( t )
+                temp = temp.concat(t)
+                console.log(temp.length, t.length , "lengths")
                 
 
             })
 
             // console.log( temp[0], "case type" )
 
-            result = temp[0] ;
+            // result = []
+            // for ( let t in temp ){
+            //     console.log( t,  temp )
+            // }
+            result = temp ;
 
 
             break;
