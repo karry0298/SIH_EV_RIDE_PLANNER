@@ -34,6 +34,7 @@ class NearMeMap extends Component {
         DialogMail:"abc@abc",
         DialogUri:'https://dqbasmyouzti2.cloudfront.net/assets/content/cache/made/content/images/articles/EV_ChargingII_XL_721_420_80_s_c1.jpg',
         DialogContact: 999233233,
+        DialogOwner: 'Mr Alex',
         myStateFinale:[],
         DialogIcon:'public',
         prevLatLng: {},
@@ -68,7 +69,7 @@ class NearMeMap extends Component {
   
   //charging-station
   //map-marker-alt  
-  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr) {
+  renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr,owner) {
 
     var icoList = ["bolt","house-damage","city","street-view","hotel"]
     var colors=["blue","black","brown","red","#ddbc00"]
@@ -86,7 +87,7 @@ class NearMeMap extends Component {
 
               <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:locColr}}  
               onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
-                                DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
+                                DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,DialogOwner:owner,
                                 DialogRating:rating ,DialogIcon:glyf, coordinates : { latitude : b, longitude : a } });
             }}
               />
@@ -321,7 +322,7 @@ else{
 
      //   console.warn(FinImag)
 
-        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor))                            
+        cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor,owner))                            
     }
 
 
@@ -396,7 +397,7 @@ else{
 
                 <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center",marginTop:10}}>
                     <Text style={{marginLeft:10,fontSize:15}} >{this.state.DialogMail}</Text>
-                    <Text style={{marginRight:10,fontSize:15}}>{this.state.contact}</Text> 
+                    <Text style={{marginRight:10,fontSize:15}}>{this.state.owner}</Text> 
                 </View>
 
                 <View style={{marginTop:5, borderBottomColor: '#e5e5e5',borderBottomWidth: 0.8,}} />
@@ -432,7 +433,7 @@ else{
                 </View>
 
 
-                <Text style={{marginLeft:10}}>Descrpition abt the place will come here when nehal bhaiya sends the info</Text>
+                <Text style={{marginLeft:10}}>There will be loading shedding between 6 PM to 9PM on 9 March 2019 </Text>
 
             <View>
 
