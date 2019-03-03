@@ -92,7 +92,7 @@ class NearMeMap extends Component {
               <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:locColr}}  
               onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
                                 DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
-                                DialogRating:rating ,DialogIcon:glyf, placeLat : b , placeLon : a });
+                                DialogRating:rating ,DialogIcon:glyf, placeLat : b , placeLon : a ,DialogPrice:price});
             }}
               />
               
@@ -349,23 +349,27 @@ else{
        // navigate('nearmerout',item)
 
       <View style={styles.container}>
-    
-        <View style={{flexDirection:"row"}}>
-              <Button style={{backgroundColor:"white",paddingLeft:5,paddingRight:5}}
+            {/* tabStyle={{backgroundColor: '#62B1F6', height: 60}}
+                         activeTabStyle={{backgroundColor: '#5291F6', height: 60}} */}
+        <View style={{flexDirection:"row" ,justifyContent: 'center', }}>
+              <Button style={{flex:2, backgroundColor:"#3700B3", }}
                       onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
-                <Text style={{fontSize:21}}>Map </Text>
-                <FontAwesome5 name={"map-marked-alt"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />
+                <View style={{paddingLeft:4, paddingRight:4, flexDirection:"row",justifyContent: 'space-around',  }}>
+                  <FontAwesome5 name={"map-marked-alt"} brand style={{paddingLeft:5 , fontSize: 20, color:'white', flex:1}} />
+                  <Text style={{fontSize:21, flex:2, color:'white'}}>Map </Text>
+                </View>
               </Button>
 
                 <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:5,paddingRight:5}} onPress={()=>this.setState({DialogBattery:true})} >
                     <Text style={{fontSize:21 , paddingLeft:25 ,color:"black"}} > charge:{this.state.valueBattery} </Text>
                     <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginBottom:23 ,fontSize: 20, color:"white" , paddingRight:25}} />        
                 </Button>
-
-                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:23,paddingRight:27}}
+                <Button style={{flex:2, backgroundColor:"#6200EE", }}
                         onPress={() => {this.props.navigation.navigate('nearmelist',{abc:this.state.myStateFinale})}}>
-                    <Text style={{fontSize:21,paddingLeft:30,color:"black"}} > List </Text>
-                    <FontAwesome5 name={"list-ul"} brand style={{paddingLeft:5 ,paddingRight:50 , fontSize: 20, color:"white"}} />        
+                  <View style={{paddingLeft:4, paddingRight:4, flexDirection:"row" ,justifyContent: 'space-around', }}>
+                    <FontAwesome5 name={"list-ul"} brand style={{fontSize: 20, color:"white", flex:1}} />     
+                    <Text style={{fontSize:21,color:"white", flex:2}} > List </Text>
+                </View>
                 </Button>
         </View>
 
@@ -387,7 +391,7 @@ else{
 
         <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:150,marginLeft:340,zIndex:10}}>
             <Button rounded style={{marginLeft:1,backgroundColor:"white",    width: 60, height: 60,borderRadius: 60}} 
-                            onPress={() => {this.props.navigation.navigate('filter', { updateFunc : this.updateFunc})}}>
+                            onPress={() => {this.props.navigation.navigate('filter', { updateFunc : this.updateFunc , origin : 'nearmerout'})}}>
                         <FontAwesome5 name={"filter"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />
                 </Button>
         </View>
@@ -399,29 +403,32 @@ else{
                   <FontAwesome5 name={"crosshairs"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />
               </Button>
           </View>
-
+{/* --------------------------------------------------------------------------------------------------------------------- */}
         <Dialog
                 onDismiss={() => {
                 this.setState({ Dialog: false });
                 }}
-                width={0.85}
+                width={0.90}
+                height={0.9}
                 visible={this.state.Dialog}
                 rounded
                 actionsBordered
-
                 >
 
-{/* --------------------------------------------------------------------------------------------------------------------- */}
-
-                <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center"}}>
-                    <Text style={{marginLeft:10,fontSize:23}} ></Text>
+                <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center", padding:5}}>
+                    <Text style={{marginLeft:5,textAlign:'center',fontSize:30 ,color:"black", fontWeight: 'bold',}} >{this.state.DialogTitle}</Text>
+                    <Text style={{ padding:3, textAlign:'center',borderWidth:1, borderRadius:3, borderColor:"black", fontSize:30 ,color:"black",}} >₹ {this.state.DialogPrice}</Text>
                 </View>
             
-                <Image style={{width:"100%",height:150,borderBottomWidth:0.7,borderColor:"#bab8b8"}} source={{uri:this.state.DialogUri}}></Image>
+                <Image style={{width:"100%",height:200,borderBottomWidth:0.7,borderColor:"#bab8b8"}} source={{uri:this.state.DialogUri}}></Image>
 
                 <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center",marginTop:10}}>
-                    <Text style={{marginLeft:10,fontSize:15}} >{this.state.DialogMail}</Text>
-                    <Text style={{marginRight:10,fontSize:15}}>{this.state.contact}</Text> 
+                    <Text style={{marginLeft:10,fontSize:20}} >{this.state.DialogMail}</Text>
+
+                    <View style={{flexDirection:"row"}}>
+                      <FontAwesome5 name="phone" brand style={{color:'black',fontSize:20,   transform: [{ rotate: '90deg'}], marginRight:10}} />   
+                      <Text style={{marginRight:10,fontSize:20}}>{this.state.DialogContact}</Text> 
+                    </View>
                 </View>
 
                 <View style={{marginTop:5, borderBottomColor: '#e5e5e5',borderBottomWidth: 0.8,}} />
@@ -442,46 +449,46 @@ else{
 
                 <View style={{marginTop:5, borderBottomColor: '#e5e5e5',borderBottomWidth: 0.8,}} />
 
-                <View style={{marginTop:10}}>
+                <View style={{marginTop:10, flexDirection:"row",justifyContent:"space-around" }}>
                       <FlatList 
                         numColumns={4}
                         data = {this.state.dialogC}
                         
                         renderItem={i => {
                             // console.warn("Baka Entered") 
+                            var queueLength = Math.floor(Math.random() * 4);
                             return (
-                                <View style={{marginLeft:10}}><Image style={{width:45,height:45,margin:10}} source={i.item} ></Image></View>
+                                <View style={{ flex:1, flexDirection:"column", borderWidth:1, borderColor:"#e5e5e5", borderRadius:5}}>
+                                  <Image style={{alignSelf:"center", width:45,height:45,margin:7}} source={i.item} ></Image>
+                                  <Text style={{textAlign:"center", fontSize:15, marginLeft:15, marginRight:15,borderRadius:5, padding:3, backgroundColor:"#4200AE",color:"white"}}>{queueLength}</Text>
+                                  </View>
                             )}}
                       >
                     </FlatList>
                 </View>
 
 
-                <Text style={{marginLeft:10}}>Descrpition abt the place will come here when nehal bhaiya sends the info</Text>
+                <Text style={{marginLeft:10, fontSize:15, paddingTop:10, paddingBottom:10 }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</Text>
 
+<View style={{bottom:0}}>
             <View>
 
-                <Button style={{backgroundColor:'red' , width:'100%'}} onPress={() => {this.goToYosemite( [this.state.placeLat, this.state.placeLon] )}}>
+                <Button style={{backgroundColor:'#6200EE' , width:'100%'}} onPress={() => {this.goToYosemite( [this.state.placeLat, this.state.placeLon] )}}>
                   <Text style={{fontSize:21 , paddingLeft:130 , color:"white"}} >  Nav </Text>
                   <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:130 , fontSize: 20, color:"white"}} />        
                 </Button>                              
-
             </View>
-
             <View style={{flexDirection:"row"}}>
                 <Button light onPress={() => {this.setState({ Dialog: false });}}>
                   <Text style={{fontSize:21 , paddingLeft:35}}>    Back </Text>
                   <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , paddingRight:35 , fontSize: 20, color:'black'}} />        
                 </Button>
-
-
                 <Button light onPress={() => {this.setState({ Dialog: false });}}>
                   <Text style={{fontSize:21}} >          Fav </Text>
                   <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black', paddingRight:85}} />        
                 </Button>
-
             </View>
-
+            </View>
             </Dialog>
 
 

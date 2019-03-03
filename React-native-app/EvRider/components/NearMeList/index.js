@@ -42,6 +42,8 @@ class NearMeList extends Component {
             filteredStations : {},
             filterStatus : false
         };
+
+        this.updateFunc = this.updateFunc.bind(this)
       }    
 
       deg2rad(deg) {
@@ -70,6 +72,12 @@ class NearMeList extends Component {
       this.setState({ allStations : rout });
       console.log("component did mount setting stations")
 
+    }
+
+    updateFunc(data){
+
+      this.setState( { allStations: data }  )
+      // console.log("called", data)
     }
 
 
@@ -238,27 +246,6 @@ class NearMeList extends Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <View style={{flexDirection:"row"}}>
                 <Button style={{backgroundColor:"white",paddingLeft:25,paddingRight:23}}
                         onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
@@ -350,13 +337,14 @@ class NearMeList extends Component {
 
             <View style={{flexDirection:"row"}}>
             <Button style={{backgroundColor:"white",paddingLeft:55,paddingRight:55}}
-                    onPress={() => {this.setState({ Dialog: true });}}>
+                    onPress={() =>{this.props.navigation.navigate("filter", { updateFunc : this.updateFunc , data : this.state.allStations })}}>
                 <Text style={{fontSize:21}}> Filters </Text>
                 <FontAwesome5 name={"filter"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
             </Button>
 
             <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:60,paddingRight:75}} 
-                    onPress={() => {this.props.navigation.navigate('nearmelist')}}>
+                    onPress={() =>{this.props.navigation.navigate("sort", { updateFunc : this.updateFunc , data : this.state.allStations, origin : 'nearmelist' })}}
+                    >
                 <Text style={{fontSize:21}} > Sort </Text>
                 <FontAwesome5 name={"exchange-alt"} brand style={{transform: [{ rotate: '90deg'}],paddingLeft:5 , fontSize: 20, color:'black'}} />        
             </Button>

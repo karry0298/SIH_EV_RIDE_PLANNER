@@ -1,6 +1,6 @@
 import React from "react";
 import { AppRegistry, Image, StatusBar,Text } from "react-native";
-import { Button,Container,List,ListItem,Content,Icon,Thumbnail} from "native-base";
+import { Button,Container,List,ListItem,Content,Icon,Thumbnail, View} from "native-base";
 
 
 //const routes = ["Cam", "Ram"];
@@ -17,18 +17,17 @@ export default class SideBar extends React.Component {
     
     return (    
       
-      <Container>
+
+    <Container style={{backgroundColor:"#6200EE"}}>
         <Content>  
-          
-          <Text blurRadius={1} style={{color:'black' , left:19 ,right:2 , fontSize:17 , top:19, elevation:3}}>Welcome To Night Raid's Profile</Text>
-        
-          <List
+    
+        <List
             dataArray={routes}
-            contentContainerStyle={{ marginTop: 35 }}
+            // contentContainerStyle={{ marginTop: 35 }}
             renderRow={data => {
               return (
                 <ListItem button onPress={() => this.props.navigation.navigate(data.title)}>
-                  <Text blurRadius={1} style={{color:'black' , fontSize:25, paddingLeft:20 ,paddingRight:5, elevation:3,fontFamily:"courbd"}}>{data.name}</Text>
+                  <Text blurRadius={1} style={{color:'white' , fontSize:25, paddingLeft:20 ,paddingRight:5, elevation:3,fontFamily:"courbd"}}>{data.name}</Text>
                 </ListItem>
                
               );
@@ -37,6 +36,8 @@ export default class SideBar extends React.Component {
         </Content>
       </Container>
 
+
+      
     );
   }
 }

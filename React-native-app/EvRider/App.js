@@ -26,6 +26,7 @@ import filterScreen from './components/Filter';
 import feedbackScreen from './components/Feedback'
 import ChatScreen from './components/Chat'
 import Start from './Start';
+import Sort from './components/Sort'
 
 
 const Mdn = createDrawerNavigator({
@@ -34,7 +35,8 @@ const Mdn = createDrawerNavigator({
   nearmerout:{screen:RouteNearMe},
   filter : { screen : filterScreen },
   feedback : { screen : feedbackScreen },
-  chat : { screen : ChatScreen}
+  chat : { screen : ChatScreen},
+  sort : {screen : Sort},
 },
 {
   contentComponent: SideBar,
@@ -43,13 +45,13 @@ const Mdn = createDrawerNavigator({
 )
 
 const AppNavigator = createStackNavigator({
-  login: { screen: Login }, 
-  rout:{screen:OfflineSms},
-  signup: { screen: SignUpPage },
-  profile: Mdn,
-  navigateRoute:{screen:NavigateRouteInput},
-  navigateMaps:{screen:NavRouteMaps},
-        filter : { screen : filterScreen }
+    login: { screen: Login }, 
+    rout:{screen:OfflineSms},
+    signup: { screen: SignUpPage },
+    profile: Mdn,    
+    navigateRoute:{screen:NavigateRouteInput},
+    navigateMaps:{screen:NavRouteMaps},
+    filter : { screen : filterScreen },
 
 
     },
@@ -57,16 +59,22 @@ const AppNavigator = createStackNavigator({
   defaultNavigationOptions: ({navigation}) => {
     return {
       headerLeft:(
-        <FontAwesome5 name={"bars"} brand style={{paddingLeft:15 , fontSize: 30, color:'black'}} onPress={() => navigation.toggleDrawer()}/>
+        <FontAwesome5 name={"bars"} brand style={{paddingLeft:15 , fontSize: 30, color:'white'}} onPress={() => navigation.toggleDrawer()}/>
       ),
       title:("EVAN "),
       headerTitleStyle: {
         fontWeight: "bold",
         fontSize:30,
         paddingLeft:100,
-        color: "#000",
+        color: "white",
+        
         alignSelf: 'center',
       },
+      headerStyle: {
+        borderBottomColor:"white",
+        borderBottomWidth:1,
+        backgroundColor: "#6200EE"
+      }
     };
   }
 });
