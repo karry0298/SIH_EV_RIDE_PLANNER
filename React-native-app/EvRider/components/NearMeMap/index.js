@@ -26,6 +26,8 @@ class NearMeMap extends Component {
     this.state = {
         latitude: 19.13566162451865,
         longitude: 72.86615863993508,
+        placeLat : '',
+        placeLon : '',
         Dialog:false,
         DialogTitle:"abcTitle",
         dialogC:[2,3,4],
@@ -73,7 +75,9 @@ class NearMeMap extends Component {
     var icoList = ["bolt","house-damage","city","street-view","hotel"]
     var colors=["blue","black","brown","red","#ddbc00"]
 
-    var glyf = icoList[colors.indexOf(colr)] 
+    var glyf = icoList[colors.indexOf(colr)]
+    
+    // this.setState( { placeLat : b , placeLon : a } )
 
     console.log("abcabca         ",glyf)
 
@@ -87,7 +91,7 @@ class NearMeMap extends Component {
               <FontAwesome5 name={glyf} brand style={{fontSize: 28, color:locColr}}  
               onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,
                                 DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,
-                                DialogRating:rating ,DialogIcon:glyf, coordinates : { latitude : b, longitude : a } });
+                                DialogRating:rating ,DialogIcon:glyf, placeLat : b , placeLon : a });
             }}
               />
               
@@ -436,7 +440,7 @@ else{
 
             <View>
 
-                <Button style={{backgroundColor:'red' , width:'100%'}} onPress={() => {this.goToYosemite([ this.state.coordinate.latitude, this.state.coordinate.longitude ])}}>
+                <Button style={{backgroundColor:'red' , width:'100%'}} onPress={() => {this.goToYosemite( [this.state.placeLat, this.state.placeLon] )}}>
                   <Text style={{fontSize:21 , paddingLeft:130 , color:"white"}} >  Nav </Text>
                   <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:130 , fontSize: 20, color:"white"}} />        
                 </Button>                              
