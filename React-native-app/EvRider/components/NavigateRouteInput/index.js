@@ -51,11 +51,18 @@ export default class NavigateRoute extends Component {
               onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
                 //console.log(data, details);
 
+                if(data.description == "Current Location"){
+                  this.setState({uLang:data.geometry.location.lng,uLat:data.geometry.location.lat})
+                  this.setState({heighta:45 , heightb:'100%'})
+                }
+                else{
+                  
+                }
+
 
               console.log('1st Input',data.geometry.location.lng)
 
-                this.setState({uLang:data.geometry.location.lng,uLat:data.geometry.location.lat})
-                this.setState({heighta:45 , heightb:'100%'})
+                
 
 
                 console.log('111111st Input',details)

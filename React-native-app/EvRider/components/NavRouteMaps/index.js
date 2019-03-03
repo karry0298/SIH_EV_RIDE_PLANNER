@@ -89,7 +89,7 @@ export default class NavRouteMaps extends Component {
   }
 
 
-  renderAnno (a,b,title){
+  renderAnnoA (a,b,title){
     //console.warn(imgPik)
       
     console.warn(title)
@@ -99,11 +99,26 @@ export default class NavRouteMaps extends Component {
           id={title}
           coordinate={[a,b]}>       
 
-            <View style={this.styles.annotationContainer}>
-              <View style={this.styles.annotationFill}>
+            <View style={styles.annotationContainer}>
+              <View style={styles.annotationFill}>
               </View>
             </View>
 
+          <Mapbox.Callout title={title} />
+        </Mapbox.PointAnnotation>
+      )  
+  }
+
+  renderAnnoB (a,b,title){
+    //console.warn(imgPik)
+      
+    console.warn(title)
+    return (    
+        <Mapbox.PointAnnotation
+          key={title}
+          id={title}
+          coordinate={[a,b]}>       
+              <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:"red"}} />
           <Mapbox.Callout title={title} />
         </Mapbox.PointAnnotation>
       )  
@@ -473,12 +488,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   annotationContainer: {
-    width: 18,
-    height: 18,
+    width: 150,
+    height: 150,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
-    borderRadius: 15,
+    backgroundColor:'rgba(218, 82, 82, 0.25)',
+    borderRadius: 150,
   },
   annotationFill: {
     width: 20,
