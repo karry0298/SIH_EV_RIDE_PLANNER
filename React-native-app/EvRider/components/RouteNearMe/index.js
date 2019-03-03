@@ -19,6 +19,7 @@ export default class RouteNearMe extends Component {
       dLon: 72.8888,
       sLat: 17.8888,
       sLon: 73.8888,
+      colorArr:['white','white','white','white','white'],
       routea: {
         "type": "FeatureCollection",
         "features": [
@@ -51,7 +52,14 @@ export default class RouteNearMe extends Component {
     }
   }
 
-
+//   colorHex = () => {
+//     let letters = '0123456789ABCDEF';
+//     let color = '#';
+//     for (let i = 0; i < 6; i++ ) {
+//         color += letters[Math.floor(Math.random() * 16)];
+//     }
+//     return color;
+// }
   renderAnnotations(a, b, title) {
     //console.warn(imgPik)
 
@@ -67,6 +75,15 @@ export default class RouteNearMe extends Component {
         <Mapbox.Callout title={title} />
       </Mapbox.PointAnnotation>
     )
+  }
+  colorBox(num){
+    let arr=[]
+    for (i = 0; i < 5; i++) { 
+     arr[i]='white'
+    }
+    arr[num]='#ffe502'
+    this.setState({colorArr:arr})
+    console.log('hio')
   }
 
   componentDidMount() {
@@ -185,6 +202,10 @@ export default class RouteNearMe extends Component {
             </View>
             <Text style={{ marginLeft: 25, marginRight: 100, marginTop: 5 }}>{navigation.getParam('description')}</Text>
             <Text style={{ marginLeft: 25, marginRight: 25, marginTop: 5, color: '#000011' }}>Address: Nagpada,Mumbai Central,Mumbai</Text>
+            <View style={{flexDirection:'row',justifyContent:'space-between',marginLeft:25}}>
+            <Text style={{fontSize:16,color:'black'}}>Prices: {navigation.getParam('price')}</Text>
+            <Text style={{fontSize:16, marginRight:25,color:'black'}}> WaitTime :50 Min</Text>
+            </View>
             <View
               style={{
                 borderBottomColor: 'grey',
@@ -197,14 +218,13 @@ export default class RouteNearMe extends Component {
             <View style={{ backgroundColor: '#FFFFFF', marginLeft: 20, marginRight: 20 }}>
               <Text style={{ fontSize: 23, color: '#4cb8ce', fontWeight: '200' }}>Rate this station</Text>
               <View style={{ flexDirection: 'row' }}>
-                <View style={styles.ratebox}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText}>1</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View>
-                <View style={styles.ratebox}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >2</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View>
-                <View style={styles.ratebox}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >3</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View>
-                <View style={styles.ratebox}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText}>4</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View>
-                <View style={styles.ratebox}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >5</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View>
+              <Button onPress={(e) => this.colorBox(0) } transparent><View  style={[styles.ratebox,{backgroundColor:this.state.colorArr[0]}] }><View style={{ flexDirection: 'row' }}><Text style={styles.innerText}>1</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
+               <Button onPress={(e) => this.colorBox(1) } transparent ><View style={[styles.ratebox,{backgroundColor:this.state.colorArr[1]}]}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >2</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
+               <Button onPress={(e) => this.colorBox(2) } transparent ><View style={[styles.ratebox,{backgroundColor:this.state.colorArr[2]}]}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >3</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
+               <Button onPress={(e) => this.colorBox(3) } transparent ><View style={[styles.ratebox,{backgroundColor:this.state.colorArr[3]}]}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText}>4</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
+               <Button onPress={(e) => this.colorBox(4) } transparent ><View style={[styles.ratebox,{backgroundColor:this.state.colorArr[4]}]}><View style={{ flexDirection: 'row' }}><Text style={styles.innerText} >5</Text><Icon type="FontAwesome" style={styles.iconStar} name="star-o" /></View></View></Button>
               </View>
             </View>
-
             <View
               style={{
                 borderBottomColor: 'grey',
@@ -214,6 +234,21 @@ export default class RouteNearMe extends Component {
                 marginTop: 10
               }}
             />
+            <View style={{ backgroundColor: '#FFFFFF', marginLeft: 20, marginRight: 20, marginTop: 5 }}>
+              <Text style={{ fontSize:18, color: '#4cb8ce', fontWeight: '200' }}>Women Friendliness: <Text style={{color:'black'}}>4/5</Text></Text>
+              <Text style={{ fontSize:18, color: '#4cb8ce', fontWeight: '200' }}>Charging Experience: <Text style={{color:'black'}}>3/5</Text> </Text>
+            </View>
+
+            <View
+              style={{
+                borderBottomColor: 'black',
+                borderBottomWidth: 1,
+                marginLeft: 20,
+                marginRight: 20,
+                marginTop: 10
+              }}
+            />
+
             <View style={{ backgroundColor: '#FFFFFF', marginLeft: 20, marginRight: 20, marginTop: 5 }}>
               <Text style={{ fontSize: 22, color: '#4cb8ce', fontWeight: '200' }}>Promotions:</Text>
               <Text>25% Off between 1 AM to 6 AM </Text>
@@ -225,7 +260,7 @@ export default class RouteNearMe extends Component {
                 borderBottomWidth: 1,
                 marginLeft: 20,
                 marginRight: 20,
-                marginTop: 20
+                marginTop: 10
               }}
             />
 
@@ -264,7 +299,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   innerText: {
-    marginLeft: 10, marginTop: 3
+    marginLeft: 10, marginTop: 3,color:'black'
   },
   iconStar: {
     color: 'black', marginTop: 3, marginLeft: 2, marginRight: 20, fontSize: 20
