@@ -46,6 +46,7 @@ export default class Login extends Component {
                          heading="Sign in">
                         <SignIn successCallback={() => this.switchMap()}/>
                     </Tab>
+
                     <Tab activeTextStyle={{color: '#fff', fontWeight: 'bold'}}
                          textStyle={{color: '#fff', fontSize: 12}}
                          tabStyle={{backgroundColor: '#3700B3', height: 60}}
@@ -53,6 +54,7 @@ export default class Login extends Component {
                          heading="Register">
                         <Register navigation={this.props.navigation}/>
                     </Tab>
+                    
                     <Tab activeTextStyle={{color: '#fff', fontWeight: 'bold'}}
                          textStyle={{color: '#fff', fontSize: 12}}
                          tabStyle={{backgroundColor: '#3700B3', height: 60}}

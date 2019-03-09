@@ -40,57 +40,28 @@ export default class NavigateRoute extends Component {
       <View style={styles.container} >
 
         <View style={{height:this.state.heighta}} >
+        {/* --------------------------------------------------------Source Input---------------------------------------------------------- */}
         <GooglePlacesAutocomplete
               placeholder='Search'
-              minLength={2} // minimum length of text to search
+              minLength={2} 
               autoFocus={false}
-              returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-              listViewDisplayed='auto'    // true/false/undefined
+              returnKeyType={'search'} 
+              listViewDisplayed='auto' 
               fetchDetails={true}
-              renderDescription={row => row.description} // custom description render
-              onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                //console.log(data, details);
+              renderDescription={row => row.description} 
+              onPress={(data, details = null) => { 
 
-                if(data.description == "Current Location"){
-                  this.setState({uLang:data.geometry.location.lng,uLat:data.geometry.location.lat})
-                  this.setState({heighta:45 , heightb:'100%'})
-                }
-                else{
-                  
-                }
-
-
-              console.log('1st Input',data.geometry.location.lng)
-
-                
-
-
-                console.log('111111st Input',details)
-  
-                // if(data == undefined){
-                //     this.setState({uLang:data.geometry.location.lng,uLat:data.geometry.location.lat})
-                //     this.setState({heighta:45 , heightb:'100%'})
-                //     console.log("A entered")
-                // }
-                // else{
-                //   this.setState({uLang:details.geometry.location.lng,uLat:details.geometry.location.lat})  
-                //   this.setState({heighta:45 , heightb:'100%'})              
-                //   console.log("B entered")
-                // }
-
-
-
-
+                this.setState({uLang:data.geometry.location.lng,uLat:data.geometry.location.lat})
+                this.setState({heighta:45 , heightb:'100%'})
 
               }}
               
               getDefaultValue={() => ''}
               
               query={{
-                // available options: https://developers.google.com/places/web-service/autocomplete
                 key: 'AIzaSyDmk0ZLNenVOm3-bcdIHiMm2nBkSrdKLxw',
-                language: 'en', // language of the results
-                types: '(cities)' // default: 'geocode'
+                language: 'en',
+                types: '(cities)'
               }}
               
               styles={{ 
@@ -106,16 +77,12 @@ export default class NavigateRoute extends Component {
                 }
               }}
               
-              nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-              GoogleReverseGeocodingQuery={{
-                // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-              }}
-    
+              nearbyPlacesAPI='GooglePlacesSearch'  
         
-              filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+              filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} 
               predefinedPlaces={[CurrentPlace]}
         
-              debounce={0} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
+              debounce={0} 
 
             />
 
@@ -124,26 +91,21 @@ export default class NavigateRoute extends Component {
 
        
         <View style={{height:this.state.heightb}} >
+
+        {/* --------------------------------------------------------destination input---------------------------------------------------------- */}
         <GooglePlacesAutocomplete
               placeholder='Search'
-              minLength={2} // minimum length of text to search
+              minLength={2}
               autoFocus={false}
-              returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-              listViewDisplayed='auto'    // true/false/undefined
+              returnKeyType={'search'} 
+              listViewDisplayed='auto' 
               fetchDetails={true}
-              renderDescription={row => row.description} // custom description render
-              onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                
-                console.log('2st Input',details.geometry.location)
+              renderDescription={row => row.description} 
+              onPress={(data, details = null) => {
 
                 this.setState({dLang:details.geometry.location.lng,dLat:details.geometry.location.lat})
                 
-                console.log("2nd stateasdff ",[details.geometry.location.lng,details.geometry.location.lat])
-
-                console.log("state varibale",[this.state.dLang,this.state.dLat])
-
-               //this.props.navigation.navigate('nearmelist',{abc:this.state.myStateFinale})}}
-               this.props.navigation.navigate('navigateMaps',{abc:{uLat:this.state.uLat,
+                this.props.navigation.navigate('navigateMaps',{abc:{uLat:this.state.uLat,
                                                   uLang:this.state.uLang,
                                                   dLat:this.state.dLat,
                                                   dLang:this.state.dLang,
@@ -153,10 +115,9 @@ export default class NavigateRoute extends Component {
               getDefaultValue={() => ''}
               
               query={{
-                // available options: https://developers.google.com/places/web-service/autocomplete
                 key: 'AIzaSyDmk0ZLNenVOm3-bcdIHiMm2nBkSrdKLxw',
-                language: 'en', // language of the results
-                types: '(cities)' // default: 'geocode'
+                language: 'en', 
+                types: '(cities)' 
               }}
               
               styles={{ 
@@ -172,23 +133,16 @@ export default class NavigateRoute extends Component {
                 }
               }}
               
-              nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-              GoogleReverseGeocodingQuery={{
-                // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-              }}
-    
+              nearbyPlacesAPI='GooglePlacesSearch' 
         
-              filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+              filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} 
               predefinedPlaces={[CurrentPlace]}
         
-              debounce={0} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
+              debounce={0} 
 
             />
 
-
         </View>
-        
-
     </View>
     );
   }

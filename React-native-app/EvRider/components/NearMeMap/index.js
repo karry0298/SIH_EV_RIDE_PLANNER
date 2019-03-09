@@ -13,16 +13,12 @@ import openMap from 'react-native-open-maps';
 import BatteryDialog from '../BatteryDialog/batteryDialog'
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
 
-//"charge":["chademo","css_sae","j-1772","supercharger","type2","wall"]
-
 var bord = 150
 
 class NearMeMap extends Component {
 
   constructor(props) {
     super(props);
-
-    
 
     this.state = {
         latitude: 19.13566162451865,
@@ -64,26 +60,22 @@ class NearMeMap extends Component {
     this.updateFunc = this.updateFunc.bind(this);
   }
 
+  /* --------------------------------------------------------Google auto navigation---------------------------------------------------------- */
+
   goToYosemite(coors) {
     openMap( { travelType : "drive",
     end : `${coors[0]},${coors[1]}`} )
   }
 
-  
-  //charging-station
-  //map-marker-alt  
+/* --------------------------------------------------------Render the marker in map---------------------------------------------------------- */
+
+
   renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr,owner,price) {
 
     var icoList = ["bolt","house-damage","city","street-view","hotel"]
     var colors=["blue","black","brown","red","#ddbc00"]
 
     var glyf = icoList[colors.indexOf(colr)]
-    
-    // this.setState( { placeLat : b , placeLon : a } )
-
-    // console.log("abcabca         ",glyf)
-
-    //console.warn(imgPik)
       return (
         <Mapbox.PointAnnotation
           key={k}
@@ -97,14 +89,13 @@ class NearMeMap extends Component {
                                 DialogRating:rating ,DialogIcon:glyf, placeLat : b , placeLon : a ,DialogPrice:price});
             }}
               />
-              
-              {/* onPress={() => { this.setState({Dialog: true , DialogTitle:tite , dialogC:imgPik ,DialogUri:imgUri ,DialogMail:email ,DialogContact:contact,DialogRating:rating });
-              }} */}
+
           <Mapbox.Callout title={tite} />
         </Mapbox.PointAnnotation>
-      )
-   
+      )  
   }
+
+/* --------------------------------------------------------Checking for the range of Stations function---------------------------------------------------------- */
 
   callServer(lat,lon,range,options,takenTime){
 
@@ -135,32 +126,27 @@ class NearMeMap extends Component {
     .catch(function (error) {
       console.log(error);
     });
-
-    console.log("Called")
   }  
+
+  /* --------------------------------------------------------Update Fun for filtering---------------------------------------------------------- */
 
   updateStations(stations){
       this.setState( { myStateFinale : stations } )
   }
 
+/* --------------------------------------------------------On start function---------------------------------------------------------- */
 
   componentDidMount(){
 
-  //  console.log("ababababababab",this.map.getZoom())
-
     console.disableYellowBox = true
-
-
-    
+   
     this.watchID = navigator.geolocation.watchPosition(
       position => {
 
         const { latitude, longitude } = position.coords;  
         this.state.lat = latitude
         this.state.lng = longitude
-       
-        console.log("Inside Tracker")
-      //  console.log([latitude,longitude])    
+         
         var status = this.state.started;
         if ( !status ){
           this.setState({ started : true,
@@ -181,17 +167,10 @@ class NearMeMap extends Component {
 
     let rout = this.props.navigation.getParam("abc");
 
-    console.log("check" , rout)
-
-    console.log("entered Mount")  
-
-
-
     axios.get("http://192.168.43.141:2454/api/getAllStation")
     .then(s=>{
 
         const rout = s.data.data;
-    //    console.log("dsvsdvdfvsvdfsfv",s.data)
         var cooors = []
 
         this.setState({myStateFinale:rout})
@@ -201,22 +180,21 @@ class NearMeMap extends Component {
        console.log("some errp ",e);
     } )
 
-if(this.state.valueBattery>75)
-{
-  this.setState({borderColor:'green',statusMessage:"Good condition",colorText:"green"})
-  
-
-}
-else if(this.state.valueBattery>20)
-{
-  this.setState({borderColor:'#f2cd3c',statusMessage:"Charging",colorText:'#f2cd3c'})
-}
-else{
-  this.setState({borderColor:'#d10808',statusMessage:"Charging required",colorText:'#d10808'})
-}
+    if(this.state.valueBattery>75)
+    {
+      this.setState({borderColor:'green',statusMessage:"Good condition",colorText:"green"})
+    }
+    else if(this.state.valueBattery>20)
+    {
+      this.setState({borderColor:'#f2cd3c',statusMessage:"Charging",colorText:'#f2cd3c'})
+    }
+    else{
+      this.setState({borderColor:'#d10808',statusMessage:"Charging required",colorText:'#d10808'})
+    }
 
   }
 
+  /* --------------------------------------------------------Background tracking for app---------------------------------------------------------- */
 
   tracker(nlat, nlon, time = Date.now()){
     console.log("location changed")
@@ -249,8 +227,12 @@ else{
 
   }
 
+  /* --------------------------------------------------------Function for rendering annotation---------------------------------------------------------- */
+
+
   renderAnno () {
-    //console.warn(imgPik)
+    
+    
       return (
         <Mapbox.PointAnnotation
         key='pointAnnotation'
@@ -260,20 +242,17 @@ else{
             <View style={styles.annotationContainer}>
               <View style={styles.annotationFill}>
 
-  
-
               </View>
             </View>
-
-
         <Mapbox.Callout title='user Location' />
       </Mapbox.PointAnnotation>
       )
    
   }
 
-  updateFunc(data){
+/* --------------------------------------------------------Update Fun for filtering---------------------------------------------------------- */
 
+  updateFunc(data){
     this.setState({ myStateFinale : data })
     console.log("called", data)
   }
@@ -326,33 +305,22 @@ else{
             else{
               locColor = "red"
             }
-
-
-
-
-      //  console.warn(img)
+{/* --------------------------------------------------------Inserting the markers---------------------------------------------------------- */}
 
         for(j=0 ; j<imgPik.length;j++){
-
-            //console.log(imgPik[j].connector)
             let z = DialogCharge.indexOf(imgPik[j].connector)
-        //    console.log(z)
             FinImag.push(img[z])
         }
-
-     //   console.warn(FinImag)
-
         cords.push( this.renderAnnotations(long,lat,i.toString(),col,title,FinImag,imgUri,email,contact,rating,locColor,owner,price))                            
     }
 
 
     return (
-
-       // navigate('nearmerout',item)
-
+ 
       <View style={styles.container}>
-            {/* tabStyle={{backgroundColor: '#62B1F6', height: 60}}
-                         activeTabStyle={{backgroundColor: '#5291F6', height: 60}} */}
+
+{/* --------------------------------------------------------Header---------------------------------------------------------- */}
+
         <View style={{flexDirection:"row" ,justifyContent: 'center', }}>
               <Button style={{flex:2, backgroundColor:"#3700B3", }}
                       onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
@@ -378,6 +346,8 @@ else{
                 </Button>
         </View>
 
+{/* --------------------------------------------------------MapView Rendering---------------------------------------------------------- */}
+
 
         <Mapbox.MapView styleURL={Mapbox.StyleURL.Street}
             zoomLevel={12}
@@ -392,6 +362,8 @@ else{
         {cords}
         
         </Mapbox.MapView> 
+
+{/* -------------------------------------------------------------Bottom FABs---------------------------------------------------------------- */}
 
 
         <View style={{backgroundColor:"transparent",position:'absolute',top:"50%",Left:"50%",marginTop:150,marginLeft:340,zIndex:10}}>
@@ -408,7 +380,7 @@ else{
                   <FontAwesome5 name={"crosshairs"} brand style={{paddingLeft:18,fontSize: 26, color:'black'}} />
               </Button>
           </View>
-{/* --------------------------------------------------------------------------------------------------------------------- */}
+{/* --------------------------------------------------------Pop Up On selecting a point from maps---------------------------------------------------------- */}
         <Dialog
                 onDismiss={() => {
                 this.setState({ Dialog: false });
@@ -471,27 +443,29 @@ else{
                 <Text style={{marginLeft:10, fontSize:15, paddingTop:10, paddingBottom:10 }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</Text>
                 <Text style={{marginLeft:10}}>There will be loading shedding between 6 PM to 9PM on 9 March 2019 </Text>
 
-<View style={{bottom:0}}>
-            <View>
+            <View style={{bottom:0}}>
+              <View>
 
-                <Button style={{backgroundColor:'#6200EE' , width:'100%'}} onPress={() => {this.goToYosemite( [this.state.placeLat, this.state.placeLon] )}}>
-                  <Text style={{fontSize:21 , paddingLeft:130 , color:"white"}} >  Nav </Text>
-                  <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:130 , fontSize: 20, color:"white"}} />        
-                </Button>                              
-            </View>
-            <View style={{flexDirection:"row"}}>
-                <Button style ={{flex:1}} light onPress={() => {this.setState({ Dialog: false });}}>
-                  <Text style={{fontSize:21 , paddingLeft:35}}>    Back </Text>
-                  <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , paddingRight:35 , fontSize: 20, color:'black'}} />        
-                </Button>
-                <Button style ={{flex:1}} light onPress={() => {this.setState({ Dialog: false });}}>
-                  <Text style={{fontSize:21}} >          Fav </Text>
-                  <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black', paddingRight:85}} />        
-                </Button>
-            </View>
-            </View>
-            </Dialog>
+                  <Button style={{backgroundColor:'#6200EE' , width:'100%'}} onPress={() => {this.goToYosemite( [this.state.placeLat, this.state.placeLon] )}}>
+                    <Text style={{fontSize:21 , paddingLeft:130 , color:"white"}} >  Nav </Text>
+                    <FontAwesome5 name={"location-arrow"} brand style={{paddingLeft:5, marginRight:130 , fontSize: 20, color:"white"}} />        
+                  </Button>                              
+              </View>
 
+              <View style={{flexDirection:"row"}}>
+                  <Button style ={{flex:1}} light onPress={() => {this.setState({ Dialog: false });}}>
+                    <Text style={{fontSize:21 , paddingLeft:35}}>    Back </Text>
+                    <FontAwesome5 name={"reply"} brand style={{paddingLeft:5 , paddingRight:35 , fontSize: 20, color:'black'}} />        
+                  </Button>
+                  <Button style ={{flex:1}} light onPress={() => {this.setState({ Dialog: false });}}>
+                    <Text style={{fontSize:21}} >          Fav </Text>
+                    <FontAwesome5 name={"star"} brand style={{paddingLeft:5 , fontSize: 20, color:'black', paddingRight:85}} />        
+                  </Button>
+              </View>
+            </View>
+          </Dialog>
+
+{/* --------------------------------------------------------PopUp for battery level---------------------------------------------------------- */}
 
             <BatteryDialog 
               setDialogBattery={(val) => this.setState({ DialogBattery: val })}

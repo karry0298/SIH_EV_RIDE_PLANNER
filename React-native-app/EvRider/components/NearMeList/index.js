@@ -55,6 +55,8 @@ class NearMeList extends Component {
         return deg * (Math.PI/180)
       }
 
+//--------------------------------------------------Calculating Distance in KM--------------------------------------------------------------
+
      getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
         var R = 6371; // Radius of the earth in km
         var dLat = this.deg2rad(lat2-lat1);  // deg2rad below
@@ -80,13 +82,9 @@ class NearMeList extends Component {
     }
 
     updateFunc(data){
-
       this.setState( { allStations: data }  )
-      // console.log("called", data)
     }
 
-
-    //  this.props.navigation.navigate('nearmerout',item)
 
     routeFun(item){
         console.log("Entered")
@@ -96,9 +94,9 @@ class NearMeList extends Component {
         axios.post("http://192.168.2.12:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000")
         .then(s=>{
             
-            console.log(s.data[0])
+           // console.log(s.data[0])
             cooors = s.data[0]
-            // this.setState({finCoord:s.data[0]})
+
         })
         .catch(e=>{
            console.log("some errp ",e);
@@ -111,17 +109,11 @@ class NearMeList extends Component {
   render() {
 
     console.disableYellowBox = true
-    // let rout = this.state.route.data
-   // console.log("ba",this.state.finCoord)
-
-    // const  {navigation}  = this.props; //old by kartik
-    //console.log("abcbaskj",navigation.getParam("abc"))
 
     let rout = this.state.allStations;
-
-
     var cords = []
 
+//--------------------------------------------------Rendering the list Of Station--------------------------------------------------------------
 
     for(i=0 ; i<rout.length ; i++){
        
@@ -149,18 +141,12 @@ class NearMeList extends Component {
               require("../../assets/images/type2.png"),
               require("../../assets/images/wall.png")]
           let FinImag = []
-    
-       // console.warn(rout[i].slots[0].connector)
-
-       // console.warn("main FinImg",FinImag)  
   
         for(j=0 ; j<imgPk.length;j++){
             let z = DialogCharge.indexOf(imgPk[j].connector)
-            //console.warn(i , imgPk[j].connector)
             FinImag.push(img[z])
           }
 
-       //console.warn("main FinImg",FinImag)  
 
          let dist = Math.round(this.getDistanceFromLatLonInKm(this.state.latitude,this.state.longitude,lat,long))
          let dict = {uLongitude:this.state.longitude,uLatitude:this.state.latitude,pLongitude:long,pLatitude:lat, 
@@ -180,55 +166,54 @@ class NearMeList extends Component {
 
     return (  
       <View style={styles.container}>
-
+{/* --------------------------------------------------Pop Up Daiglog-------------------------------------------------------------- */}
         <Dialog
-                onDismiss={() => {
-                this.setState({ Dialog: false });
-                }}
-                width={1}
-                visible={this.state.Dialog}
-                rounded
-                actionsBordered
+            onDismiss={() => {
+            this.setState({ Dialog: false });
+            }}
+            width={1}
+            visible={this.state.Dialog}
+            rounded
+            actionsBordered
+            >
+            
+    
+            <View >
+              <View style={{alignItems: "center"}}>
+                  <Text style={{fontSize:25}}>{this.state.DialogTitle}</Text>
+              </View>
+          
+              <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center"}}>
+                  <Text style={{marginLeft:10,fontSize:15}} >{this.state.DialogMail}</Text>
+                  <Text style={{marginRight:10,fontSize:15}}>{this.state.DialogContact}</Text> 
+              </View>
+            
+              <Image style={{width:"100%",height:200}} source={{uri:this.state.DialogUri}}></Image>
 
-                >
-                
-        
-                <View >
-                <View style={{alignItems: "center"}}>
-                    <Text style={{fontSize:25}}>{this.state.DialogTitle}</Text>
-                </View>
-                <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center"}}>
-                    <Text style={{marginLeft:10,fontSize:15}} >{this.state.DialogMail}</Text>
-                    <Text style={{marginRight:10,fontSize:15}}>{this.state.DialogContact}</Text> 
-                </View>
-                
-                <Image style={{width:"100%",height:200}} source={{uri:this.state.DialogUri}}></Image>
+              <Rating
+                  imageSize={30}
+                  readonly
+                  startingValue={this.state.DialogRating}
+                  style={{marginTop:3}}
+                  />
 
-                <Rating
-                    imageSize={30}
-                    readonly
-                    startingValue={this.state.DialogRating}
-                    style={{marginTop:3}}
-                    />
+            </View>
 
-                </View>
-
-                <View >
-                <FlatList 
-                    numColumns={3}
-                    data = {this.state.dialogC}
-                    renderItem={({item}) => {
-                        //console.warn("baka    ",item)  
-                        return (
-                            <View style={{marginLeft:10}}><Image style={{width:78,height:78,margin:10}} source={item} ></Image></View>
-                        )}}
-                >
-                </FlatList>
-
-                </View>
+            <View >
+              <FlatList 
+                  numColumns={3}
+                  data = {this.state.dialogC}
+                  renderItem={({item}) => {
+                      //console.warn("baka    ",item)  
+                      return (
+                          <View style={{marginLeft:10}}><Image style={{width:78,height:78,margin:10}} source={item} ></Image></View>
+                      )}}
+              >
+              </FlatList>
+            </View>
 
 
-                <Text style={{marginLeft:10}}>There will be loading shedding between 6 PM to 9PM on 9 March 2019 </Text>
+            <Text style={{marginLeft:10}}>There will be loading shedding between 6 PM to 9PM on 9 March 2019 </Text>
 
             <View style={{flexDirection:"row"}}>
                 <Button light onPress={() => {this.setState({ Dialog: false });}}>
@@ -247,16 +232,20 @@ class NearMeList extends Component {
                 </Button>
             </View>
 
-            </Dialog>
+          </Dialog>
 
+{/* --------------------------------------------------Diaglog for battery level-------------------------------------------------------------- */}
 
-            <BatteryDialog 
-              setDialogBattery={(val) => this.setState({ DialogBattery: val })}
-              batteryValue={this.state.valueBattery}
-              dialogVisible={this.state.DialogBattery}
-              borderColor={this.state.borderColor}
-              colorText={this.state.colorText}
-            />
+          <BatteryDialog 
+            setDialogBattery={(val) => this.setState({ DialogBattery: val })}
+            batteryValue={this.state.valueBattery}
+            dialogVisible={this.state.DialogBattery}
+            borderColor={this.state.borderColor}
+            colorText={this.state.colorText}
+          />
+        
+{/* --------------------------------------------------Header-------------------------------------------------------------- */}
+
 
         <View style={{flexDirection:"row" ,justifyContent: 'center', }}>
               <Button style={{flex:2, backgroundColor:"#6200EE", }}
@@ -283,94 +272,77 @@ class NearMeList extends Component {
                 </Button>
         </View>
 
+{/* --------------------------------------------------List of items-------------------------------------------------------------- */}
 
-        {/* <View style={{flexDirection:"row"}}>
-                <Button style={{backgroundColor:"white",paddingLeft:25,paddingRight:23}}
-                        onPress={() => {this.props.navigation.navigate('nearmeMap')}}>
-                    <Text style={{fontSize:21}}>Map </Text>
-                    <FontAwesome5 name={"map-marked-alt"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
-                </Button>
+          <ScrollView>
+            {
+              this.state.DialogCard.map((item, index) => (
+                
+                <View key = {index} >
 
-                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:11,paddingRight:14}} 
-                        onPress={(val) => this.setState({ DialogBattery: val })}>
-                    <Text style={{fontSize:21}} > {"charge:"+this.state.valueBattery+"%"} </Text>
-                    <FontAwesome5 name={"battery-three-quarters"} brand style={{transform: [{ rotate: '270deg'}],marginTop:5,paddingLeft:5 , fontSize: 20, color:'black'}} />        
-                </Button>
+                  <ListItem button style={{borderBottomWidth: 0 , paddingTop:0,paddingBottom:0}} 
+                              onPress={() => this.props.navigation.navigate('nearmerout',item)}>
+                      <Content padder>
+                         
+                          <Card>
+                        
+                            <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center"}}>
+                                <Text style={{marginLeft:10,fontSize:23}} >{item.name}</Text>
+                                <Text style={{marginRight:10,fontSize:18}}>{item.distance+" kms Away"}</Text> 
+                            </View>
+                        
+                            <Image style={{width:"100%",height:150,borderBottomWidth:0.7,borderColor:"#bab8b8"}} source={{uri:item.img}}></Image>
 
-                <Button style={{marginLeft:1,backgroundColor:"white",paddingLeft:23,paddingRight:27}} 
-                        onPress={() => {this.props.navigation.navigate('nearmelist')}}>
-                    <Text style={{fontSize:21}} > List </Text>
-                    <FontAwesome5 name={"list-ul"} brand style={{paddingLeft:5 , fontSize: 20, color:'black'}} />        
-                </Button>
-        </View> */}
+                            <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center",marginTop:10}}>
+                                <Text style={{marginLeft:10,fontSize:15}} >Owner: MrAlex</Text>
+                                <Text style={{marginRight:10,fontSize:15}}>{item.contact}</Text> 
+                            </View>
 
-            <ScrollView>
-               {
-                  this.state.DialogCard.map((item, index) => (
-                     
-                     <View key = {index} >
-                        {/* {console.warn("akaka    ",item.charge)} */}
-                        <ListItem button style={{borderBottomWidth: 0 , paddingTop:0,paddingBottom:0}} 
-                                    onPress={() => this.props.navigation.navigate('nearmerout',item)}>
-                            <Content padder>
-                                <Card>
-                                
-                                    <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center"}}>
-                                        <Text style={{marginLeft:10,fontSize:23}} >{item.name}</Text>
-                                        <Text style={{marginRight:10,fontSize:18}}>{item.distance+" kms Away"}</Text> 
-                                    </View>
-                                
-                                    <Image style={{width:"100%",height:150,borderBottomWidth:0.7,borderColor:"#bab8b8"}} source={{uri:item.img}}></Image>
-
-                                    <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center",marginTop:10}}>
-                                        <Text style={{marginLeft:10,fontSize:15}} >Owner: MrAlex</Text>
-                                        <Text style={{marginRight:10,fontSize:15}}>{item.contact}</Text> 
-                                    </View>
-
-                                    <View style={{marginTop:5, borderBottomColor: '#e5e5e5',borderBottomWidth: 0.8,}} />
+                            <View style={{marginTop:5, borderBottomColor: '#e5e5e5',borderBottomWidth: 0.8,}} />
 
 
-                                    <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center",marginTop:10}}>
-                                        <Rating
-                                            imageSize={30}
-                                            readonly
-                                            startingValue={item.rate}
-                                            style={{marginLeft:10}}
-                                            />
-                                        <View style={{flexDirection:"row",marginRight:10}}>
-                                            <FontAwesome5 name={item.type} brand style={{marginRight:10,paddingLeft:5 , fontSize: 30, color:'black'}} />   
-                                            <Text style={{paddingTop:3}}>{item.typeName}</Text> 
-                                        </View>   
-                                    </View>
+                            <View style={{flexDirection:"row",justifyContent: "space-between",alignItems: "center",marginTop:10}}>
+                              <Rating
+                                  imageSize={30}
+                                  readonly
+                                  startingValue={item.rate}
+                                  style={{marginLeft:10}}
+                                  />
+                              <View style={{flexDirection:"row",marginRight:10}}>
+                                  <FontAwesome5 name={item.type} brand style={{marginRight:10,paddingLeft:5 , fontSize: 30, color:'black'}} />   
+                                  <Text style={{paddingTop:3}}>{item.typeName}</Text> 
+                              </View>   
+                            </View>
 
-                                    <View style={{marginTop:5, borderBottomColor: '#e5e5e5',borderBottomWidth: 0.8,}} />
+                            <View style={{marginTop:5, borderBottomColor: '#e5e5e5',borderBottomWidth: 0.8,}} />
 
-                                    <View style={{marginTop:10}}>
-                                         <FlatList 
-                                            numColumns={4}
-                                            data = {item.charge}
-                                            
-                                            renderItem={i => {
-                                               // console.warn("Baka Entered") 
-                                                return (
-                                                    <View style={{marginLeft:10}}><Image style={{width:45,height:45,margin:10}} source={i.item} ></Image></View>
-                                                )}}
-                                        >
-                                        </FlatList>
-                                    </View>
+                            <View style={{marginTop:10}}>
+                                <FlatList 
+                                  numColumns={4}
+                                  data = {item.charge}
+                                  
+                                  renderItem={i => {
+                                      // console.warn("Baka Entered") 
+                                      return (
+                                          <View style={{marginLeft:10}}><Image style={{width:45,height:45,margin:10}} source={i.item} ></Image></View>
+                                      )}}>
 
-                    
-                                <CardItem footer bordered>
-                                    <Text>There will be loading shedding between 6 PM to 9PM on 9 March 2019 </Text>
-                                </CardItem>
-                    
-                                </Card>
-                            </Content>
-                        </ListItem>
-                     </View>
-                  ))
-               }
+                                </FlatList>
+                            </View>
+
+                          <CardItem footer bordered>
+                              <Text>There will be loading shedding between 6 PM to 9PM on 9 March 2019 </Text>
+                          </CardItem>
+            
+                        </Card>
+                      </Content>
+                    </ListItem>
+                  </View>
+                ))
+              }
             </ScrollView>
+
+{/* --------------------------------------------------Bottom Navigation-------------------------------------------------------------- */}
 
 
             <View style={{flexDirection:"row"}}>

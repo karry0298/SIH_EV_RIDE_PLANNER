@@ -93,25 +93,12 @@ export default class RouteNearMe extends Component {
     const pLat = navigation.getParam("pLatitude")
     const pLong = navigation.getParam("pLongitude")
 
-
-    //http://192.168.2.12:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
-
-    //http://192.168.2.12:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000
-
-    //192.168.43.204:5003/route?slon=72.831353&slat=18.968835&elon=72.5714&elat=23.0225&range=30000
-
-    //http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
-
     axios.post("http://192.168.43.229:5003/route?slon=" + uLong + "&slat=" + uLat + "&elon=" + pLong + "&elat=" + pLat + "&range=30000")
       .then(s => {
 
-        // console.log("ahhhhhhhhhhhhh",[s.data[0][0].lon , s.data[0][0].lat])
-        // // let cooors = s.data[0]
         let FinCoooords = []
         let routFin = []
         let coooords = []
-
-        // console.log(s.data.length)
 
         for (i = 0; i < s.data.length; i++) {
 
@@ -134,14 +121,8 @@ export default class RouteNearMe extends Component {
             ]
           }
 
-          console.warn(i + "      ", coooords)
-
           routFin.push(rut)
-
-
         }
-
-        console.log("lrngth", routFin.length)
 
         this.setState({
           sLon: uLong,
@@ -156,16 +137,12 @@ export default class RouteNearMe extends Component {
       .catch(e => {
         console.log("some errp ", e);
       })
-
   }
 
 
   render() {
 
     let colorss = ["red", "blue", "brown"]
-
-    //console.log("ahahaahha",FinCoooords)
-    console.warn("abababababakkkkkkakakaakakak", this.state.routea)
 
     const route = {
       "type": "FeatureCollection",
@@ -189,8 +166,6 @@ export default class RouteNearMe extends Component {
     const imgURL = navigation.getParam('img')
 
     return (
-
-      
 
         <Container>
           <Content>

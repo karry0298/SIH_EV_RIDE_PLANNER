@@ -86,6 +86,7 @@ export default class Sort extends Component {
            <Button bordered success style={{alignSelf:'center'}} onPress={ ()=> this.onpress()}>
                    <Text>SUBMIT</Text>
            </Button>
+           
          </Content>
        </Container>
         )

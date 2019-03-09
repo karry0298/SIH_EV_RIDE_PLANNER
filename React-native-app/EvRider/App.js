@@ -29,6 +29,8 @@ import Start from './Start';
 import Profile from './profile.js'
 import Sort from './components/Sort'
 
+//-----------------------Drawer navigation Bar ---------------------------------------
+
 const Mdn = createDrawerNavigator({
   nearmeMap: {screen:NearMeMap},  
   nearmelist: {screen:NearMeList},
@@ -42,8 +44,10 @@ const Mdn = createDrawerNavigator({
 {
   contentComponent: SideBar,
 },
-
 )
+
+//-----------------------Main App navigation ---------------------------------------
+
 
 const AppNavigator = createStackNavigator({
   login: { screen: Login }, 
@@ -53,11 +57,8 @@ const AppNavigator = createStackNavigator({
   navigateRoute:{screen:NavigateRouteInput},
   navigateMaps:{screen:NavRouteMaps},
   filter : { screen : filterScreen },
-
-
-
-    },
-{
+  },
+  {
   defaultNavigationOptions: ({navigation}) => {
     return {
       headerLeft:(
