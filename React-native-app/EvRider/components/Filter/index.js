@@ -26,8 +26,6 @@ constructor(props){
     g200 : false
   };
 
-  console.log(this.props.navigation.getParam("data", "stuff failed transfer"))
-
 }
 getVal(val){
   console.warn(val);
@@ -219,16 +217,8 @@ onpress = () =>
   var optTypes = {
     type,connector,price,women
   }
-  // console.log( optTypes, options )
 
-  console.log(optTypes)
   var res = filter(options, optTypes )
-  console.log(res)
-  // alert(filterList)
-
-  // var funUpdateStation = this.props.navigation.getParam('updateStations')
-
-  // funUpdateStation(res)
 
   this.props.navigation.state.params.updateFunc(res)
 

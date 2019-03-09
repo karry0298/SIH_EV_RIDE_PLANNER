@@ -46,6 +46,7 @@ export default class Login extends Component {
                          heading="Sign in">
                         <SignIn successCallback={() => this.switchMap()}/>
                     </Tab>
+
                     <Tab activeTextStyle={{color: '#fff', fontWeight: 'bold'}}
                          textStyle={{color: '#fff', fontSize: 12}}
                          tabStyle={{backgroundColor: '#3700B3', height: 60}}
@@ -53,6 +54,7 @@ export default class Login extends Component {
                          heading="Register">
                         <Register navigation={this.props.navigation}/>
                     </Tab>
+                    
                     <Tab activeTextStyle={{color: '#fff', fontWeight: 'bold'}}
                          textStyle={{color: '#fff', fontSize: 12}}
                          tabStyle={{backgroundColor: '#3700B3', height: 60}}
@@ -61,7 +63,7 @@ export default class Login extends Component {
                         <View style={{
                             flex: 1, alignItems: 'center', textAlign: 'center',
                             paddingLeft: 20, paddingRight: 20
-                        }}><Text>Make loginPage here</Text><Button block style={{marginBottom: 20}}
+                        }}><Button block style={{marginBottom: 20}}
                                                                    onPress={() => this.switchMap()}><Text
                             style={{color: "white"}}> Map </Text></Button>
                         </View></Tab>

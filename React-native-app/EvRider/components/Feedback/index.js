@@ -4,7 +4,8 @@ import { Container, Content, Footer,Button } from 'native-base';
 import axios from 'axios'
 import { IP } from '../../utils/constants'
 // import nb from 'native-base';
-
+import Stars from 'react-native-stars';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 export default class App extends Component{
@@ -30,13 +31,6 @@ export default class App extends Component{
 
        console.log(value, "handling")
 
-    //    await axios.post(IP + '/api/uploadRecord', {
-    //        ...data
-    //    }).then(res => {
-    //        console.log(res.data)
-    //    }).catch(err => {
-    //        console.log("Error", err)
-    //    })
 
 
 
@@ -56,58 +50,91 @@ export default class App extends Component{
      
       <View style={{padding:30 }}>
       <Text style={{fontSize:25, color:'black',textAlign:'center',padding:5}}>Women Safety</Text>
-    <Slider style={{ width: 300}} step={1}
+    {/* <Slider style={{ width: 300}} step={1}
          minimumValue={0}
          maximumValue={5}
-        // minimumTrackTintColor = '#136EBE'
-
-        //  thumbImage = {require('/slider.png')}
-        //  thumbStyle = {{width:30 ,height:30}}
 
          value={this.state.rating1}
          onValueChange={val => this.setState({ rating1: val })}
-         />
+         /> */}
+<View style={{alignItems:'center'}}>
+  <Stars
+    default={2.5}
+    count={5}
+    half={true}
+    starSize={50}
+    fullStar={<Icon name={'star'} style={[styles.myStarStyle]}/>}
+    emptyStar={<Icon name={'star-outline'} style={[styles.myStarStyle, styles.myEmptyStarStyle]}/>}
+    halfStar={<Icon name={'star-half'} style={[styles.myStarStyle]}/>}
+  />
+</View>
+{/* 
          <Text style={styles.welcome}>
           {this.state.rating1}
-        </Text>     
+        </Text>      */}
         </View>  
 
         <View style={{padding:30 }}>
-        <Text style={{fontSize:25, color:'black',textAlign:'center',padding:5}}>User Friendly</Text>
-        <Slider style={{ width: 300}} step={1}
+         <Text style={{fontSize:25, color:'black',textAlign:'center',padding:5}}>User Friendly</Text> 
+        {/* <Slider style={{ width: 300}} step={1}
          minimumValue={0}
          maximumValue={5}
         // minimumTrackTintColor = '#136EBE'
        
          value={this.state.rating2}
          onValueChange={val => this.setState({ rating2: val })}
-          />
-         <Text style={styles.welcome}>
+          />  */}
+            
+<View style={{alignItems:'center'}}>
+  <Stars
+    default={2.5}
+    count={5}
+    half={true}
+    starSize={50}
+    fullStar={<Icon name={'star'} style={[styles.myStarStyle]}/>}
+    emptyStar={<Icon name={'star-outline'} style={[styles.myStarStyle, styles.myEmptyStarStyle]}/>}
+    halfStar={<Icon name={'star-half'} style={[styles.myStarStyle]}/>}
+  />
+</View>
+         {/* <Text style={styles.welcome}>
           {this.state.rating2}
-        </Text>         
+        </Text>          */}
         </View>
 
         <View style={{padding:30 }}>
         <Text style={{fontSize:25, color:'black',textAlign:'center',padding:5}}>Charging Experience</Text>
-        <Slider style={{ width: 300}} step={1}
+        {/* <Slider style={{ width: 300}} step={1}
          mimumValue={0}
          maximumValue={5}
         // minimumTrackTintColor = '#136EBE'
     
          value={this.state.rating3}
          onValueChange={val => this.setState({ rating3: val })}
-         />
-         <Text style={styles.welcome}>
+         /> */}
+
+  
+<View style={{alignItems:'center'}}>
+  <Stars
+    default={2.5}
+    count={5}
+    half={true}
+    starSize={50}
+    fullStar={<Icon name={'star'} style={[styles.myStarStyle]}/>}
+    emptyStar={<Icon name={'star-outline'} style={[styles.myStarStyle, styles.myEmptyStarStyle]}/>}
+    halfStar={<Icon name={'star-half'} style={[styles.myStarStyle]}/>}
+  />
+</View>
+         {/* <Text style={styles.welcome}>
           {this.state.rating3}
-        </Text>         
+        </Text>          */}
       </View>
      </View> 
 
         </Content>
 
-    <Footer>
+    <Footer style={{backgroundColor:"#6200EE"}}>
         
-        <Button full onPress={ () => this.handleSubmit() } ><Text style={styles.text} > Submit </Text></Button>
+        <Button block full onPress={ () => this.handleSubmit() } ><Text style={styles.text} > Submit </Text></Button>
 
     </Footer>
 
@@ -133,6 +160,19 @@ const styles = StyleSheet.create({
   },
   text : {
     fontSize : 25,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color:"white",
+    backgroundColor:"#6200EE"
+  },
+  myStarStyle: {
+    color: 'yellow',
+    backgroundColor: 'transparent',
+    textShadowColor: 'black',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 2,
+    fontSize:40,
+  },
+  myEmptyStarStyle: {
+    color: 'white',
   }
-});
+}); 

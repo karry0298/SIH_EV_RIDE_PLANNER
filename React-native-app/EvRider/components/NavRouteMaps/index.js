@@ -10,10 +10,7 @@ import geolib from 'geolib'
 import { IP } from '../../utils/constants' 
 import openMap from 'react-native-open-maps';
 
-
-
 Mapbox.setAccessToken('sk.eyJ1Ijoia2FycnkwMjk4IiwiYSI6ImNqcXVtcXJ3aTBrZHE0Mm55MjE1bm9xM28ifQ.B3V1a-Yd0Q1PS2GDjZ-_bg');
-
 
 export default class NavRouteMaps extends Component {
   static navigationOptions = {
@@ -72,23 +69,40 @@ export default class NavRouteMaps extends Component {
     }
   }
 
+  /* --------------------------------------------------------Displaying the source marker---------------------------------------------------------- */
 
-  renderAnno (a,b,title){
-    //console.warn(imgPik)
-      
-    console.warn(title)
+  renderAnnoA (a,b,title){
     return (    
         <Mapbox.PointAnnotation
           key={title}
           id={title}
-          coordinate={[a,b]}>
-                
-              <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:"red"}} />
-    
+          coordinate={[a,b]}>       
+
+            <View style={styles.annotationContainer}>
+              <View style={styles.annotationFill}>
+              </View>
+            </View>
+
           <Mapbox.Callout title={title} />
         </Mapbox.PointAnnotation>
       )  
   }
+
+  /* --------------------------------------------------------Displaying the destination marker---------------------------------------------------------- */
+
+  renderAnnoB (a,b,title){
+    return (    
+        <Mapbox.PointAnnotation
+          key={title}
+          id={title}
+          coordinate={[a,b]}>       
+              <FontAwesome5 name={"map-marker-alt"} brand style={{paddingLeft:15 , fontSize: 25, color:"red"}} />
+          <Mapbox.Callout title={title} />
+        </Mapbox.PointAnnotation>
+      )  
+  }
+
+  /* --------------------------------------------------------Rendering all the stations in the map---------------------------------------------------------- */
 
   renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr) {
 
@@ -97,9 +111,6 @@ export default class NavRouteMaps extends Component {
 
     var glyf = icoList[colors.indexOf(colr)] 
 
-    console.log("abcabca         ",glyf)
-
-    //console.warn(imgPik)
       return (
         <Mapbox.PointAnnotation
           key={k}
@@ -119,19 +130,16 @@ export default class NavRouteMaps extends Component {
    
   }
 
+  /* --------------------------------------------------------Function on activity started---------------------------------------------------------- */
+
   componentDidMount(){
     const  {navigation}  = this.props;
-    console.log("ahjbdfabfbadhkfbsdbfjbhdbjhkasdbfgkjsbajkg",navigation.getParam("abc"))
-
 
     const uLong = navigation.getParam("abc").uLang
     const uLat = navigation.getParam("abc").uLat
     const pLat = navigation.getParam("abc").dLat
     const pLong = navigation.getParam("abc").dLang
     var rout = navigation.getParam("abc").route
-
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",rout)
-
     var cords = []
     var cooords=[]
     
@@ -174,20 +182,12 @@ export default class NavRouteMaps extends Component {
           else{
             locColor = "red"
           }
-    
-       // console.warn("hahahahahahah",rout[i])
-
-      // console.log("main FinImg",FinImag)  
   
         for(j=0 ; j<imgPk.length;j++){
             let z = DialogCharge.indexOf(imgPk[j].connector)
-            //console.warn(i , imgPk[j].connector)
             FinImag.push(img[z])
           }
 
-          
-
-       //console.warn("main FinImg",FinImag)  
           let dict = {uLongitude:uLong,uLatitude:uLat,pLongitude:long,pLatitude:lat, colr:col,
             name:title ,  mail:email , contact , rate:rating ,img:imgUri,charge:FinImag,
             type:icoList[colorTags.indexOf(rout[i].typeOfStation)],typeName:rout[i].typeOfStation}
@@ -205,11 +205,6 @@ export default class NavRouteMaps extends Component {
     coords:cooords,
       showAl:false})
  
-   // console.log([uLong , uLat , pLat , pLong])
-    // //192.168.43.204:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=30000
-//192.168.43.204:5003/route?slon=72.831353&slat=18.968835&elon=77.166284&elat=28.677697&range=300000
-    // //http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=30000
-
     axios.post("http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=300000")
     .then(s=>{
         
@@ -228,10 +223,7 @@ export default class NavRouteMaps extends Component {
             coooords.push([parseFloat(s.data[i][j].lon),parseFloat( s.data[i][j].lat )])
           }
 
-          console.log("insiode",coooords.length)
-
           len.push(coooords.length)
-
           let rut = {
             "type": "FeatureCollection",
             "features": [
@@ -245,24 +237,12 @@ export default class NavRouteMaps extends Component {
               }
             ]
           }
-
-      //    console.warn(i+"      ",coooords)
-
           routFin.push(rut)
-          
-
         }
-
-        // if (errorDiag){
-        //   this.setState({showAleart : errorDiag})
-        // }
 
         if(len[0]==0 && len[1]==0){
           errorDiag = true
         }
-
-
-        console.log("lrngth", routFin.length )
      
         this.setState({ routea:routFin[0],
                         routeb:routFin[1],
@@ -284,40 +264,34 @@ export default class NavRouteMaps extends Component {
     return (
       <View style={{flex:1}}>
 
+  {/* --------------------------------------------------------Plotting the route inside the maps view---------------------------------------------------------- */}
+
+
         <Mapbox.MapView styleURL={Mapbox.StyleURL.Street}
             zoomLevel={12}
             centerCoordinate={[72.86661427,19.26196225]}
             style={styles.container}>
             
          
-          {this.renderAnno(this.state.dLon,this.state.dLat,"Destination")}
-
-          {console.warn("ababbababa",[this.state.sLon,this.state.sLat])}
-
-          {this.renderAnno(this.state.sLon,this.state.sLat,"Source")}
+          {this.renderAnnoB(this.state.dLon,this.state.dLat,"Destination")}
+          {this.renderAnnoA(this.state.sLon,this.state.sLat,"Source")}
 
 
           {this.state.coords}
 
             <Mapbox.ShapeSource id='line1' shape={this.state.routea} >
-            {/* {console.log("ananananan",this.state.route.features[0].geometry.coordinates)}   */}
               <Mapbox.LineLayer id='linelayer1' style={{lineColor:'red'}}>
-    
-              </Mapbox.LineLayer> 
-              
+              </Mapbox.LineLayer>           
             </Mapbox.ShapeSource>
 
             <Mapbox.ShapeSource id='line2' shape={this.state.routeb} >
-            {/* {console.log("ananananan",this.state.route.features[0].geometry.coordinates)}   */}
               <Mapbox.LineLayer id='linelayer2' style={{lineColor:'red'}}>
-    
               </Mapbox.LineLayer> 
-              
             </Mapbox.ShapeSource>
 
         </Mapbox.MapView> 
 
-{/* -------------------------------------------------------------------------------------------------------------------------------------------- */}
+{/* --------------------------------------------------------popUp Error message if no routing present---------------------------------------------------------- */}
 
 
         <Dialog
@@ -347,7 +321,7 @@ export default class NavRouteMaps extends Component {
 
             </Dialog>
 
-{/* -------------------------------------------------------------------------------------------------------------------------------------------- */}
+{/* -------------------------------------------------------Pop up Displayng the data of selected station ------------------------------------------------------------------------------------- */}
 
 
             <Dialog
@@ -454,12 +428,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   annotationContainer: {
-    width: 18,
-    height: 18,
+    width: 150,
+    height: 150,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
-    borderRadius: 15,
+    backgroundColor:'rgba(218, 82, 82, 0.25)',
+    borderRadius: 150,
   },
   annotationFill: {
     width: 20,
