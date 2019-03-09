@@ -18,13 +18,8 @@ end_lat=str(28.677697)
 import requests
 import json
 from math import radians, cos, sin, asin, sqrt
-#r = requests.get('http://0.0.0.0:5000/route/v1/driving/'+start_lon+','+start_lat+';'+end_lon+','+end_lat+'?alternatives=3&overview=false&steps=true')
-#route_data=r.json()
 
-
-# In[15]:
-
-
+#haversine function
 def haversine(lon1, lat1, lon2, lat2):
     """
     Calculate the great circle distance between two points 
@@ -40,16 +35,6 @@ def haversine(lon1, lat1, lon2, lat2):
     c = 2 * asin(sqrt(a)) 
     r = 6371 # Radius of earth in kilometers. Use 3956 for miles
     return c * r *1000
-
-
-# In[16]:
-
-
-# num_routes=len(route_data['routes'])
-# route_data['routes'][0]['legs'][0]['steps'][0]['intersections'][0]['location'][1]
-
-
-# In[17]:
 
 
 def plan_route_oneway(route_json,lon,lat,end_lon,end_lat,range_car):
