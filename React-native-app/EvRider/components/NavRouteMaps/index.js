@@ -102,6 +102,12 @@ export default class NavRouteMaps extends Component {
       )  
   }
 
+  /* --------------------------------------------------------Google auto navigation---------------------------------------------------------- */
+
+  goToYosemite(coors) {
+    openMap( { travelType : "drive",
+    end : `${coors[0]},${coors[1]}`} )
+  }
   /* --------------------------------------------------------Rendering all the stations in the map---------------------------------------------------------- */
 
   renderAnnotations (a,b,k,colr,tite,imgPik,imgUri,email,contact,rating,locColr) {
@@ -204,9 +210,11 @@ export default class NavRouteMaps extends Component {
       route:cords,
     coords:cooords,
       showAl:false})
- 
-    axios.post("http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=300000")
+      
+    axios.post("http://26f96df0.ngrok.io/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=300000")
     .then(s=>{
+
+      //http://192.168.43.204:5003/route?slon="+uLong+"&slat="+uLat+"&elon="+pLong+"&elat="+pLat+"&range=300000
         
          let FinCoooords =[]
          let routFin = []

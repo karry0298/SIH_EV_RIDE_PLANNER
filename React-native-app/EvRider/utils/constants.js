@@ -1,3 +1,5 @@
 
 
-module.exports.IP = 'http://192.168.43.141:2454'
+module.exports.IP = 'https://evayserver.onrender.com'
+
+//http://192.168.43.141:2454

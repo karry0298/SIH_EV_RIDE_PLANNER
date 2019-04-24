@@ -166,10 +166,11 @@ class NearMeMap extends Component {
 
 
     let rout = this.props.navigation.getParam("abc");
-
-    axios.get("http://192.168.43.141:2454/api/getAllStation")
+    //http://192.168.43.141:2454/api/getAllStation
+    //http://6d4afe20.ngrok.io/api/getAllStation
+    axios.get("https://evayserver.onrender.com/api/getAllStation")
     .then(s=>{
-
+      //http://6d4afe20.ngrok.io/api/test
         const rout = s.data.data;
         var cooors = []
 

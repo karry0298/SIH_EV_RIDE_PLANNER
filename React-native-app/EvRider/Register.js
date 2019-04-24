@@ -101,7 +101,7 @@ export default class Register extends Component {
             this.state.password,
           );
           var value=this.state.data
-         axios.post("http://"+ip+":2454/user/register",{data:value})
+         axios.post("https://evayserver.onrender.com/user/register",{data:value})
           .then(s=>{
              console.log("registered ",)
           })
